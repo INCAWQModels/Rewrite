@@ -1,0 +1,71 @@
+{
+    "$id": "https://example.com/schemas/timeSeries",
+    "$schema": "http://json-schema.org/draft/2020-12/schema#",
+
+    "type": "object",
+    "name": "Time Series",
+    "description": "A two dimensional table comtaining a timestamp and one or more columns of numeric data as well as the necessary supporting metadata to interpret and contextualize the time series",
+    "properties": {
+        "allowGaps": {"type": "boolean"},
+        "timeSeriesName": {"type": "string"},
+  	    "data": {
+            "title": "2D Data Table",
+            "description": "time series data in a format suitable for exporting to a .csv file",
+            "type": "array",
+            "items": {"$ref": "#/defs/dataRow"}
+        },
+        "metadata": {
+            "title": "Supporting metadata",
+            "description": "necessary information to contextualize and interpret the contents of a data table",
+            "type": "object",
+            "properties": {
+                "creator": {
+                    "type": "string"
+                },
+                "createDate": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        }
+    },
+    "required": ["allowGaps", "data", "metadata"],
+
+    "defs": {
+        "dataRow": {
+            "title": "Data row",
+            "description": "A single row of a data table containing a timestamp, zero or more columns identifying the data and one or more data columns",
+            "type": "object",
+            "properties": {
+                "dateStamp": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "IDColumns": {
+                    "type": "array",
+                    "items": {"$ref": "#/defs/IDColumn"}
+                },
+                "dataColumns": {
+                    "type": "array",
+                    "items": {"$ref": "#/defs/dataColumn"},
+                    "minItems": 1
+                }
+            },
+            "required": ["dateStamp","dataColumns"]
+        },
+
+        "IDColumn": {
+            "properties": {
+                "name": {"type": "string"},
+                "value": {"type": "string"}
+            }
+        },
+
+        "dataColumn": {
+            "properties": {
+                "name": {"type": "string"},
+                "value": {"type": "number"}
+            }
+        }
+    }
+}
