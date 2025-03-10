@@ -1,22 +1,13 @@
-from bucket import *
-from landCoverType import *
+
 from model import *
 
-x=Bucket()
-x.currentWaterDepth.value=9
-x.evapotranspirationAdjustmentFactor=0
 
-
-print(x.name)
-print(x.currentWaterDepth())
-x.calculatePotentialEvapotranspiration()
-x.calculateActualEvapotranspiration()
-print(x.currentWaterDepth())
-
-Ag = LandCoverType(3)
 
 M=model()
 M.externalTimeStep.value=86400
 
-Bucket.externalTimeStep.value=M.externalTimeStep.value
-Bucket.stepsPerDay=1.0
+print("Number of subcatchments    :", M.catchment.subcatchments.__len__())
+print("Number of land cover types :",M.catchment.subcatchments[0].landCoverTypes.__len__())
+print("Number of buckets          :",M.catchment.subcatchments[0].landCoverTypes[0].buckets.__len__())
+
+print("Number of data rows        :",M.drivingData.dataTable.__len__)
