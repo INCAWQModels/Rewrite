@@ -3,7 +3,10 @@ from bucket import Bucket
 from parameter import *
 
 class LandCoverType:
-    """A first attempt at writing land cover type code"""
+    """A first attempt at writing land cover type code suitable for use in INCA or PERSiST"""
+
+    externalTimeStep=Parameter(86400,"seconds") #static variable for dealing with non-daily time steps
+    daysPerStep=1.0 #static variable for scaling daily rates to external time step
 
     def updateSnowpack(self, P, T):
         if(T<=self.snowfallTemperature):
@@ -11,7 +14,7 @@ class LandCoverType:
         if(T>self.snowmeltTemperature):
             melt=min(self.snowmeltRate*(T-self.snowmeltTemperature), self.snowDepth)
             self.snowDepth -= melt
-              
+
     def __init__(self,bucketCount):
         self.name='LandCoverType'
         self.description='A land cover type'
