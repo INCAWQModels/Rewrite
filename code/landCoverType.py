@@ -19,11 +19,13 @@ class LandCoverType:
         self.name='LandCoverType'
         self.description='A land cover type'
 
+        self.areaProportion=0.1
+
         self.flowRouting = SquareMatrix(bucketCount)
 
         self.buckets = [Bucket()]*bucketCount
 
-        self.snowmeltRate = Parameter(3.0,"mm/degree C/day")
+        self.snowmeltRate = ScaledParameter(3.0,"mm/degree C/day",self.daysPerStep)
         self.snowmeltTemperature = Parameter(0.0, "degrees C")
         self.snowfallTemperature=Parameter(0.0,"degreec C")
 
