@@ -17,4 +17,7 @@ class Subcatchment:
         self.rainfallMultiplier=1.0
         self.snowfallMultiplier=1.0
 
-        self.landCoverTypes = [LandCoverType(bucketCount)]*landCoverCount
+        self.landCoverTypes = []
+        for i in range(landCoverCount):
+            self.landCoverTypes.append(LandCoverType(bucketCount))
+            self.landCoverTypes[i].name = "LC" + str(i)
