@@ -9,11 +9,11 @@ class Subcatchment:
 
     def __init__(self, bucketCount, landCoverCount):
         self.name = "Subcatchment"
-        self.description="The terrestrial and aquqtuc parts of a subcatchment / reach system"
+        self.description="The terrestrial and aquatic parts of a subcatchment / reach system"
 
-        self.area=Parameter(1,"km2")    #total subcatchment area
-        self.snowmeltOffest=Parameter(0,"degrees C")
-        self.snowfallOffset=Parameter(0,"degrees C")
+        self.area=Parameter(1.0,"km2")    #total subcatchment area
+        self.snowmeltOffest=Parameter(0.0,"degrees C")
+        self.snowfallOffset=Parameter(0.0,"degrees C")
         self.rainfallMultiplier=1.0
         self.snowfallMultiplier=1.0
 
