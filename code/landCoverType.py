@@ -15,8 +15,11 @@ class LandCoverType:
             melt=min(self.snowmeltRate*(T-self.snowmeltTemperature), self.snowDepth)
             self.snowDepth -= melt
 
-    def __init__(self,bucketCount):
-        self.name='LandCoverType'
+    def __init__(self,pars,landCoverIndex):
+
+        bucketCount=pars.parameters['buckets']['bucket'].__len__()
+        
+        self.name=pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['name']
         self.description='A land cover type'
 
         self.areaProportion=0.1
@@ -26,7 +29,7 @@ class LandCoverType:
         #create the buckets
         self.buckets = []
         for i in range(bucketCount):
-            self.buckets.append(Bucket())
+            self.buckets.append(Bucket(pars,i))
 
         self.snowmeltRate = ScaledParameter(3.0,"mm/degree C/day",self.daysPerStep)
         self.snowmeltTemperature = Parameter(0.0, "degrees C")

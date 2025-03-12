@@ -11,13 +11,12 @@ class Catchment:
     
     def __init__(self,pars):
 
-        bucketCount=pars.parameters['buckets']['bucket'].__len__()
-        landCoverCount=pars.parameters['landCoverTypes']['landCoverType'].__len__()
         subcatchmentCount=pars.parameters['subCatchments']['subCatchment'].__len__()
-
         
+        self.name=pars.parameters['catchment']['name']
+
         self.subcatchments = []
         for i in range(subcatchmentCount):
-            self.subcatchments.append(Subcatchment(bucketCount,landCoverCount))
+            self.subcatchments.append(Subcatchment(pars,i))
         
         self.reach = Reach()

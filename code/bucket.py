@@ -33,8 +33,9 @@ class Bucket:
                   self.actualEvapotranspiration.value=0
         self.currentWaterDepth.value -= self.actualEvapotranspiration.value
 
-    def __init__(self):
-        self.name='Bucket'
+    def __init__(self,pars,bucketIndex):
+        self.name=pars.parameters['buckets']['bucket'][bucketIndex]['name']
+        
         self.Description="A conceptual water store"
 
         self.hasPrecipitationInputs = False

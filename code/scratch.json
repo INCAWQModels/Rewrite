@@ -2,11 +2,18 @@
     "parameterSetName": "Test",
     "timestep": 86400,
     "internalTimeStepMultiplier": 1.0,
+
+    "catchment": {
+        "name": "Somewhere"
+    },
     "subCatchments": {
         "subCatchment": [
-            {"name": "SC1" },
-            {"name": "SC2" },
-            {"name": "SC3" }
+            {"name": "SC1",
+             "area": 51.0 },
+            {"name": "SC2",
+             "area": 52.0},
+            {"name": "SC3",
+             "area": 53.0 }
         ]
     },
     "landCoverTypes": {

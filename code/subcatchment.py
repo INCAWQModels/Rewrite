@@ -1,5 +1,5 @@
 from landCoverType import LandCoverType
-from parameter import Parameter, ScaledParameter
+from parameter import Parameter
 
 class Subcatchment:
     """First try at writing code for subcatchment / reach pools and processes in INCA / PERSiST"""
@@ -7,8 +7,12 @@ class Subcatchment:
     externalTimeStep=Parameter(86400,"seconds") #static variable for dealing with non-daily time steps
     daysPerStep=1.0 #static variable for scaling daily rates to external time step
 
-    def __init__(self, bucketCount, landCoverCount):
-        self.name = "Subcatchment"
+    def __init__(self, pars,subcatchmentIndex):
+
+        landCoverCount=pars.parameters['landCoverTypes']['landCoverType'].__len__()
+        
+        self.name = pars.parameters['subCatchments']['subCatchment'][subcatchmentIndex]['name']
+
         self.description="The terrestrial and aquatic parts of a subcatchment / reach system"
 
         self.area=Parameter(1.0,"km2")    #total subcatchment area
@@ -19,5 +23,4 @@ class Subcatchment:
 
         self.landCoverTypes = []
         for i in range(landCoverCount):
-            self.landCoverTypes.append(LandCoverType(bucketCount))
-            self.landCoverTypes[i].name = "LC" + str(i)
+            self.landCoverTypes.append(LandCoverType(pars,i))
