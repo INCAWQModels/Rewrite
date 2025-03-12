@@ -1,9 +1,7 @@
 
 from model import *
 
-
-
-M=model()
+M=Model('scratch.json')
 M.externalTimeStep.value=86400
 
 subcatchments=M.catchment.subcatchments.__len__()

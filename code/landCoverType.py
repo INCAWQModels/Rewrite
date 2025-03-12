@@ -23,6 +23,7 @@ class LandCoverType:
 
         self.flowRouting = SquareMatrix(bucketCount)
 
+        #create the buckets
         self.buckets = []
         for i in range(bucketCount):
             self.buckets.append(Bucket())
@@ -38,6 +39,4 @@ class LandCoverType:
 
         self.snowfallMultiplier=1.0
         self.rainfallMultiplier=1.0
-
-        
 

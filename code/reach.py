@@ -11,7 +11,7 @@ class Reach:
         self.widthAtBottom=Parameter(1,"m")
         self.slope=Parameter(1e-06,"m/m")
 
-        #geographical coordiates of the outflow
+        #geographical coordinates of the outflow
         self.latitude=Parameter(45.0, "decimal latitude, north positive")
         self.longitude=Parameter(0.0, "decimal longitude, east positive")
 
@@ -26,5 +26,10 @@ class Reach:
             "n": 0.1
         }
 
+        #initial conditions
+        self.initialFlow=Parameter(100,"m/s")
+        
         self.hasAbstraction=False
         self.hasEffluent=False
+
+
