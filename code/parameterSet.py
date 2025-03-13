@@ -1,4 +1,4 @@
-from json import load,loads
+from json import load,dump
 from parameter import *
 
 class ParameterSet:
@@ -7,6 +7,11 @@ class ParameterSet:
     def printPars(self): #troubleshooting routine to print contents of self.parameters
         print(self.parameters)
 
+    def saveToJSON(self,jsonfile):
+        with open(jsonfile, "w") as outfile:
+            dump(self.parameters,outfile)
+
     def __init__(self,fileName):
         with open(fileName,'r') as parFile:
             self.parameters = load(parFile)
+    

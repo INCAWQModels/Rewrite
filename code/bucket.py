@@ -60,4 +60,6 @@ class Bucket:
         self.hasChemicals=False #flag variable to simplify decision making
         Chemical.addChemicals(self,pars)
 
+        self.hasSolidPhase=False #flag variable to indicate if solids are to be modelled
+
         
