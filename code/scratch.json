@@ -8,12 +8,9 @@
     },
     "subCatchments": {
         "subCatchment": [
-            {"name": "SC1",
-             "area": 51.0 },
-            {"name": "SC2",
-             "area": 52.0},
-            {"name": "SC3",
-             "area": 53.0 }
+            {"name": "SC1", "area": 51.0 },
+            {"name": "SC2", "area": 52.0},
+            {"name": "SC3", "area": 53.0 }
         ]
     },
     "landCoverTypes": {
