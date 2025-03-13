@@ -32,5 +32,11 @@
             {"name": "Lower Unsaturated"},
             {"name": "Groundwater"}
         ]
+    },
+    "chemicals": {
+        "chemical": [
+            {"name": "Nitrate",  "abbreviation": "NO3", "mass": 0.0},
+            {"name": "Ammonium", "abbreviation": "NH4", "mass": 0.0}
+        ]
     }
 }

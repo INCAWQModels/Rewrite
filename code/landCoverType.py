@@ -1,6 +1,7 @@
 from squareMatrix import SquareMatrix
 from bucket import Bucket
 from parameter import *
+from chemical import Chemical
 
 class LandCoverType:
     """A first attempt at writing land cover type code suitable for use in INCA or PERSiST"""
@@ -42,4 +43,7 @@ class LandCoverType:
 
         self.snowfallMultiplier=1.0
         self.rainfallMultiplier=1.0
+        
+        self.hasChemicals=False #flag variable to simplify decision making
+        Chemical.addChemicals(self,pars)
 

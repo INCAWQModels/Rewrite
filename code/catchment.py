@@ -2,6 +2,7 @@ from subcatchment import Subcatchment
 from reach import Reach
 from parameter import Parameter
 from parameterSet import ParameterSet
+from chemical import Chemical
 
 class Catchment:
     """First attempt at creating a catchment representation in INCA/PERSiST"""
@@ -19,4 +20,5 @@ class Catchment:
         for i in range(subcatchmentCount):
             self.subcatchments.append(Subcatchment(pars,i))
         
-        self.reach = Reach()
+        self.hasChemicals=False #flag variable to simplify decision making
+        Chemical.addChemicals(self,pars)

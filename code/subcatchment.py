@@ -1,5 +1,7 @@
 from landCoverType import LandCoverType
 from parameter import Parameter
+from reach import Reach
+from chemical import Chemical
 
 class Subcatchment:
     """First try at writing code for subcatchment / reach pools and processes in INCA / PERSiST"""
@@ -21,6 +23,11 @@ class Subcatchment:
         self.rainfallMultiplier=1.0
         self.snowfallMultiplier=1.0
 
+        self.reach = Reach(pars)
+        
         self.landCoverTypes = []
         for i in range(landCoverCount):
             self.landCoverTypes.append(LandCoverType(pars,i))
+
+        self.hasChemicals=False #flag variable to simplify decision making
+        Chemical.addChemicals(self,pars)

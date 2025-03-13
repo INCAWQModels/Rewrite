@@ -1,7 +1,9 @@
 from parameter import *
+from chemical import Chemical
 
 class Bucket:
-    """first try at some code to generate a PERSiST bucket"""
+    """first try at some code to generate an INCA/PERSiST bucket. Water properties are enforced in all cases
+    but chemcial properties are optional, depending on the contents of the JSON parameter file"""
 
     externalTimeStep=Parameter(86400,"seconds") #static variable for dealing with non-daily time steps
     daysPerStep=1.0 #static variable for scaling daily rates to external time step
@@ -54,4 +56,8 @@ class Bucket:
 
         self.potentialEvapotranspiration=ScaledParameter(0,"mm/day",self.daysPerStep)
         self.actualEvapotranspiration=ScaledParameter(0,"mm/day",self.daysPerStep)
+
+        self.hasChemicals=False #flag variable to simplify decision making
+        Chemical.addChemicals(self,pars)
+
         

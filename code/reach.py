@@ -1,9 +1,10 @@
 from parameter import Parameter, ScaledParameter
+from chemical import Chemical
 
 class Reach:
     """First try at implementing the in-stream component of a subcatchment"""
 
-    def __init__(self):
+    def __init__(self,pars):
         self.name="Reach"
         self.description="A stream reach"
 
@@ -15,6 +16,9 @@ class Reach:
         self.latitude=Parameter(45.0, "decimal latitude, north positive")
         self.longitude=Parameter(0.0, "decimal longitude, east positive")
 
+        self.hasChemicals=False #flag variable to simplify decision making
+        Chemical.addChemicals(self,pars)
+        
         self.Manning = {
             #a, b, c and f From Allen, P. M., Arnold, J. G., and Byars, B. W.
             # : Downstream channel geometry for use in planning-level models, Water Resources
