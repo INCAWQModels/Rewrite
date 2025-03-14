@@ -4,10 +4,8 @@ from chemical import Chemical
 
 class Subcatchment:
     """First try at writing code for subcatchment / reach pools and processes in INCA / PERSiST"""
-
     
     def __init__(self, pars,subCatchmentIndex):
-
 
         landCoverCount=pars.parameters['landCoverTypes']['landCoverType'].__len__()
         

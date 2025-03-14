@@ -1,11 +1,9 @@
-from parameter import *
-
 class Chemical:
     """A first try at writing a class to model chemical transformations and transport in INCA"""
 
     def addChemicals(target,pars):
         """add chemicals if listed in the parameter set, target is the object (bucket, reach, etc.)"
-        to whihc chemicals are added"""
+        to which chemicals are added"""
         if(pars.parameters['chemicals']):
             target.hasChemicals=True
             chemicalCount=pars.parameters['chemicals'].__len__()
