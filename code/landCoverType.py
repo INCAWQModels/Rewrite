@@ -1,13 +1,9 @@
 from squareMatrix import SquareMatrix
 from bucket import Bucket
-from parameter import *
 from chemical import Chemical
 
 class LandCoverType:
     """A first attempt at writing land cover type code suitable for use in INCA or PERSiST"""
-
-    externalTimeStep=Parameter(86400,"seconds") #static variable for dealing with non-daily time steps
-    daysPerStep=1.0 #static variable for scaling daily rates to external time step
 
     def updateSnowpack(self, P, T):
         if(T<=self.snowfallTemperature):
@@ -16,14 +12,18 @@ class LandCoverType:
             melt=min(self.snowmeltRate*(T-self.snowmeltTemperature), self.snowDepth)
             self.snowDepth -= melt
 
-    def __init__(self,pars,landCoverIndex):
+    def __init__(self,pars,subCatchmentIndex,landCoverIndex):
 
         bucketCount=pars.parameters['buckets']['bucket'].__len__()
         
+        externalTimeStep=pars.parameters['timeStep']
+        daysPerStep=externalTimeStep/86400.0
+
         self.name=pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['name']
         self.description='A land cover type'
 
-        self.areaProportion=0.1
+        self.percentCover=pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['landCoverTypes'][landCoverIndex]['percentCover']
+        self.waterDepth=pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['waterDepth']
 
         self.flowRouting = SquareMatrix(bucketCount)
 
@@ -32,18 +32,26 @@ class LandCoverType:
         for i in range(bucketCount):
             self.buckets.append(Bucket(pars,i))
 
-        self.snowmeltRate = ScaledParameter(3.0,"mm/degree C/day",self.daysPerStep)
-        self.snowmeltTemperature = Parameter(0.0, "degrees C")
-        self.snowfallTemperature=Parameter(0.0,"degreec C")
+        self.snowmeltRate = pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['snowmeltRate'] / daysPerStep
+        self.snowmeltDepth=0.0
+        self.snowDepth=pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['snowDepth'] 
 
-        self.initialSnowDepth=Parameter(0.0,"mm")
-        self.snowmeltDepth=Parameter(0.0,"mm")
+        #snowmelt temperature is the sum of the landscape type and subcatchment snowmelt temperatures
+        self.snowmeltTemperature = pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['snowmeltTemperature'] 
+        self.snowmeltTemperature += pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['snowmeltTemperature']
 
-        self.snowDepth=self.initialSnowDepth
-
-        self.snowfallMultiplier=1.0
-        self.rainfallMultiplier=1.0
+        #snowmelt temperature is the sum of the landscape type and subcatchment snowfall temperatures
+        self.snowfallTemperature = pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['snowfallTemperature'] 
+        self.snowfallTemperature += pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['snowfallTemperature']
+  
+        #snowfall multiplier is the prodict of the landscape type and subcatchment snowfall multiplier
+        self.snowfallMultiplier = pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['snowfallMultiplier'] 
+        self.snowfallMultiplier *= pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['snowfallMultiplier'] 
         
+        #rainfall multiplier is the prodict of the landscape type and subcatchment rainfall multiplier      
+        self.rainfallMultiplier=pars.parameters['landCoverTypes']['landCoverType'][landCoverIndex]['rainfallMultiplier'] 
+        self.rainfallMultiplier *= pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['rainfallMultiplier'] 
+              
         self.hasChemicals=False #flag variable to simplify decision making
         Chemical.addChemicals(self,pars)
 

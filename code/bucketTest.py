@@ -2,7 +2,6 @@
 from model import *
 
 M=Model('scratch.json')
-M.externalTimeStep.value=86400
 
 subcatchments=M.catchment.subcatchments.__len__()
 landCoverTypes=M.catchment.subcatchments[0].landCoverTypes.__len__()

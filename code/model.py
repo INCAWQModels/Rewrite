@@ -7,9 +7,6 @@ from chemical import Chemical
 class Model:
     """A first attempt at writing the code to run an INCA/PERSiST model"""
 
-    externalTimeStep=Parameter(86400,"seconds") 
-    internalStepsPerTimeStep=1.0
-    
     def __init__(self,jsonFile):
         self.parameterSet=ParameterSet(jsonFile)
         
