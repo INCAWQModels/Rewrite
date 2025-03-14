@@ -8,18 +8,106 @@
     },
     "subCatchments": {
         "subCatchment": [
-            {"name": "SC1", "area": 51.0 },
-            {"name": "SC2", "area": 52.0},
-            {"name": "SC3", "area": 53.0 }
+            {"name": "SC1", "area": 51.0,
+                "rainfallMultiplier": 1.0,
+                "snowfallMultiplier": 1.0,
+                "snowFallTemperature": 0.0,
+                "snowMeltTemoerature": 0.0,
+                "landCoverTypes": [
+                    {"percentCover": 0.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 50.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 0.0, "waterDepth": 50.0}
+                    ] },
+            {"name": "SC2", "area": 52.0,
+                "rainfallMultiplier": 1.0,
+                "snowfallMultiplier": 1.0,
+                "snowFallTemperature": 0.0,
+                "snowMeltTemoerature": 0.0,
+                "landCoverTypes": [
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 0.0, "waterDepth": 50.0}
+                ]},
+            {"name": "SC3", "area": 53.0,
+                "rainfallMultiplier": 1.0,
+                "snowfallMultiplier": 1.0,
+                "snowFallTemperature": 0.0,
+                "snowMeltTemoerature": 0.0,
+                "landCoverTypes": [
+                    {"percentCover": 0.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 0.0, "waterDepth": 50.0},
+                    {"percentCover": 25.0, "waterDepth": 50.0},
+                    {"percentCover": 50.0, "waterDepth": 50.0}
+                ] }
         ]
     },
     "landCoverTypes": {
         "landCoverType": [
-            {"name": "Forest" },
-            {"name": "Arable" },
-            {"name": "Urban" },
-            {"name": "Wetland" },
-            {"name": "Pasture"}
+            {"name": "Forest",
+            "characteristicTimeConstant": 1.5,
+            "rainfallMultiplier": 1.0,
+            "snowfallMultiplier": 1.0,
+            "snowFallTemperature": 0.0,
+            "snowMeltTemoerature": 0.0,
+                "buckets": [
+                    {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                    {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                    {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                    {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0}
+                ] },
+            {"name": "Arable",   
+            "characteristicTimeConstant": 2.5,
+            "rainfallMultiplier": 1.0,
+            "snowfallMultiplier": 1.0,
+            "snowFallTemperature": 0.0,
+            "snowMeltTemoerature": 0.0,
+            "buckets": [
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0}
+            ] }, 
+            {"name": "Urban",
+            "characteristicTimeConstant": 3.5,
+            "rainfallMultiplier": 1.0,
+            "snowfallMultiplier": 1.0,
+            "snowFallTemperature": 0.0,
+            "snowMeltTemoerature": 0.0,
+            "buckets": [
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0}
+            ] },
+            {"name": "Wetland",
+            "characteristicTimeConstant": 4.5,
+            "rainfallMultiplier": 1.0,
+            "snowfallMultiplier": 1.0,
+            "snowFallTemperature": 0.0,
+            "snowMeltTemoerature": 0.0,
+            "buckets": [
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0}
+            ] },
+            {"name": "Pasture",
+            "characteristicTimeConstant": 5.5,
+            "rainfallMultiplier": 1.0,
+            "snowfallMultiplier": 1.0,
+            "snowFallTemperature": 0.0,
+            "snowMeltTemoerature": 0.0,
+            "buckets": [
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0},
+                {"tightlyBoundWaterDepth": 20.0, "looselyBoundWaterDepth": 50.0, "freelyDrainingWaterDepth": 100.0}
+            ] }
         ]
     },
     "buckets": {
