@@ -7,15 +7,13 @@ class Subcatchment:
     
     def __init__(self, pars,subCatchmentIndex):
 
-        landCoverCount=pars.parameters['landCoverTypes']['landCoverType'].__len__()
+        landCoverCount=pars.parameters['landCoverTypes'].__len__()
         
-        self.name = pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['name']
+        self.name = pars.parameters['subCatchments'][subCatchmentIndex]['name']
 
         self.description="The terrestrial and aquatic parts of a subcatchment / reach system"
 
-        self.area=pars.parameters['subCatchments']['subCatchment'][subCatchmentIndex]['area']    #total subcatchment area
-
-        self.reach = Reach(pars)
+        self.area=pars.parameters['subCatchments'][subCatchmentIndex]['area']    #total subcatchment area
         
         self.landCoverTypes = []
         for i in range(landCoverCount):

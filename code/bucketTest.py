@@ -15,5 +15,6 @@ print("Number of data rows        :",M.drivingData.dataTable.__len__())
 
 for i in range(landCoverTypes):
     print(M.catchment.subcatchments[0].landCoverTypes[i].name)
+    for j in range(buckets):
+        print("\t", M.catchment.subcatchments[0].landCoverTypes[i].buckets[j].name)
 
-M.parameterSet.saveToJSON("new.json")

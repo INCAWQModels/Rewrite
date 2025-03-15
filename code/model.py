@@ -1,4 +1,3 @@
-from parameter import *
 from catchment import Catchment
 from timeSeries import TimeSeries
 from parameterSet import ParameterSet

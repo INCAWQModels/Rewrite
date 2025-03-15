@@ -1,12 +1,8 @@
-from parameter import *
 from chemical import Chemical
 
 class Bucket:
     """first try at some code to generate an INCA/PERSiST bucket. Water properties are enforced in all cases
     but chemcial properties are optional, depending on the contents of the JSON parameter file"""
-
-    externalTimeStep=Parameter(86400,"seconds") #static variable for dealing with non-daily time steps
-    daysPerStep=1.0 #static variable for scaling daily rates to external time step
 
     def calculatePotentialEvapotranspiration(self):
             """boiler plate code to calculate PET"""
@@ -15,7 +11,7 @@ class Bucket:
     def calculateActualEvapotranspiration(self):
         """boiler plate code to calculate actual evapotranspiration (AET)
         depending on soil moisture limitation, currently AET equals PET when there is freely draining water
-        when there is loosley bond water, AET is a fraction of PET dependnt on water in the soil and the 
+        when there is loosley bond water, AET is a fraction of PET dependent on water in the soil and the 
         evapotranspiration adjustment factor. When ther in only tightly bound water, no ET is simulated"""
 
         boundWaterDepth=self.tightlyBoundStorage() + self.freelyDrainingStorage()
@@ -35,27 +31,34 @@ class Bucket:
                   self.actualEvapotranspiration.value=0
         self.currentWaterDepth.value -= self.actualEvapotranspiration.value
 
-    def __init__(self,pars,bucketIndex):
+    def __init__(self,pars,landCoverIndex, bucketIndex):
         self.name=pars.parameters['buckets']['bucket'][bucketIndex]['name']
         
         self.Description="A conceptual water store"
 
         self.hasPrecipitationInputs = False
 
-        self.characteristicTimeConstant=ScaledParameter(100, "days",self.daysPerStep)
-        self.maximumDepth=Parameter(100,"mm")
-        self.freelyDrainingStorage=Parameter(10,"mm")
-        self.looselyBoundStorage=Parameter(10,"mm")
-        self.tightlyBoundStorage=Parameter(10,"mm")
+        externalTimeStep=pars.parameters['timeStep']
+        daysPerStep=externalTimeStep/86400.0
 
-        self.evapotranspirationAdjustmentFactor=0.0
-        self.relativeAreaIndex=1.0
+        #characteristic time constant has units of days in the parameter set, needs to be scaled to the model time step
+        self.characteristicTimeConstant=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['characteristicTimeConstant']
+        self.characteristicTimeConstant /= daysPerStep
 
-        self.initialWaterDepth=Parameter(50,"mm")
-        self.currentWaterDepth=self.initialWaterDepth
+        self.freelyDrainingWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['freelyDrainingWaterDepth']
+        self.looselyBoundWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['looselyBoundWaterDepth']
+        self.tightlyBoundWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['tightlyBoundWaterDepth']
 
-        self.potentialEvapotranspiration=ScaledParameter(0,"mm/day",self.daysPerStep)
-        self.actualEvapotranspiration=ScaledParameter(0,"mm/day",self.daysPerStep)
+        self.maximumWaterDepth=self.freelyDrainingWaterDepth+self.tightlyBoundWaterDepth+self.looselyBoundWaterDepth
+        self.waterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['initialWaterDepth']
+
+        self.relativeAreaIndex=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['relativeAreaIndex']
+        self.relativeETIndex=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['relativeETIndex']
+        self.ETScalingExponent=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['ETScalingExponent']
+        
+        #iniitialize actual and potential evapotranspiraiton to 0.0
+        self.potentialEvapotranspiration=0.0
+        self.actualEvapotranspiration=0.0
 
         self.hasChemicals=False #flag variable to simplify decision making
         Chemical.addChemicals(self,pars)
