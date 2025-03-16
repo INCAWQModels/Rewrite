@@ -317,14 +317,20 @@
                 }
             ] }
         ],
-    "buckets": {
-        "bucket": [
-            {"name": "Direct Runoff"},
-            {"name": "Upper Unsaturated"},
-            {"name": "Lower Unsaturated"},
-            {"name": "Groundwater"}
-        ]
-    },
+    "buckets": [
+            {"name": "Direct Runoff",
+                "surficial": true
+            },
+            {"name": "Upper Unsaturated",
+                "surficial": false
+            },
+            {"name": "Lower Unsaturated",
+                "surficial": false
+            },
+            {"name": "Groundwater",
+                "surficial": false
+            }
+        ],
     "chemicals": {
         "chemical": [
             {"name": "Nitrate",  "abbreviation": "NO3", "mass": 0.0},

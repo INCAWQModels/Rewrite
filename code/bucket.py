@@ -32,11 +32,10 @@ class Bucket:
         self.currentWaterDepth.value -= self.actualEvapotranspiration.value
 
     def __init__(self,pars,landCoverIndex, bucketIndex):
-        self.name=pars.parameters['buckets']['bucket'][bucketIndex]['name']
-        
-        self.Description="A conceptual water store"
+        self.name=pars.parameters['buckets'][bucketIndex]['name']
+        self.surficial=pars.parameters['buckets'][bucketIndex]['surficial']
 
-        self.hasPrecipitationInputs = False
+        self.Description="A conceptual water store"
 
         externalTimeStep=pars.parameters['timeStep']
         daysPerStep=externalTimeStep/86400.0

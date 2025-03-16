@@ -1,9 +1,15 @@
 from landCoverType import LandCoverType
-from reach import Reach
 from chemical import Chemical
+from timeSeries import TimeSeries
 
 class Subcatchment:
     """First try at writing code for subcatchment / reach pools and processes in INCA / PERSiST"""
+
+    def solve(self):
+        """Code stub to solve hydrochemical transformation and fluxes in a subcatchment"""
+        results = TimeSeries 
+        return results
+
     
     def __init__(self, pars,subCatchmentIndex):
 

@@ -6,6 +6,10 @@ from chemical import Chemical
 class Model:
     """A first attempt at writing the code to run an INCA/PERSiST model"""
 
+    def run(self):
+        """Code stub to run a model"""
+        self.catchment.solveCatchments()
+        
     def __init__(self,jsonFile):
         self.parameterSet=ParameterSet(jsonFile)
         

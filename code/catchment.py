@@ -5,6 +5,12 @@ from chemical import Chemical
 class Catchment:
     """First attempt at creating a catchment representation in INCA/PERSiST"""
   
+    def solveCatchments(self):
+        """stub to solve inputs and outputs from subcatchments"""
+        subcatchmentExportsToReach = []
+        
+        return subcatchmentExportsToReach
+
     def __init__(self,pars):
 
         subcatchmentCount=pars.parameters['subCatchments'].__len__()

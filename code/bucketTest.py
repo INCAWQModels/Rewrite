@@ -18,3 +18,5 @@ for i in range(landCoverTypes):
     for j in range(buckets):
         print("\t", M.catchment.subcatchments[0].landCoverTypes[i].buckets[j].name)
 
+M.run()
+

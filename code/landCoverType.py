@@ -14,7 +14,7 @@ class LandCoverType:
 
     def __init__(self,pars,subCatchmentIndex,landCoverIndex):
 
-        bucketCount=pars.parameters['buckets']['bucket'].__len__()
+        bucketCount=pars.parameters['buckets'].__len__()
         
         externalTimeStep=pars.parameters['timeStep']
         daysPerStep=externalTimeStep/86400.0
@@ -43,11 +43,11 @@ class LandCoverType:
         self.snowfallTemperature = pars.parameters['landCoverTypes'][landCoverIndex]['snowfallTemperature'] 
         self.snowfallTemperature += pars.parameters['subCatchments'][subCatchmentIndex]['snowfallTemperature']
   
-        #snowfall multiplier is the prodict of the landscape type and subcatchment snowfall multiplier
+        #snowfall multiplier is the product of the landscape type and subcatchment snowfall multiplier
         self.snowfallMultiplier = pars.parameters['landCoverTypes'][landCoverIndex]['snowfallMultiplier'] 
         self.snowfallMultiplier *= pars.parameters['subCatchments'][subCatchmentIndex]['snowfallMultiplier'] 
         
-        #rainfall multiplier is the prodict of the landscape type and subcatchment rainfall multiplier      
+        #rainfall multiplier is the product of the landscape type and subcatchment rainfall multiplier      
         self.rainfallMultiplier=pars.parameters['landCoverTypes'][landCoverIndex]['rainfallMultiplier'] 
         self.rainfallMultiplier *= pars.parameters['subCatchments'][subCatchmentIndex]['rainfallMultiplier'] 
               
