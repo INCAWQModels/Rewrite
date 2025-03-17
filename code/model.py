@@ -1,3 +1,6 @@
+from concurrent.futures import ProcessPoolExecutor
+from fib0 import fib
+
 from catchment import Catchment
 from timeSeries import TimeSeries
 from parameterSet import ParameterSet
@@ -8,7 +11,10 @@ class Model:
 
     def run(self):
         """Code stub to run a model"""
-        self.catchment.solveCatchments()
+         #there has to be a more elegant way to do this!
+        subcatchmentIDs = []
+        for k in range(self.catchment.subcatchments.__len__()):
+            subcatchmentIDs.append(k)
         
     def __init__(self,jsonFile):
         self.parameterSet=ParameterSet(jsonFile)

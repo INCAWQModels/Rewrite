@@ -5,8 +5,10 @@ from chemical import Chemical
 class Catchment:
     """First attempt at creating a catchment representation in INCA/PERSiST"""
   
-    def solveCatchments(self):
+    def solveCatchments(self, subcatchmentIndex):
         """stub to solve inputs and outputs from subcatchments"""
+
+        self.subcatchments[subcatchmentIndex].solve()
         subcatchmentExportsToReach = []
         
         return subcatchmentExportsToReach

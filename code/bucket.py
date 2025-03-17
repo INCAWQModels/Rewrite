@@ -55,7 +55,11 @@ class Bucket:
         self.relativeETIndex=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['relativeETIndex']
         self.ETScalingExponent=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['ETScalingExponent']
         
-        #iniitialize actual and potential evapotranspiraiton to 0.0
+        #set the parameters for performing soil temperature calculations, starting with the temperature
+        self.soilTemperature = pars.parameters['buckets'][bucketIndex]['initialTemperature']
+        self.soilTemperatureEffectiveDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['soilTemperatureEffectiveDepth']
+
+        #iniitialize actual and potential evapotranspiration to 0.0
         self.potentialEvapotranspiration=0.0
         self.actualEvapotranspiration=0.0
 
