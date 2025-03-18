@@ -5,6 +5,9 @@ from chemical import Chemical
 class LandCoverType:
     """A first attempt at writing land cover type code suitable for use in INCA or PERSiST"""
 
+    def solve():
+        pass
+
     def updateSnowpack(self, P, T):
         if(T<=self.snowfallTemperature):
             self.snowDepth += self.snowfallMultiplier*P
@@ -20,7 +23,6 @@ class LandCoverType:
         daysPerStep=externalTimeStep/86400.0
 
         self.name=pars.parameters['landCoverTypes'][landCoverIndex]['name']
-        self.description='A land cover type'
 
         self.percentCover=pars.parameters['subCatchments'][subCatchmentIndex]['landCoverTypes'][landCoverIndex]['percentCover']
         

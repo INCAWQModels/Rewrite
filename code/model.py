@@ -1,5 +1,4 @@
 from concurrent.futures import ProcessPoolExecutor
-from fib0 import fib
 
 from catchment import Catchment
 from timeSeries import TimeSeries
@@ -16,6 +15,9 @@ class Model:
         for k in range(self.catchment.subcatchments.__len__()):
             subcatchmentIDs.append(k)
         
+        with ProcessPoolExecutor() as executor:
+            executor.map(self.catchment.solveSubcatchments,subcatchmentIDs)
+
     def __init__(self,jsonFile):
         self.parameterSet=ParameterSet(jsonFile)
         
