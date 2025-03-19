@@ -17,12 +17,12 @@ class LandCoverType:
 
     def __init__(self,pars,subCatchmentIndex,landCoverIndex):
 
-        bucketCount=pars.parameters['buckets'].__len__()
+        bucketCount=pars.parameters['landCover']['bucket'].__len__()
         
-        externalTimeStep=pars.parameters['timeStep']
+        externalTimeStep=pars.parameters['general']['timeStep']
         daysPerStep=externalTimeStep/86400.0
 
-        self.name=pars.parameters['landCoverTypes'][landCoverIndex]['name']
+        self.name=pars.parameters['landCover']['name'][landCoverIndex]
 
         self.percentCover=pars.parameters['subCatchments'][subCatchmentIndex]['landCoverTypes'][landCoverIndex]['percentCover']
         
