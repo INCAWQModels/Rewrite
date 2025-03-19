@@ -20,6 +20,7 @@ class Model:
 
     def __init__(self,jsonFile):
         self.parameterSet=ParameterSet(jsonFile)
+        self.parameterSet.printPars()
         
         self.catchment = Catchment(self.parameterSet)
         self.drivingData=TimeSeries()
