@@ -15,9 +15,9 @@ class Catchment:
 
     def __init__(self,pars):
 
-        subcatchmentCount=pars #need to fix this
+        subcatchmentCount=pars.parameters["subcatchment"]["general"]["name"].__len__()
         
-        self.name=pars.parameters.general.name
+        self.name=pars.parameters["general"]["name"]
 
         self.subcatchments = []
         self.reaches = []

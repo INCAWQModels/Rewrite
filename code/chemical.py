@@ -4,7 +4,7 @@ class Chemical:
     def addChemicals(target,pars):
         """add chemicals if listed in the parameter set, target is the object (bucket, reach, etc.)"
         to which chemicals are added"""
-        if(pars.parameters['chemicals']):
+        if(pars.parameters['general']['chemistry']):
             target.hasChemicals=True
             chemicalCount=pars.parameters['chemicals'].__len__()
             target.chemicals = []

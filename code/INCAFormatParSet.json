@@ -3,7 +3,14 @@
         "name": "A Demonstration parameter set",
         "creator": "Martyn",
         "timeStep": 86400,
-        "internalTimeStepMultiplier": 1.0
+        "internalTimeStepMultiplier": 1.0,
+        "startDate": "2020-01-01 00:00:00",
+        "model": {
+            "repository": "https://github.com/INCAWQModels/Rewrite",
+            "branch": "main",
+            "commit": "6a80d0f"
+        },
+        "chemistry": {}
     },
     "landCover": {
         "general": {
@@ -27,13 +34,12 @@
         },
         "soilOrSediment": {},
         "chemistry": {},     
-        "bucket":       [
-            [  
+        "bucket":       [  
                 {
                     "general": {
                         "name": "Direct Runoff",
                         "surficial": true,
-                        "initialTemperature": 10.0,
+                        "initialSoilTemperature": 10.0,
                         "relativeAreaIndex":            [1.0, 1.0, 1.0, 1.0, 1.0],
                         "soilTemperatureEffectiveDepth":[5.0, 5.0, 5.0, 5.0, 5.0]
                     },
@@ -53,7 +59,7 @@
                     "general": {
                         "name": "Upper unsaturated",
                         "surficial": false,
-                        "initialTemperature": 8.0,
+                        "initialSoilTemperature": 8.0,
                         "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
                         "soilTemperatureEffectiveDepth":[ 15.0,  15.0,  15.0,  15.0,  15.0]
                     },
@@ -73,7 +79,7 @@
                     "general": {
                         "name": "Lower unsaturated",
                         "surficial": false,
-                        "initialTemperature": 6.0,
+                        "initialSoilTemperature": 6.0,
                         "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
                         "soilTemperatureEffectiveDepth":[ 35.0,  35.0,  35.0,  35.0,  35.0] 
                     },
@@ -93,7 +99,7 @@
                     "general": {
                         "name": "Groundwater",
                         "surficial": false,
-                        "initialTemperature": 4.0,
+                        "initialSoilTemperature": 4.0,
                         "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
                         "soilTemperatureEffectiveDepth":[ 95.0,  95.0,  95.0,  95.0,  95.0]
                     },
@@ -109,7 +115,6 @@
                     "soilOrSediment": {},
                     "chemistry": {}
                 }
-        ]
         ]
     },
     "subcatchment": {
@@ -151,7 +156,8 @@
                 "c":            [0.349, 0.349, 0.349],
                 "f":            [0.341, 0.341, 0.341],
                 "n":            [0.1,   0.1,   0.1]
-            }
+            },
+            "initialFlow":      [1.0, 2.0, 3.0]
         },
         "soilOrSediment": {},
         "chemistry": {}

@@ -12,7 +12,8 @@ class Bucket:
         """boiler plate code to calculate actual evapotranspiration (AET)
         depending on soil moisture limitation, currently AET equals PET when there is freely draining water
         when there is loosley bond water, AET is a fraction of PET dependent on water in the soil and the 
-        evapotranspiration adjustment factor. When ther in only tightly bound water, no ET is simulated"""
+        evapotranspiration adjustment factor. When there in only tightly bound water, no ET is simulated.
+        Note that this code also lowers the depth of water in the bucket, might want to rethink this"""
 
         boundWaterDepth=self.tightlyBoundStorage() + self.freelyDrainingStorage()
 
@@ -32,32 +33,32 @@ class Bucket:
         self.currentWaterDepth.value -= self.actualEvapotranspiration.value
 
     def __init__(self,pars,landCoverIndex, bucketIndex):
-        self.name=pars.parameters['buckets'][bucketIndex]['name']
-        self.surficial=pars.parameters['buckets'][bucketIndex]['surficial']
+        self.name=pars.parameters['landCover']['bucket'][bucketIndex]['general']['name']
+        self.surficial=pars.parameters['landCover']['bucket'][bucketIndex]['general']['surficial']
 
         self.Description="A conceptual water store"
 
-        externalTimeStep=pars.parameters['timeStep']
+        externalTimeStep=pars.parameters['general']['timeStep']
         daysPerStep=externalTimeStep/86400.0
 
         #characteristic time constant has units of days in the parameter set, needs to be scaled to the model time step
-        self.characteristicTimeConstant=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['characteristicTimeConstant']
+        self.characteristicTimeConstant=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['characteristicTimeConstant'][landCoverIndex]
         self.characteristicTimeConstant /= daysPerStep
 
-        self.freelyDrainingWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['freelyDrainingWaterDepth']
-        self.looselyBoundWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['looselyBoundWaterDepth']
-        self.tightlyBoundWaterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['tightlyBoundWaterDepth']
+        self.freelyDrainingWaterDepth=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['freelyDrainingWaterDepth'][landCoverIndex]
+        self.looselyBoundWaterDepth=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['looselyBoundWaterDepth'][landCoverIndex]
+        self.tightlyBoundWaterDepth=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['tightlyBoundWaterDepth'][landCoverIndex]
 
         self.maximumWaterDepth=self.freelyDrainingWaterDepth+self.tightlyBoundWaterDepth+self.looselyBoundWaterDepth
-        self.waterDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['initialWaterDepth']
+        self.waterDepth=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['initialWaterDepth'][landCoverIndex]
 
-        self.relativeAreaIndex=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['relativeAreaIndex']
-        self.relativeETIndex=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['relativeETIndex']
-        self.ETScalingExponent=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['ETScalingExponent']
+        self.relativeAreaIndex=pars.parameters['landCover']['bucket'][bucketIndex]['general']['relativeAreaIndex'][landCoverIndex]
+        self.relativeETIndex=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['relativeETIndex'][landCoverIndex]
+        self.ETScalingExponent=pars.parameters['landCover']['bucket'][bucketIndex]['hydrology']['ETScalingExponent'][landCoverIndex]
         
         #set the parameters for performing soil temperature calculations, starting with the temperature
-        self.soilTemperature = pars.parameters['buckets'][bucketIndex]['initialTemperature']
-        self.soilTemperatureEffectiveDepth=pars.parameters['landCoverTypes'][landCoverIndex]['buckets'][bucketIndex]['soilTemperatureEffectiveDepth']
+        self.soilTemperature = pars.parameters['landCover']['bucket'][bucketIndex]['general']['initialSoilTemperature']
+        self.soilTemperatureEffectiveDepth=pars.parameters['landCover']['bucket'][bucketIndex]['general']['soilTemperatureEffectiveDepth'][landCoverIndex]
 
         #iniitialize actual and potential evapotranspiration to 0.0
         self.potentialEvapotranspiration=0.0

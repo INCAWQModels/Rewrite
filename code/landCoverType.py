@@ -22,9 +22,9 @@ class LandCoverType:
         externalTimeStep=pars.parameters['general']['timeStep']
         daysPerStep=externalTimeStep/86400.0
 
-        self.name=pars.parameters['landCover']['name'][landCoverIndex]
+        self.name=pars.parameters['landCover']['general']['name'][landCoverIndex]
 
-        self.percentCover=pars.parameters['subCatchments'][subCatchmentIndex]['landCoverTypes'][landCoverIndex]['percentCover']
+        self.percentCover=pars.parameters['subcatchment']['general']['landCoverPercent'][subCatchmentIndex][landCoverIndex]
         
         self.flowRouting = SquareMatrix(bucketCount)
 
@@ -33,25 +33,25 @@ class LandCoverType:
         for i in range(bucketCount):
             self.buckets.append(Bucket(pars,landCoverIndex,i))
 
-        self.snowmeltRate = pars.parameters['landCoverTypes'][landCoverIndex]['snowmeltRate'] / daysPerStep
+        self.snowmeltRate = pars.parameters['landCover']['hydrology']['snowmeltRate'][landCoverIndex] / daysPerStep
         self.snowmeltDepth=0.0
-        self.snowDepth=pars.parameters['landCoverTypes'][landCoverIndex]['snowDepth'] 
+        self.snowDepth=pars.parameters['landCover']['hydrology']['snowDepth'][landCoverIndex]
 
         #snowmelt temperature is the sum of the landscape type and subcatchment snowmelt temperatures
-        self.snowmeltTemperature = pars.parameters['landCoverTypes'][landCoverIndex]['snowmeltTemperature'] 
-        self.snowmeltTemperature += pars.parameters['subCatchments'][subCatchmentIndex]['snowmeltTemperature']
+        self.snowmeltTemperature = pars.parameters['landCover']['hydrology']['snowmeltTemperature'][landCoverIndex]
+        self.snowmeltTemperature += pars.parameters['subcatchment']['hydrology']['snowmeltTemperature'][subCatchmentIndex]
 
         #snowmelt temperature is the sum of the landscape type and subcatchment snowfall temperatures
-        self.snowfallTemperature = pars.parameters['landCoverTypes'][landCoverIndex]['snowfallTemperature'] 
-        self.snowfallTemperature += pars.parameters['subCatchments'][subCatchmentIndex]['snowfallTemperature']
+        self.snowfallTemperature = pars.parameters['landCover']['hydrology']['snowfallTemperature'][landCoverIndex] 
+        self.snowfallTemperature += pars.parameters['subcatchment']['hydrology']['snowfallTemperature'][subCatchmentIndex]
   
         #snowfall multiplier is the product of the landscape type and subcatchment snowfall multiplier
-        self.snowfallMultiplier = pars.parameters['landCoverTypes'][landCoverIndex]['snowfallMultiplier'] 
-        self.snowfallMultiplier *= pars.parameters['subCatchments'][subCatchmentIndex]['snowfallMultiplier'] 
+        self.snowfallMultiplier = pars.parameters['landCover']['hydrology']['snowfallMultiplier'][landCoverIndex] 
+        self.snowfallMultiplier *= pars.parameters['subcatchment']['hydrology']['snowfallMultiplier'][subCatchmentIndex] 
         
         #rainfall multiplier is the product of the landscape type and subcatchment rainfall multiplier      
-        self.rainfallMultiplier=pars.parameters['landCoverTypes'][landCoverIndex]['rainfallMultiplier'] 
-        self.rainfallMultiplier *= pars.parameters['subCatchments'][subCatchmentIndex]['rainfallMultiplier'] 
+        self.rainfallMultiplier=pars.parameters['landCover']['hydrology']['rainfallMultiplier'][landCoverIndex] 
+        self.rainfallMultiplier *= pars.parameters['subcatchment']['hydrology']['rainfallMultiplier'][subCatchmentIndex] 
               
         self.hasChemicals=False #flag variable to simplify decision making
         Chemical.addChemicals(self,pars)

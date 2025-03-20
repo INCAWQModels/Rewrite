@@ -24,11 +24,11 @@ class Subcatchment:
 
         landCoverCount=pars.parameters['landCover'].__len__()
         
-        self.name = pars.parameters['subcatchment']['name'][subCatchmentIndex]
+        self.name = pars.parameters['subcatchment']['general']['name'][subCatchmentIndex]
 
         self.description="The terrestrial and aquatic parts of a subcatchment / reach system"
 
-        self.area=pars.parameters['subcatchment']['area'][subCatchmentIndex]    #total subcatchment area
+        self.area=pars.parameters['subcatchment']['general']['area'][subCatchmentIndex]    #total subcatchment area
         
         self.landCoverTypes = []
         for i in range(landCoverCount):
