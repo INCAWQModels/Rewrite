@@ -6,110 +6,154 @@
         "internalTimeStepMultiplier": 1.0
     },
     "landCover": {
-        "name":                 ["Forest", "Urban", "Wetland", "Arable", "Pasture"],
-        "abbreviation":         ["F", "U", "W", "A","P"],
-        "degreeDayMeltFactor":  [ 3.0, 3.2, 3.3, 3.4, 3.5],
-        "rainfallMultiplier":   [0.91, 0.92, 0.93, 0.94, 0.95],
-        "snowfallMultiplier":   [1.1,   1.2,  1.3,  1.4,  1.5],
-        "snowfallTemperature":  [-0.1, -0.2, -0.3, -0.4, -0.5],
-        "snowmeltTemperature":  [ 0.1,  0.2,  0.3,  0.4,  0.5],
-        "snowmeltRate":         [ 1.0,  2.0,  3.0,  4.0,  5.0],
-        "snowDepth":            [ 0.0,  0.0,  0.0,  0.0,  0.0],
-        "soilTemperatureModel": {
-            "C_s":              [1.1e06,  1.2e06, 1.3e06,   1.4e06, 1.5e06],
-            "K_t":              [ 0.61,   0.62,    0.63,    0.64,   0.65],
-            "C_ice":            [ 9.1e06, 9.2e06,  9.3e06, 9.4e06,  9.5e06],
-            "f_s":              [-3.1,   -3.2,    -3.3,   -3.4,    -3.5]
+        "general": {
+            "name":                 ["Forest", "Urban", "Wetland", "Arable", "Pasture"],
+            "abbreviation":         ["F", "U", "W", "A", "P"],
+            "soilTemperatureModel": {
+                "C_s":              [1.1e06,  1.2e06, 1.3e06,   1.4e06, 1.5e06],
+                "K_t":              [ 0.61,   0.62,    0.63,    0.64,   0.65],
+                "C_ice":            [ 9.1e06, 9.2e06,  9.3e06, 9.4e06,  9.5e06],
+                "f_s":              [-3.1,   -3.2,    -3.3,   -3.4,    -3.5]
+            }
+        },   
+        "hydrology": {
+            "degreeDayMeltFactor":  [ 3.0, 3.2, 3.3, 3.4, 3.5],
+            "rainfallMultiplier":   [0.91, 0.92, 0.93, 0.94, 0.95],
+            "snowfallMultiplier":   [1.1,   1.2,  1.3,  1.4,  1.5],
+            "snowfallTemperature":  [-0.1, -0.2, -0.3, -0.4, -0.5],
+            "snowmeltTemperature":  [ 0.1,  0.2,  0.3,  0.4,  0.5],
+            "snowmeltRate":         [ 1.0,  2.0,  3.0,  4.0,  5.0],
+            "snowDepth":            [ 0.0,  0.0,  0.0,  0.0,  0.0]
         },
+        "soilOrSediment": {},
+        "chemistry": {},     
         "bucket":       [
             [  
                 {
-                    "name": "Direct Runoff",
-                    "surficial": true,
-                    "initialTemperature": 10.0,
-                    "characteristicTimeConstant":   [  1.1,   1.2,   1.3,   1.4,   1.5],
-                    "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                    "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                    "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "relativeAreaIndex":            [1.0, 1.0, 1.0, 1.0, 1.0],
-                    "relativeETIndex":              [0.0, 0.0, 0.0, 0.0, 0.0],
-                    "ETScalingExponent":            [0.0, 0.0, 0.0, 0.0, 0.0],
-                    "soilTemperatureEffectiveDepth":[5.0, 5.0, 5.0, 5.0, 5.0]
+                    "general": {
+                        "name": "Direct Runoff",
+                        "surficial": true,
+                        "initialTemperature": 10.0,
+                        "relativeAreaIndex":            [1.0, 1.0, 1.0, 1.0, 1.0],
+                        "soilTemperatureEffectiveDepth":[5.0, 5.0, 5.0, 5.0, 5.0]
+                    },
+                    "hydrology": {
+                        "characteristicTimeConstant":   [  1.1,   1.2,   1.3,   1.4,   1.5],
+                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":              [0.0, 0.0, 0.0, 0.0, 0.0],
+                        "ETScalingExponent":            [0.0, 0.0, 0.0, 0.0, 0.0]
+                    },
+                    "soilOrSediment": {},
+                    "chemistry": {}
                 },
                 {
-                    "name": "Upper unsaturated",
-                    "surficial": false,
-                    "initialTemperature": 8.0,
-                    "characteristicTimeConstant":   [  8.1,   8.2,   8.3,   8.4,   8.5],
-                    "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                    "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                    "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                    "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
-                    "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                    "soilTemperatureEffectiveDepth":[ 15.0,  15.0,  15.0,  15.0,  15.0]
+                    "general": {
+                        "name": "Upper unsaturated",
+                        "surficial": false,
+                        "initialTemperature": 8.0,
+                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":[ 15.0,  15.0,  15.0,  15.0,  15.0]
+                    },
+                    "hydrology": {                    
+                        "characteristicTimeConstant":   [  8.1,   8.2,   8.3,   8.4,   8.5],
+                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
+                        "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0]
+                    },
+                    "soilOrSediment": {},
+                    "chemistry": {}
                 },
                 {
-                    "name": "Lower unsaturated",
-                    "surficial": false,
-                    "initialTemperature": 6.0,
-                    "characteristicTimeConstant":   [ 15.1,  15.2,  15.3,  15.4,  15.5],
-                    "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                    "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                    "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                    "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
-                    "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                    "soilTemperatureEffectiveDepth":[ 35.0,  35.0,  35.0,  35.0,  35.0]
+                    "general": {
+                        "name": "Lower unsaturated",
+                        "surficial": false,
+                        "initialTemperature": 6.0,
+                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":[ 35.0,  35.0,  35.0,  35.0,  35.0] 
+                    },
+                    "hydrology": {
+                        "characteristicTimeConstant":   [ 15.1,  15.2,  15.3,  15.4,  15.5],
+                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
+                        "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0]
+                    },
+                    "soilOrSediment": {},
+                    "chemistry": {}
                 },
                 {
-                    "name": "Groundwater",
-                    "surficial": false,
-                    "initialTemperature": 4.0,
-                    "characteristicTimeConstant":   [ 80.1,  80.2,  80.3,  80.4,  80.5],
-                    "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                    "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                    "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                    "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                    "relativeETIndex":              [  0.0,   0.0,   0.0,   0.0,   0.0],
-                    "ETScalingExponent":            [  0.0,   0.0,   0.0,   0.0,   0.0],
-                    "soilTemperatureEffectiveDepth":[ 95.0,  95.0,  95.0,  95.0,  95.0]
+                    "general": {
+                        "name": "Groundwater",
+                        "surficial": false,
+                        "initialTemperature": 4.0,
+                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":[ 95.0,  95.0,  95.0,  95.0,  95.0]
+                    },
+                    "hydrology": {
+                        "characteristicTimeConstant":   [ 80.1,  80.2,  80.3,  80.4,  80.5],
+                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":              [  0.0,   0.0,   0.0,   0.0,   0.0],
+                        "ETScalingExponent":            [  0.0,   0.0,   0.0,   0.0,   0.0]
+                    },
+                    "soilOrSediment": {},
+                    "chemistry": {}
                 }
         ]
         ]
     },
     "subcatchment": {
-        "name":             ["SC1","SC2","SC3"],
-        "area":             [100.0, 200.0, 300.0],
-        "landCoverPercent": [
-            [20.0,  0.0, 80.0,  0.0,  0.0],
-            [ 0.0, 30.0,  0.0, 30.0, 40.0],
-            [30.0, 10.0, 10.0  ,0.0, 50.0]
-        ],
-        "rainfallMultiplier":   [1.1, 1.2, 1.3],
-        "snowfallMultiplier":   [1.01, 1.02, 1.03],
-        "snowfallTemperature":  [0.1,0.2,0.3],
-        "snowmeltTemperature":  [-0.1, -0.2, -0.3]
+        "general": {
+            "name":             ["SC0","SC1","SC2"],
+            "area":             [100.0, 200.0, 300.0],
+            "landCoverPercent": [
+                [20.0,  0.0, 80.0,  0.0,  0.0],
+                [ 0.0, 30.0,  0.0, 30.0, 40.0],
+                [30.0, 10.0, 10.0  ,0.0, 50.0]
+            ]
+        },
+        "hydrology": {
+            "rainfallMultiplier":   [1.1, 1.2, 1.3],
+            "snowfallMultiplier":   [1.01, 1.02, 1.03],
+            "snowfallTemperature":  [0.1,0.2,0.3],
+            "snowmeltTemperature":  [-0.1, -0.2, -0.3]
+        },
+        "soilOrSediment": {},
+        "chemistry": {}
     },
     "reach": {
-        "name":                 ["Reach 1", "Reach 2", "Reach 3"],
-        "latitudeAtOutflow":    [50.1, 50.2, 50.3],
-        "longitudeAtOutflow":   [15.1, 15.2, 15,3],
-        "hasAbstraction":       [false, false, false],
-        "hasEffluent":          [false, false, false],
-        "length":               [10000.0, 20000.0, 30000.0],
-        "widthAtBottom":        [1.1, 2.2, 3.3],
-        "slope":                [1e-06, 2e-06, 3e-06],
-        "Manning": {
+        "general": {
+            "name":                 ["Reach 0", "Reach 1", "Reach 2"],
+            "latitudeAtOutflow":    [50.1, 50.2, 50.3],
+            "longitudeAtOutflow":   [15.1, 15.2, 15,3],
+            "length":               [10000.0, 20000.0, 30000.0],
+            "widthAtBottom":        [1.1, 2.2, 3.3],
+            "slope":                [1e-06, 2e-06, 3e-06],
+            "outflow":              [1, 2, null],
+            "inflows":              [ [null], [0], [1]]
+        },
+        "hydrology": {
+            "hasAbstraction":       [false, false, false],
+            "hasEffluent":          [false, false, false],
+            "Manning": {
                 "a":            [2.71,   2.71,  2.71],
                 "b":            [0.557, 0.557, 0.557],
                 "c":            [0.349, 0.349, 0.349],
                 "f":            [0.341, 0.341, 0.341],
                 "n":            [0.1,   0.1,   0.1]
             }
+        },
+        "soilOrSediment": {},
+        "chemistry": {}
     }
 }
