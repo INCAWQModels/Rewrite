@@ -30,7 +30,45 @@
             "snowfallTemperature":  [-0.1, -0.2, -0.3, -0.4, -0.5],
             "snowmeltTemperature":  [ 0.1,  0.2,  0.3,  0.4,  0.5],
             "snowmeltRate":         [ 1.0,  2.0,  3.0,  4.0,  5.0],
-            "snowDepth":            [ 0.0,  0.0,  0.0,  0.0,  0.0]
+            "snowDepth":            [ 0.0,  0.0,  0.0,  0.0,  0.0],
+            "flowMatrix": 
+            [
+                [   
+                    [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.1, 0.9, 0.0, 0.0],
+                    [0.0, 0.0, 0.1, 0.9, 0.0],
+                    [0.0, 0.0, 0.0, 0.1, 0.9],
+                    [0.0, 0.0, 0.0, 0.0, 1.0]
+                ],
+                [
+                    [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.2, 0.8, 0.0, 0.0],
+                    [0.0, 0.0, 0.2, 0.8, 0.0],
+                    [0.0, 0.0, 0.0, 0.2, 0.8],
+                    [0.0, 0.0, 0.0, 0.0, 1.0]
+                ],
+                [
+                    [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.3, 0.7, 0.0, 0.0],
+                    [0.0, 0.0, 0.3, 0.7, 0.0],
+                    [0.0, 0.0, 0.0, 0.3, 0.7],
+                    [0.0, 0.0, 0.0, 0.0, 1.0]
+                ],
+                [
+                    [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.4, 0.6, 0.0, 0.0],
+                    [0.0, 0.0, 0.4, 0.6, 0.0],
+                    [0.0, 0.0, 0.0, 0.4, 0.6],
+                    [0.0, 0.0, 0.0, 0.0, 1.0]
+                ],
+                [
+                    [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.5, 0.5, 0.0, 0.0],
+                    [0.0, 0.0, 0.5, 0.5, 0.0],
+                    [0.0, 0.0, 0.0, 0.5, 0.5],
+                    [0.0, 0.0, 0.0, 0.0, 1.0]
+                ]
+            ]
         },
         "soilOrSediment": {},
         "chemistry": {},     
@@ -44,13 +82,14 @@
                         "soilTemperatureEffectiveDepth":[5.0, 5.0, 5.0, 5.0, 5.0]
                     },
                     "hydrology": {
-                        "characteristicTimeConstant":   [  1.1,   1.2,   1.3,   1.4,   1.5],
-                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "relativeETIndex":              [0.0, 0.0, 0.0, 0.0, 0.0],
-                        "ETScalingExponent":            [0.0, 0.0, 0.0, 0.0, 0.0]
+                        "characteristicTimeConstant":       [  1.1,   1.2,   1.3,   1.4,   1.5],
+                        "tightlyBoundWaterDepth":           [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":           [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":         [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":                [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":                  [0.0, 0.0, 0.0, 0.0, 0.0],
+                        "ETScalingExponent":                [0.0, 0.0, 0.0, 0.0, 0.0],
+                        "infiltrationThresholdTempeerature":[0.0, 0.0, 0.0, 0.0, 0.0]
                     },
                     "soilOrSediment": {},
                     "chemistry": {}
@@ -60,17 +99,18 @@
                         "name": "Upper unsaturated",
                         "surficial": false,
                         "initialSoilTemperature": 8.0,
-                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                        "soilTemperatureEffectiveDepth":[ 15.0,  15.0,  15.0,  15.0,  15.0]
+                        "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":    [ 15.0,  15.0,  15.0,  15.0,  15.0]
                     },
                     "hydrology": {                    
-                        "characteristicTimeConstant":   [  8.1,   8.2,   8.3,   8.4,   8.5],
-                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
-                        "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0]
+                        "characteristicTimeConstant":       [  8.1,   8.2,   8.3,   8.4,   8.5],
+                        "tightlyBoundWaterDepth":           [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":           [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":         [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":                [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":                  [  0.5,   0.5,   0.5,   0.5,   0.5],
+                        "ETScalingExponent":                [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "infiltrationThresholdTempeerature":[  0.0,   0.0,   0.0,   0.0,   0.0]
                     },
                     "soilOrSediment": {},
                     "chemistry": {}
@@ -80,17 +120,18 @@
                         "name": "Lower unsaturated",
                         "surficial": false,
                         "initialSoilTemperature": 6.0,
-                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                        "soilTemperatureEffectiveDepth":[ 35.0,  35.0,  35.0,  35.0,  35.0] 
+                        "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":    [ 35.0,  35.0,  35.0,  35.0,  35.0] 
                     },
                     "hydrology": {
-                        "characteristicTimeConstant":   [ 15.1,  15.2,  15.3,  15.4,  15.5],
-                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "relativeETIndex":              [  0.5,   0.5,   0.5,   0.5,   0.5],
-                        "ETScalingExponent":            [  1.0,   1.0,   1.0,   1.0,   1.0]
+                        "characteristicTimeConstant":       [ 15.1,  15.2,  15.3,  15.4,  15.5],
+                        "tightlyBoundWaterDepth":           [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":           [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":         [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":                [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":                  [  0.5,   0.5,   0.5,   0.5,   0.5],
+                        "ETScalingExponent":                [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "infiltrationThresholdTempeerature":[  0.0,   0.0,   0.0,   0.0,   0.0]
                     },
                     "soilOrSediment": {},
                     "chemistry": {}
@@ -100,17 +141,18 @@
                         "name": "Groundwater",
                         "surficial": false,
                         "initialSoilTemperature": 4.0,
-                        "relativeAreaIndex":            [  1.0,   1.0,   1.0,   1.0,   1.0],
-                        "soilTemperatureEffectiveDepth":[ 95.0,  95.0,  95.0,  95.0,  95.0]
+                        "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],
+                        "soilTemperatureEffectiveDepth":    [ 95.0,  95.0,  95.0,  95.0,  95.0]
                     },
                     "hydrology": {
-                        "characteristicTimeConstant":   [ 80.1,  80.2,  80.3,  80.4,  80.5],
-                        "tightlyBoundWaterDepth":       [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "looselyBoundWaterDepth":       [ 51.0,  52.0,  53.0,  54.0,  55.0],
-                        "freelyDrainingWaterDepth":     [101.0, 102.0, 103.0, 104.0, 105.0], 
-                        "initialWaterDepth":            [ 21.0,  22.0,  23.0,  24.0,  25.0],
-                        "relativeETIndex":              [  0.0,   0.0,   0.0,   0.0,   0.0],
-                        "ETScalingExponent":            [  0.0,   0.0,   0.0,   0.0,   0.0]
+                        "characteristicTimeConstant":       [ 80.1,  80.2,  80.3,  80.4,  80.5],
+                        "tightlyBoundWaterDepth":           [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "looselyBoundWaterDepth":           [ 51.0,  52.0,  53.0,  54.0,  55.0],
+                        "freelyDrainingWaterDepth":         [101.0, 102.0, 103.0, 104.0, 105.0], 
+                        "initialWaterDepth":                [ 21.0,  22.0,  23.0,  24.0,  25.0],
+                        "relativeETIndex":                  [  0.0,   0.0,   0.0,   0.0,   0.0],
+                        "ETScalingExponent":                [  0.0,   0.0,   0.0,   0.0,   0.0],
+                        "infiltrationThresholdTempeerature":[  0.0,   0.0,   0.0,   0.0,   0.0]
                     },
                     "soilOrSediment": {},
                     "chemistry": {}
