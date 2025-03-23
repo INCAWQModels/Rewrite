@@ -1,44 +1,41 @@
 from math import sin, cos, acos, tan, radians, degrees, pi, log10, exp
+from calendar import isleap
+from datetime import date
 import datetime
 import json
 """Python code to calculate solar radiation prted from INCA SQL code. Original equations are based on those presented in
 Mousavi Maleki, S. A., Hizam, H., & Gomes, C. (2017). Estimation of hourly, daily and monthly global solar radiation on inclined surfaces: Models re-visited. Energies, 10(1), 134.
 """
 
-def sind(in_degrees):
-    """Computes sine of an angle in degrees"""
-    return sin(radians(in_degrees))
-
-def tand(in_degrees):
-    """Computes tangent of an angle in degrees"""
-    return tan(radians(in_degrees))
-
-def calc_solar_noon(in_date, inLatitude, inLongitude):
+def calculateSolarNoon(in_date, latitudeInDegrees, longitudeInDegrees):
     """
     Calculate sunrise and sunset times
     
     Args:
-        in_date: datetime object
-        in_latitude: float, latitude in degrees
-        in_longitude: float, longitude in degrees
+        in_date: datetime object representing a calendar day
+        latitudeInDegrees: float, latitude in degrees
+        longitudeInDegrees: float, longitude in degrees
         
     Returns:
         dict with sunrise and sunset times in minutes from midnight
     """
-    latitudeInRadians = radians(inLatitude)
-    longitudeInRadians = radians(inLongitude)
+    latitudeInRadians = radians(latitudeInDegrees)
+    longitudeInRadians = radians(longitudeInDegrees)
 
     # Get day of year (0-based)
-    day_of_year = in_date.timetuple().tm_yday - 1
-    
+    #day_of_year = in_date.timetuple().tm_yday - 1
+    targetYear=in_date.year
+    dayOfYear =  (in_date - datetime.datetime(targetYear,1,1)).days +1
+
     # Get days in year
-    if in_date.year % 4 == 0 and (in_date.year % 100 != 0 or in_date.year % 400 == 0):
-        days_in_year = 366
+    if (isleap(targetYear)): 
+    #if in_date.year % 4 == 0 and (in_date.year % 100 != 0 or in_date.year % 400 == 0):
+        daysInYear = 366
     else:
-        days_in_year = 365
+        daysInYear = 365
         
     # Calculate gamma (day angle)
-    gamma = 2.0 * pi * day_of_year / days_in_year
+    gamma = 2.0 * pi * dayOfYear / daysInYear
     
     # Calculate equation of time
     eqtime = (229.18 * (0.000075 + 0.001868 * cos(gamma)
@@ -51,19 +48,20 @@ def calc_solar_noon(in_date, inLatitude, inLongitude):
            - 0.002697 * cos(3.0 * gamma) + 0.00148 * sin(3.0 * gamma))
     
     # Hour angle
-    ha = (
+    hourAngle = (
         (acos((cos(radians(90.833)) / (cos(latitudeInRadians)
           * cos(decl))) - tan(latitudeInRadians)
           * tan(decl))) * (180.0 / pi)
           )
     
     # Calculate sunrise and sunset
-    out_sunrise = (720.0 + 4.0 * degrees(longitudeInRadians - ha) - eqtime)
-    out_sunset =  (720.0 + 4.0 * degrees(longitudeInRadians + ha) - eqtime)
+    out_sunrise = (720.0 + 4.0 * degrees(longitudeInRadians - hourAngle) - eqtime)
+    out_sunset =  (720.0 + 4.0 * degrees(longitudeInRadians + hourAngle) - eqtime)
     
+    print('sunrise ', out_sunrise, ' sunset ', out_sunset)
     return {'sunrise': out_sunrise, 'sunset': out_sunset}
 
-def calc_solar_rad(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeInRadians, in_count=0):
+def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeInRadians, in_count=0):
     """
     Calculate solar radiation at a specific time
     
@@ -101,11 +99,8 @@ def calc_solar_rad(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeI
         dec1 = radians(0.39637 - 22.9133 * cos(dec2) + 4.02543 * sin(dec2) \
                - 0.3872 * cos(2.0 * dec2) + 0.052 * sin(2.0 * dec2))
         
-        soleLV = sin(latitudeInRadians) * sin(dec1) - cos(latitudeInRadians) \
-                * cos(dec1) * cos(houra)
-        
-        if soleLV <= 0.005:
-            soleLV = 0.005
+        #check the requirement that soleLV be a small positive number
+        soleLV = min( sin(latitudeInRadians) * sin(dec1) - cos(latitudeInRadians) * cos(dec1) * cos(houra), 0.005 )
         
         am = 1.0 / soleLV
         aa = 0.128 - 0.054 * log10(am)
@@ -116,7 +111,7 @@ def calc_solar_rad(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeI
     
     return {'srad': srad, 'count': in_count}
 
-def calc_solar(in_latitude, in_longitude, in_start_date, in_step_size, in_step_count):
+def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, in_step_size, in_step_count):
     """
     Calculate solar radiation over a period of time
     
@@ -135,7 +130,7 @@ def calc_solar(in_latitude, in_longitude, in_start_date, in_step_size, in_step_c
     last_day = 0
     
     # Get initial sunrise and sunset times
-    json_sunrise_sunset = calc_solar_noon(in_start_date, in_latitude, in_longitude)
+    json_sunrise_sunset = calculateSolarNoon(in_start_date, in_latitude, in_longitude)
     sunrise = json_sunrise_sunset['sunrise']
     sunset = json_sunrise_sunset['sunset']
     
@@ -151,7 +146,7 @@ def calc_solar(in_latitude, in_longitude, in_start_date, in_step_size, in_step_c
         
         while current_interval <= num_intervals:
             # Calculate solar radiation for current interval
-            json_sr = calc_solar_rad(curr_date, sunrise, sunset, in_latitude, in_longitude, valid_count)
+            json_sr = calculateSolarRadiation(curr_date, sunrise, sunset, in_latitude, in_longitude, valid_count)
             srad = json_sr['srad']
             valid_count = json_sr['count']
             
@@ -166,7 +161,7 @@ def calc_solar(in_latitude, in_longitude, in_start_date, in_step_size, in_step_c
             
             if current_day > last_day:
                 # Recalculate sunrise and sunset for new day
-                json_sunrise_sunset = calc_solar_noon(curr_date, in_latitude, in_longitude)
+                json_sunrise_sunset = calculateSolarNoon(curr_date, in_latitude, in_longitude)
                 sunrise = json_sunrise_sunset['sunrise']
                 sunset = json_sunrise_sunset['sunset']
                 last_day = current_day
@@ -188,6 +183,13 @@ def calc_solar(in_latitude, in_longitude, in_start_date, in_step_size, in_step_c
         current_step += 1
     
     return srad_results
+
+
+if __name__ == '__main__':
+    #check the various routines
+    print("In main ...")
+    sunriseSunset = calculateSolarNoon(date.today(), 0.0, 30.0)
+    print("Sunrise and sunset: ", sunriseSunset)
 
 # Example usage:
 # latitude = 37.7749
