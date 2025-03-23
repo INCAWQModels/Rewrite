@@ -25,7 +25,10 @@ def calculateSolarNoon(in_date, latitudeInDegrees, longitudeInDegrees):
     # Get day of year (0-based)
     #day_of_year = in_date.timetuple().tm_yday - 1
     targetYear=in_date.year
-    dayOfYear =  (in_date - datetime.datetime(targetYear,1,1)).days +1
+    january_first = datetime.date(in_date.year, 1, 1)
+    
+    # Calculate the difference in days
+    dayOfYear = (in_date - january_first).days
 
     # Get days in year
     if (isleap(targetYear)): 
@@ -51,7 +54,8 @@ def calculateSolarNoon(in_date, latitudeInDegrees, longitudeInDegrees):
     hourAngle = (
         (acos((cos(radians(90.833)) / (cos(latitudeInRadians)
           * cos(decl))) - tan(latitudeInRadians)
-          * tan(decl))) * (180.0 / pi)
+          * tan(decl))) 
+          #* (180.0 / pi)
           )
     
     # Calculate sunrise and sunset
@@ -187,8 +191,7 @@ def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, 
 
 if __name__ == '__main__':
     #check the various routines
-    print("In main ...")
-    sunriseSunset = calculateSolarNoon(date.today(), 0.0, 30.0)
+    sunriseSunset = calculateSolarNoon(date.today(), 40.0, 30.0)
     print("Sunrise and sunset: ", sunriseSunset)
 
 # Example usage:
