@@ -1,4 +1,5 @@
 from math import sin, cos, acos, tan, radians, degrees, pi, log10, exp
+from csv import DictWriter
 from calendar import isleap
 from datetime import date
 import datetime
@@ -7,7 +8,7 @@ import json
 Mousavi Maleki, S. A., Hizam, H., & Gomes, C. (2017). Estimation of hourly, daily and monthly global solar radiation on inclined surfaces: Models re-visited. Energies, 10(1), 134.
 """
 
-def calculateSolarNoon(in_date, latitudeInDegrees, longitudeInDegrees):
+def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
     """
     Calculate sunrise and sunset times
     
@@ -58,12 +59,11 @@ def calculateSolarNoon(in_date, latitudeInDegrees, longitudeInDegrees):
           #* (180.0 / pi)
           )
     
-    # Calculate sunrise and sunset
+    # Calculate sunrise and sunset in minutes from midnight
     out_sunrise = (720.0 + 4.0 * degrees(longitudeInRadians - hourAngle) - eqtime)
     out_sunset =  (720.0 + 4.0 * degrees(longitudeInRadians + hourAngle) - eqtime)
     
-    print('sunrise ', out_sunrise, ' sunset ', out_sunset)
-    return {'sunrise': out_sunrise, 'sunset': out_sunset}
+    return {'date': in_date, 'sunrise': out_sunrise, 'sunset': out_sunset}
 
 def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeInRadians, in_count=0):
     """
@@ -134,7 +134,7 @@ def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, 
     last_day = 0
     
     # Get initial sunrise and sunset times
-    json_sunrise_sunset = calculateSolarNoon(in_start_date, in_latitude, in_longitude)
+    json_sunrise_sunset = calculateSunriseAndSunset(in_start_date, in_latitude, in_longitude)
     sunrise = json_sunrise_sunset['sunrise']
     sunset = json_sunrise_sunset['sunset']
     
@@ -191,8 +191,20 @@ def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, 
 
 if __name__ == '__main__':
     #check the various routines
-    sunriseSunset = calculateSolarNoon(date.today(), 40.0, 30.0)
-    print("Sunrise and sunset: ", sunriseSunset)
+    
+    startDate=datetime.date(2023,1,1)
+    endDate=datetime.date(2024,1,1)
+    dateRange = [startDate + datetime.timedelta(days=delta) for delta in range((endDate - startDate).days + 1)]
+
+    csvFile="sunriseSunset.csv"
+    d = calculateSunriseAndSunset(date.today(), 62.0, -15.0)
+    fields = list(d.keys())
+
+    with open(csvFile, mode='w', newline='') as file:
+        writer=DictWriter(file, fields)
+        writer.writeheader()
+        for res_date in dateRange:
+            writer.writerow(calculateSunriseAndSunset(res_date, 60.0, 30.0))
 
 # Example usage:
 # latitude = 37.7749
