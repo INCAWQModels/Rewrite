@@ -20,7 +20,9 @@ class Subcatchment:
             executor.map(self.catchment.sub)
 
     
-    def __init__(self, pars,subCatchmentIndex):
+    def __init__(self, pars,subCatchmentIndex):#geographical coordinates of the outflow
+        self.latitude=pars.parameters["subcatchment"]["general"]["latitudeAtOutflow"][subCatchmentIndex]
+        self.longitude=pars.parameters["subcatchment"]["general"]["longitudeAtOutflow"][subCatchmentIndex]
 
         landCoverCount=pars.parameters['landCover'].__len__()
         

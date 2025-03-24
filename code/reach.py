@@ -16,10 +16,6 @@ class Reach:
 
         self.inflows = []   #fix later
 
-        #geographical coordinates of the outflow
-        self.latitude=pars.parameters["reach"]["general"]["latitudeAtOutflow"][reachIndex]
-        self.longitude=pars.parameters["reach"]["general"]["longitudeAtOutflow"][reachIndex]
-
         self.hasChemicals=False #flag variable to simplify decision making
         Chemical.addChemicals(self,pars)
 

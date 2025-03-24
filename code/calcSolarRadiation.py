@@ -18,21 +18,15 @@ def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
         longitudeInDegrees: float, longitude in degrees
         
     Returns:
-        dict with sunrise and sunset times in minutes from midnight
+        dictionary with date, sunrise and sunset times in minutes from midnight
     """
     latitudeInRadians = radians(latitudeInDegrees)
     longitudeInRadians = radians(longitudeInDegrees)
 
-    # Get day of year (0-based)
-    #day_of_year = in_date.timetuple().tm_yday - 1
-    targetYear=in_date.year
-    january_first = datetime.date(in_date.year, 1, 1)
     
-    # Calculate the difference in days
-    dayOfYear = (in_date - january_first).days
-
-    # Get days in year
-    if (isleap(targetYear)): 
+    dayOfYear = in_date.timetuple().tm_yday
+    
+    if (isleap(in_date.timetuple().tm_year)): 
     #if in_date.year % 4 == 0 and (in_date.year % 100 != 0 or in_date.year % 400 == 0):
         daysInYear = 366
     else:
@@ -56,7 +50,6 @@ def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
         (acos((cos(radians(90.833)) / (cos(latitudeInRadians)
           * cos(decl))) - tan(latitudeInRadians)
           * tan(decl))) 
-          #* (180.0 / pi)
           )
     
     # Calculate sunrise and sunset in minutes from midnight
@@ -65,7 +58,7 @@ def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
     
     return {'date': in_date, 'sunrise': out_sunrise, 'sunset': out_sunset}
 
-def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, longitudeInRadians, in_count=0):
+def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, in_count=0):
     """
     Calculate solar radiation at a specific time
     
@@ -91,10 +84,10 @@ def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, l
     # Only calculate solar radiation during daylight
     if time_fraction > in_sunrise and time_fraction < in_sunset:
         # Hour angle in radians
-        houra = 2.0 * pi * time_fraction / (24.0 * 60.0)
+        hourAngle = 2.0 * pi * time_fraction / (24.0 * 60.0)
         
         # Get days in year
-        if in_date.year % 4 == 0 and (in_date.year % 100 != 0 or in_date.year % 400 == 0):
+        if (isleap(in_date.timetuple().tm_year)): 
             days_in_year = 366
         else:
             days_in_year = 365
@@ -104,7 +97,7 @@ def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, l
                - 0.3872 * cos(2.0 * dec2) + 0.052 * sin(2.0 * dec2))
         
         #check the requirement that soleLV be a small positive number
-        soleLV = min( sin(latitudeInRadians) * sin(dec1) - cos(latitudeInRadians) * cos(dec1) * cos(houra), 0.005 )
+        soleLV = min( sin(latitudeInRadians) * sin(dec1) - cos(latitudeInRadians) * cos(dec1) * cos(hourAngle), 0.005 )
         
         am = 1.0 / soleLV
         aa = 0.128 - 0.054 * log10(am)
@@ -165,9 +158,9 @@ def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, 
             
             if current_day > last_day:
                 # Recalculate sunrise and sunset for new day
-                json_sunrise_sunset = calculateSolarNoon(curr_date, in_latitude, in_longitude)
-                sunrise = json_sunrise_sunset['sunrise']
-                sunset = json_sunrise_sunset['sunset']
+                sunriseSunset = calculateSunriseAndSunset(curr_date, in_latitude, in_longitude)
+                sunrise = sunriseSunset['sunrise']
+                sunset = sunriseSunset['sunset']
                 last_day = current_day
             
             current_interval += 1
@@ -192,8 +185,8 @@ def calculateSolarRadiationTimeSeries(in_latitude, in_longitude, in_start_date, 
 if __name__ == '__main__':
     #check the various routines
     
-    startDate=datetime.date(2023,1,1)
-    endDate=datetime.date(2024,1,1)
+    startDate=datetime.date(2024,1,1)
+    endDate=datetime.date(2025,1,1)
     dateRange = [startDate + datetime.timedelta(days=delta) for delta in range((endDate - startDate).days + 1)]
 
     csvFile="sunriseSunset.csv"
@@ -204,15 +197,4 @@ if __name__ == '__main__':
         writer=DictWriter(file, fields)
         writer.writeheader()
         for res_date in dateRange:
-            writer.writerow(calculateSunriseAndSunset(res_date, 60.0, 30.0))
-
-# Example usage:
-# latitude = 37.7749
-# longitude = -122.4194
-# start_date = datetime.datetime(2025, 3, 22, 8, 0, 0)  # March 22, 2025, 8:00 AM
-# step_size = 3600  # 1 hour in seconds
-# step_count = 24  # Calculate for 24 hours
-# 
-# results = calc_solar(latitude, longitude, start_date, step_size, step_count)
-# for result in results:
-#     print(f"Time: {result['timestep']}, Solar Radiation: {result['srad']:.2f}")
+            writer.writerow(calculateSunriseAndSunset(res_date, 65.0, 30.0))
