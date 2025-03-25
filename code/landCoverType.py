@@ -33,6 +33,11 @@ class LandCoverType:
         for i in range(bucketCount):
             self.buckets.append(Bucket(pars,landCoverIndex,i))
 
+        #create the flow matrix (square matrix)
+        self.flowMatrix = []
+        for i in range(bucketCount):
+            self.flowMatrix.append(pars.parameters['landCover']['hydrology']['flowMatrix'][i])
+
         self.snowmeltRate = pars.parameters['landCover']['hydrology']['snowmeltRate'][landCoverIndex] / daysPerStep
         self.snowmeltDepth=0.0
         self.snowDepth=pars.parameters['landCover']['hydrology']['snowDepth'][landCoverIndex]

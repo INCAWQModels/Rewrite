@@ -8,6 +8,13 @@ import json
 Mousavi Maleki, S. A., Hizam, H., & Gomes, C. (2017). Estimation of hourly, daily and monthly global solar radiation on inclined surfaces: Models re-visited. Energies, 10(1), 134.
 """
 
+def daysInYear(in_date):
+    daysInYear=365
+    if (isleap(in_date.timetuple().tm_year)) : 
+        daysInYear = 366
+    else: pass
+    return daysInYear
+
 def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
     """
     Calculate sunrise and sunset times
@@ -23,17 +30,10 @@ def calculateSunriseAndSunset(in_date, latitudeInDegrees, longitudeInDegrees):
     latitudeInRadians = radians(latitudeInDegrees)
     longitudeInRadians = radians(longitudeInDegrees)
 
-    
     dayOfYear = in_date.timetuple().tm_yday
-    
-    if (isleap(in_date.timetuple().tm_year)): 
-    #if in_date.year % 4 == 0 and (in_date.year % 100 != 0 or in_date.year % 400 == 0):
-        daysInYear = 366
-    else:
-        daysInYear = 365
         
     # Calculate gamma (day angle)
-    gamma = 2.0 * pi * dayOfYear / daysInYear
+    gamma = 2.0 * pi * dayOfYear / daysInYear(in_date)
     
     # Calculate equation of time
     eqtime = (229.18 * (0.000075 + 0.001868 * cos(gamma)
@@ -86,13 +86,7 @@ def calculateSolarRadiation(in_date, in_sunrise, in_sunset, latitudeInRadians, i
         # Hour angle in radians
         hourAngle = 2.0 * pi * time_fraction / (24.0 * 60.0)
         
-        # Get days in year
-        if (isleap(in_date.timetuple().tm_year)): 
-            days_in_year = 366
-        else:
-            days_in_year = 365
-        
-        dec2 = radians(360.0 * julian_day / days_in_year)
+        dec2 = radians(360.0 * julian_day / daysInYear(in_date))
         dec1 = radians(0.39637 - 22.9133 * cos(dec2) + 4.02543 * sin(dec2) \
                - 0.3872 * cos(2.0 * dec2) + 0.052 * sin(2.0 * dec2))
         
