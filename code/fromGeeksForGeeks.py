@@ -13,6 +13,10 @@ label1 = Label(root, text = "This is the root window")
 # define a function for 2nd toplevel 
 # window which is not associated with 
 # any parent window
+
+def doNothing():
+	pass
+
 def open_Toplevel2(): 
 	
 	# Create widget
@@ -32,9 +36,20 @@ def open_Toplevel2():
 	button = Button(top2, text = "Exit", 
 					command = top2.destroy)
 	
+	menuBar = Menu(top2)
+	editMenu=Menu(menuBar,tearoff=0)
+	editMenu.add_command(label="Land Cover",command=doNothing)
+	editMenu.add_command(label="Reach",command=doNothing)
+	editMenu.add_command(label="Subcatchment",command=doNothing)
+	editMenu.add_separator()
+	editMenu.add_command(label="Exit",command=top2.destroy)
+	menuBar.add_cascade(label="Top2Edit",menu=editMenu)
+	top2.config(menu=menuBar)
+	
 	label.pack()
 	button.pack()
 	
+	top2.attributes("-topmost", 1)
 	# Display until closed manually.
 	top2.mainloop()
 	
@@ -67,6 +82,16 @@ def open_Toplevel1():
 	button2.pack()
 	button1.pack()
 	
+	menuBar = Menu(top1)
+	editMenu=Menu(menuBar,tearoff=0)
+	editMenu.add_command(label="Land Cover",command=doNothing)
+	editMenu.add_command(label="Reach",command=doNothing)
+	editMenu.add_command(label="Subcatchment",command=doNothing)
+	editMenu.add_separator()
+	editMenu.add_command(label="Exit",command=top1.destroy)
+	menuBar.add_cascade(label="Top1Edit",menu=editMenu)
+	top1.config(menu=menuBar)
+
 	# Display until closed manually
 	top1.mainloop()
 
@@ -77,6 +102,16 @@ label1.pack()
 
 # position the button
 button.place(x = 155, y = 50)
+
+menuBar = Menu(root)
+editMenu=Menu(menuBar,tearoff=0)
+editMenu.add_command(label="Land Cover",command=doNothing)
+editMenu.add_command(label="Reach",command=doNothing)
+editMenu.add_command(label="Subcatchment",command=doNothing)
+editMenu.add_separator()
+editMenu.add_command(label="Exit",command=root.quit)
+menuBar.add_cascade(label="RootEdit",menu=editMenu)
+root.config(menu=menuBar)
 
 # Display until closed manually
 root.mainloop()
