@@ -1,9 +1,32 @@
 from tkinter import *
 from tkinter import ttk
 
-root = Tk() 
-root.title("INCA UI demo") 
-root.geometry("450x300") 
+class demo1():
+    def __init__(self, master):
+        self.master = master
+        self.frame = Frame(self.master)
+        self.button1 = Button(self.frame, text = 'Exit', width = 25, command = self.exit)
+        self.button1.pack()
+        self.frame.pack()
+
+    def exit(self):
+        pass
+
+        """
+        menuBar = Menu(self)
+        editMenu=Menu(menuBar,tearoff=0)
+        editMenu.add_command(label="Land Cover",command=open_landCover)
+        editMenu.add_command(label="Reach",command=open_reach)
+        editMenu.add_command(label="Subcatchment",command=open_subcatchment)
+        editMenu.add_separator()
+        editMenu.add_command(label="Exit",command=root.quit)
+        menuBar.add_cascade(label="Edit",menu=editMenu)
+        self.config(menu=menuBar)
+
+        def new_window(self):
+            self.newWindow = tk.Toplevel(self.master)
+            self.app = Demo2(self.newWindow)
+		
 
 def doNothing():
 	pass
@@ -66,16 +89,10 @@ def open_landCover():
 	landCover.attributes("-topmost", 1)
 	# Display until closed manually
 	landCover.mainloop()
+"""
 
-menuBar = Menu(root)
-editMenu=Menu(menuBar,tearoff=0)
-editMenu.add_command(label="Land Cover",command=open_landCover)
-editMenu.add_command(label="Reach",command=open_reach)
-editMenu.add_command(label="Subcatchment",command=open_subcatchment)
-editMenu.add_separator()
-editMenu.add_command(label="Exit",command=root.quit)
-menuBar.add_cascade(label="Edit",menu=editMenu)
-root.config(menu=menuBar)
-
-# Display until closed manually
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    root.title("INCA UI demo using classes")
+    app = demo1(root)
+    root.mainloop()
