@@ -1,27 +1,68 @@
 from tkinter import *
+from tkinter import messagebox
 from tkinter import ttk
 
-class demo1():
+def do_nothing():
+    pass
+
+def on_closing():
+        if  messagebox.askokcancel("Quit", "Do you want to quit?"):
+            root.destroy()
+
+class mainINCAWindow(Tk):
+    
+    def __init__(self):
+        super().__init__()
+
+        self.title("INCA UI demo (not complete!)")
+        self.a_frame = FrameWithMenu(self)
+        self.create_menu()
+        self.protocol("WM_DELETE_WINDOW", on_closing)
+    
+    def create_menu(self):
+        self.menubar = Menu(self)
+        editMenu=Menu(self.menubar,tearoff=0)
+        editMenu.add_command(label="Land Cover",command=do_nothing)
+        editMenu.add_command(label="Reach",command=do_nothing)
+        editMenu.add_command(label="Subcatchment",command=do_nothing)
+        editMenu.add_separator()
+        editMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Edit",menu=editMenu)
+        self['menu'] = self.menubar
+
+    
+class FrameWithMenu(Frame):
     def __init__(self, master):
+        super().__init__(master)
+
+    def replace_menu(self):
+        """ Overwrite parent's menu if parent's class name is in _valid_cls_names.
+        """
+
+        _parent_cls_name = type(self.master).__name__
+        _valid_cls_names = ("Tk", "Toplevel", "Root")
+        if _parent_cls_name in _valid_cls_names:
+            self.menubar = Menu(self)
+            self.menubar.add_command(label="Frame", command=self.master.create_menu)
+            self.master['menu'] = self.menubar
+
+    
+    """def __init__(self, master):
         self.master = master
         self.frame = Frame(self.master)
         self.button1 = Button(self.frame, text = 'Exit', width = 25, command = self.exit)
         self.button1.pack()
         self.frame.pack()
 
-    def exit(self):
-        pass
-
-        """
-        menuBar = Menu(self)
-        editMenu=Menu(menuBar,tearoff=0)
-        editMenu.add_command(label="Land Cover",command=open_landCover)
-        editMenu.add_command(label="Reach",command=open_reach)
-        editMenu.add_command(label="Subcatchment",command=open_subcatchment)
+        self.menuBar=Menu(self.frame)
+        editMenu=Menu(self.menuBar,tearoff=0)
+        editMenu.add_command(label="Land Cover",command=do_nothing)
+        editMenu.add_command(label="Reach",command=do_nothing)
+        editMenu.add_command(label="Subcatchment",command=do_nothing)
         editMenu.add_separator()
         editMenu.add_command(label="Exit",command=root.quit)
-        menuBar.add_cascade(label="Edit",menu=editMenu)
-        self.config(menu=menuBar)
+        self.menuBar.add_cascade(label="Edit",menu=editMenu)
+        self.menuBar.config(menu=self.menuBar)
 
         def new_window(self):
             self.newWindow = tk.Toplevel(self.master)
@@ -92,7 +133,5 @@ def open_landCover():
 """
 
 if __name__ == "__main__":
-    root = Tk()
-    root.title("INCA UI demo using classes")
-    app = demo1(root)
+    root = mainINCAWindow()
     root.mainloop()
