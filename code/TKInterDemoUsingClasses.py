@@ -9,6 +9,14 @@ def on_closing():
         if  messagebox.askokcancel("Quit", "Do you want to quit?"):
             root.destroy()
 
+class landCoverWindow(Toplevel):
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('300x100')
+        self.title("Land Cover")
+
 class mainINCAWindow(Tk):
     
     def __init__(self):
@@ -22,7 +30,7 @@ class mainINCAWindow(Tk):
     def create_menu(self):
         self.menubar = Menu(self)
         editMenu=Menu(self.menubar,tearoff=0)
-        editMenu.add_command(label="Land Cover",command=do_nothing)
+        editMenu.add_command(label="Land Cover",command=self.openLandCoverWindow)
         editMenu.add_command(label="Reach",command=do_nothing)
         editMenu.add_command(label="Subcatchment",command=do_nothing)
         editMenu.add_separator()
@@ -30,7 +38,11 @@ class mainINCAWindow(Tk):
         self.menubar.add_cascade(label="Edit",menu=editMenu)
         self['menu'] = self.menubar
 
-    
+    def openLandCoverWindow(self):
+        landCoverWindow = Toplevel(self)
+        landCoverWindow.grab_set()
+
+
 class FrameWithMenu(Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -47,22 +59,8 @@ class FrameWithMenu(Frame):
             self.master['menu'] = self.menubar
 
     
-    """def __init__(self, master):
-        self.master = master
-        self.frame = Frame(self.master)
-        self.button1 = Button(self.frame, text = 'Exit', width = 25, command = self.exit)
-        self.button1.pack()
-        self.frame.pack()
-
-        self.menuBar=Menu(self.frame)
-        editMenu=Menu(self.menuBar,tearoff=0)
-        editMenu.add_command(label="Land Cover",command=do_nothing)
-        editMenu.add_command(label="Reach",command=do_nothing)
-        editMenu.add_command(label="Subcatchment",command=do_nothing)
-        editMenu.add_separator()
-        editMenu.add_command(label="Exit",command=root.quit)
-        self.menuBar.add_cascade(label="Edit",menu=editMenu)
-        self.menuBar.config(menu=self.menuBar)
+    """
+    
 
         def new_window(self):
             self.newWindow = tk.Toplevel(self.master)
