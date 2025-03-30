@@ -43,10 +43,21 @@ class reachWindow(tk.Toplevel):
 
         self.geometry('300x450')
         self.title('Reach Window')
+        self.create_menu(reaches)
 
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
+        
+    def create_menu(self, reaches):
+        self.menubar = tk.Menu(self)
+        chooseReachMenu=tk.Menu(self.menubar,tearoff=0)
+        for reach in reaches:
+            chooseReachMenu.add_command(label=reach, command=do_nothing)
+        chooseReachMenu.add_separator()
+        chooseReachMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Reach",menu=chooseReachMenu)
+        self['menu'] = self.menubar
 
 class landCoverWindow(tk.Toplevel):
     def __init__(self, parent):
@@ -79,6 +90,7 @@ class landCoverWindow(tk.Toplevel):
         chooseLandCoverMenu=tk.Menu(self.menubar,tearoff=0)
         for landCoverType in landCoverTypes:
             chooseLandCoverMenu.add_command(label=landCoverType, command=do_nothing)
+        chooseLandCoverMenu.add_separator()
         chooseLandCoverMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Land Cover",menu=chooseLandCoverMenu)
         self['menu'] = self.menubar

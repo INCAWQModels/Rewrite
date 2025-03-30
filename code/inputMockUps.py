@@ -2,3 +2,6 @@
 
 landCoverTypes = ["Forest","Wetland","Arable","Pasture","Urban"]
 buckets = ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
+
+subcatchments = ["SC 1", "SC 2", "SC 3", "SC 4"]
+reaches = ["Reach 1", "Reach 2", "Reach 3", "Reach 4"]
