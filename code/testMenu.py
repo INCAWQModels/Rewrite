@@ -95,7 +95,32 @@ class landCoverWindow(tk.Toplevel):
         self.menubar.add_cascade(label="Land Cover",menu=chooseLandCoverMenu)
         self['menu'] = self.menubar
 
+class loadParameterSetWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('200x200')
+        self.title('Load Parameter Set')
+
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
+
+class createParameterSetWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('200x200')
+        self.title('Create Parameter Set')
+
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
+
 class App(tk.Tk):
+    
+    parameterSet={}
+
     def __init__(self):
         super().__init__()
 
@@ -125,8 +150,12 @@ class App(tk.Tk):
         self.menubar.add_cascade(label="Run", menu=runMenu)
 
         manageMenu=tk.Menu(self.menubar,tearoff=0)
-        manageMenu.add_command(label="Parameter Sets", command=do_nothing)
+        manageMenu.add_command(label="New Parameter Set", command=self.createParameterSet)
+        manageMenu.add_command(label="Load Parameter Set",command=self.loadParameterSet)
         manageMenu.add_command(label="Time Series",command=do_nothing)
+        manageMenu.add_separator()
+        manageMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Manage", menu=manageMenu)
 
         self['menu'] = self.menubar
 
@@ -146,6 +175,14 @@ class App(tk.Tk):
     def openReachWindow(self):
         r=reachWindow(self)
         r.attributes("-topmost", 1)
+
+    def loadParameterSet(self):
+        l=loadParameterSetWindow(self)
+        l.attributes("-topmost", 1)
+
+    def createParameterSet(self):
+        c=createParameterSetWindow(self)
+        c.attributes("-topmost", 1)
 
 if __name__ == "__main__":
     app = App()
