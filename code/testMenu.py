@@ -6,10 +6,10 @@ from tkinter import messagebox
 from inputMockUps import *
 
 def do_nothing():
-    pass
+    messagebox.showinfo(message="This feature is not yet implemented.")
 
 def on_closing():
-        if  messagebox.askokcancel("Quit", "Do you want to quit?"):
+        if  messagebox.askokcancel(title="Quit",message= "Do you want to quit?"):
             app.destroy()
 
 class subcatchmentWindow(tk.Toplevel):
@@ -62,9 +62,7 @@ class landCoverWindow(tk.Toplevel):
                 text='Close',
                 command=self.destroy).pack(expand=True)
     
-    def list_bucket(event):
-        print("Changed ...")
-
+    
     def makeNotebook(self,buckets):
         frame_width=280
         frame_height=280
@@ -74,7 +72,6 @@ class landCoverWindow(tk.Toplevel):
         for bucket in buckets:
             n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=bucket )
         
-        n.bind('<<NotebookTabChanged>>', lambda: self.list_bucket()) 
         n.pack(fill="both", expand=True)
 
     def create_menu(self,landCoverTypes):
@@ -114,6 +111,10 @@ class App(tk.Tk):
         runMenu.add_command(label="Calibration", command=do_nothing)
         runMenu.add_command(label="Scenario",command=do_nothing)
         self.menubar.add_cascade(label="Run", menu=runMenu)
+
+        manageMenu=tk.Menu(self.menubar,tearoff=0)
+        manageMenu.add_command(label="Parameter Sets", command=do_nothing)
+        manageMenu.add_command(label="Time Series",command=do_nothing)
 
         self['menu'] = self.menubar
 
