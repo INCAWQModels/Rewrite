@@ -2,6 +2,8 @@
 from tkinter import *
 from tkinter import ttk
 
+from inputMockUps import *
+
 root = Tk()
 root.title("INCA Windowing demo")
 root.geometry("600x450")
