@@ -36,8 +36,8 @@ class subcatchmentWindow(tk.Toplevel):
         self.menubar = tk.Menu(self)
         chooseSubcatchmentMenu=tk.Menu(self.menubar,tearoff=0)
         for subcatchment in subcatchments:
-            chooseSubcatchmentMenu.add_command(label=subcatchment, command=do_nothing)
-        chooseSubcatchmentMenu.add_separator()
+            chooseSubcatchmentMenu.add_command(label=subcatchment, command=(lambda subcatchment=subcatchment: messagebox.askquestion(message=subcatchment)))
+            chooseSubcatchmentMenu.add_separator()
         chooseSubcatchmentMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Subcatchment",menu=chooseSubcatchmentMenu)
         self['menu'] = self.menubar
@@ -73,9 +73,8 @@ class reachWindow(tk.Toplevel):
         self.menubar = tk.Menu(self)
 
         chooseReachMenu=tk.Menu(self.menubar, tearoff=0)
-        reachString=tk.StringVar(chooseReachMenu)
         for reach in reaches:
-            chooseReachMenu.add_command(label=reach, command=lambda: messagebox.askquestion(message=reachString.get()))
+            chooseReachMenu.add_command(label=reach, command=(lambda reach=reach: messagebox.askquestion(message=reach)))
         chooseReachMenu.add_separator()
         chooseReachMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Reach",menu=chooseReachMenu)
@@ -111,7 +110,7 @@ class landCoverWindow(tk.Toplevel):
         self.menubar = tk.Menu(self)
         chooseLandCoverMenu=tk.Menu(self.menubar,tearoff=0)
         for landCoverType in landCoverTypes:
-            chooseLandCoverMenu.add_command(label=landCoverType, command=do_nothing)
+            chooseLandCoverMenu.add_command(label=landCoverType, command=(lambda landCoverType=landCoverType: messagebox.askquestion(message=landCoverType)))
         chooseLandCoverMenu.add_separator()
         chooseLandCoverMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Land Cover",menu=chooseLandCoverMenu)
