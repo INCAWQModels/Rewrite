@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
+from copy import deepcopy
+
 from inputMockUps import *
 
 def do_nothing():
@@ -13,19 +15,34 @@ def on_closing():
             app.destroy()
 
 class subcatchmentWindow(tk.Toplevel):
+    
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.selectedSubcatchment = tk.StringVar
         self.geometry('300x450')
         self.title('Subcatchment Window')
-        self.makeNotebook()
+
+        self.make_notebook()
+        self.create_menu(subcatchments)
+
         self.protocol("WM_DELETE_WINDOW", on_closing)        
         
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
-        
-    def makeNotebook(self):
+
+    def create_menu(self, subcatchments):
+        self.menubar = tk.Menu(self)
+        chooseSubcatchmentMenu=tk.Menu(self.menubar,tearoff=0)
+        for subcatchment in subcatchments:
+            chooseSubcatchmentMenu.add_command(label=subcatchment, command=do_nothing)
+        chooseSubcatchmentMenu.add_separator()
+        chooseSubcatchmentMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Subcatchment",menu=chooseSubcatchmentMenu)
+        self['menu'] = self.menubar
+
+    def make_notebook(self):
         #create a notebook to hold some data to input
         frame_width=280
         frame_height=280
@@ -37,12 +54,15 @@ class subcatchmentWindow(tk.Toplevel):
         n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Deposition")
         n.pack(fill="both", expand=True)
 
+
+
 class reachWindow(tk.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
 
         self.geometry('300x450')
         self.title('Reach Window')
+
         self.create_menu(reaches)
 
         ttk.Button(self,
@@ -51,9 +71,11 @@ class reachWindow(tk.Toplevel):
         
     def create_menu(self, reaches):
         self.menubar = tk.Menu(self)
-        chooseReachMenu=tk.Menu(self.menubar,tearoff=0)
+
+        chooseReachMenu=tk.Menu(self.menubar, tearoff=0)
+        reachString=tk.StringVar(chooseReachMenu)
         for reach in reaches:
-            chooseReachMenu.add_command(label=reach, command=do_nothing)
+            chooseReachMenu.add_command(label=reach, command=lambda: messagebox.askquestion(message=reachString.get()))
         chooseReachMenu.add_separator()
         chooseReachMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Reach",menu=chooseReachMenu)
@@ -147,10 +169,12 @@ class App(tk.Tk):
         runMenu=tk.Menu(self.menubar,tearoff=0)
         runMenu.add_command(label="Calibration", command=do_nothing)
         runMenu.add_command(label="Scenario",command=do_nothing)
+        runMenu.add_separator()
+        runMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Run", menu=runMenu)
 
         manageMenu=tk.Menu(self.menubar,tearoff=0)
-        manageMenu.add_command(label="New Parameter Set", command=self.createParameterSet)
+        manageMenu.add_command(label="Create New Parameter Set", command=self.createParameterSet)
         manageMenu.add_command(label="Load Parameter Set",command=self.loadParameterSet)
         manageMenu.add_command(label="Time Series",command=do_nothing)
         manageMenu.add_separator()
