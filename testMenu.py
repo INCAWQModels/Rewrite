@@ -12,30 +12,41 @@ def on_closing():
         if  messagebox.askokcancel(title="Quit",message= "Do you want to quit?"):
             app.destroy()
 
+def make_notebook(parent,tabNames, frame_width=280, frame_height=280):
+        n=ttk.Notebook(parent)
+        for tabName in tabNames:
+            n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=tabName )
+        return n
+
 class subcatchmentWindow(tk.Toplevel):
+    
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.selectedSubcatchment = tk.StringVar
         self.geometry('300x450')
         self.title('Subcatchment Window')
-        self.makeNotebook()
+
+        self.nb=make_notebook(self,subcatchmentTabs)
+        self.nb.pack(fill="both", expand=True)
+
+        self.create_menu(subcatchments)
+
         self.protocol("WM_DELETE_WINDOW", on_closing)        
         
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
-        
-    def makeNotebook(self):
-        #create a notebook to hold some data to input
-        frame_width=280
-        frame_height=280
-        n=ttk.Notebook(self)
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Area")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Direct runoff")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Land use groups")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Constants")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Deposition")
-        n.pack(fill="both", expand=True)
+
+    def create_menu(self, subcatchments):
+        self.menubar = tk.Menu(self)
+        chooseSubcatchmentMenu=tk.Menu(self.menubar,tearoff=0)
+        for subcatchment in subcatchments:
+            chooseSubcatchmentMenu.add_command(label=subcatchment, command=(lambda subcatchment=subcatchment: messagebox.askquestion(message=subcatchment)))
+        chooseSubcatchmentMenu.add_separator()
+        chooseSubcatchmentMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Subcatchment",menu=chooseSubcatchmentMenu)
+        self['menu'] = self.menubar
 
 class reachWindow(tk.Toplevel):
     def __init__(self, parent):
@@ -43,7 +54,11 @@ class reachWindow(tk.Toplevel):
 
         self.geometry('300x450')
         self.title('Reach Window')
+
         self.create_menu(reaches)
+
+        self.nb=make_notebook(self,reachTabs)
+        self.nb.pack(fill="both", expand=True)
 
         ttk.Button(self,
                 text='Close',
@@ -51,9 +66,9 @@ class reachWindow(tk.Toplevel):
         
     def create_menu(self, reaches):
         self.menubar = tk.Menu(self)
-        chooseReachMenu=tk.Menu(self.menubar,tearoff=0)
+        chooseReachMenu=tk.Menu(self.menubar, tearoff=0)
         for reach in reaches:
-            chooseReachMenu.add_command(label=reach, command=do_nothing)
+            chooseReachMenu.add_command(label=reach, command=(lambda reach=reach: messagebox.askquestion(message=reach)))
         chooseReachMenu.add_separator()
         chooseReachMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Reach",menu=chooseReachMenu)
@@ -67,35 +82,54 @@ class landCoverWindow(tk.Toplevel):
         self.title('Land Cover Window')
         
         self.create_menu(landCoverTypes)
-        self.makeNotebook(buckets)
+
+        generalTabs=["General","Snow"]
+        self.nb=make_notebook(self,[*generalTabs, *buckets])
+        self.nb.pack(fill="both", expand=True)
+        
+        for tab in self.nb.tabs():
+            print("Tab :", tab, tab.__name__())
 
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
-    
-    
-    def makeNotebook(self,buckets):
-        frame_width=280
-        frame_height=280
-        n=ttk.Notebook(self)
-        n.add(ttk.Frame(n,width=frame_width, height=frame_height),text="General")
-        n.add(ttk.Frame(n,width=frame_width, height=frame_height),text="Snow")
-        for bucket in buckets:
-            n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=bucket )
-        
-        n.pack(fill="both", expand=True)
 
     def create_menu(self,landCoverTypes):
         self.menubar = tk.Menu(self)
         chooseLandCoverMenu=tk.Menu(self.menubar,tearoff=0)
         for landCoverType in landCoverTypes:
-            chooseLandCoverMenu.add_command(label=landCoverType, command=do_nothing)
+            chooseLandCoverMenu.add_command(label=landCoverType, command=(lambda landCoverType=landCoverType: messagebox.askquestion(message=landCoverType)))
         chooseLandCoverMenu.add_separator()
         chooseLandCoverMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Land Cover",menu=chooseLandCoverMenu)
         self['menu'] = self.menubar
 
+class loadParameterSetWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('200x200')
+        self.title('Load Parameter Set')
+
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
+
+class createParameterSetWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.geometry('200x200')
+        self.title('Create Parameter Set')
+
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
+
 class App(tk.Tk):
+    
+    parameterSet={}
+
     def __init__(self):
         super().__init__()
 
@@ -122,11 +156,17 @@ class App(tk.Tk):
         runMenu=tk.Menu(self.menubar,tearoff=0)
         runMenu.add_command(label="Calibration", command=do_nothing)
         runMenu.add_command(label="Scenario",command=do_nothing)
+        runMenu.add_separator()
+        runMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Run", menu=runMenu)
 
         manageMenu=tk.Menu(self.menubar,tearoff=0)
-        manageMenu.add_command(label="Parameter Sets", command=do_nothing)
+        manageMenu.add_command(label="Create New Parameter Set", command=self.createParameterSet)
+        manageMenu.add_command(label="Load Parameter Set",command=self.loadParameterSet)
         manageMenu.add_command(label="Time Series",command=do_nothing)
+        manageMenu.add_separator()
+        manageMenu.add_command(label="Exit",command=self.quit)
+        self.menubar.add_cascade(label="Manage", menu=manageMenu)
 
         self['menu'] = self.menubar
 
@@ -146,6 +186,14 @@ class App(tk.Tk):
     def openReachWindow(self):
         r=reachWindow(self)
         r.attributes("-topmost", 1)
+
+    def loadParameterSet(self):
+        l=loadParameterSetWindow(self)
+        l.attributes("-topmost", 1)
+
+    def createParameterSet(self):
+        c=createParameterSetWindow(self)
+        c.attributes("-topmost", 1)
 
 if __name__ == "__main__":
     app = App()
