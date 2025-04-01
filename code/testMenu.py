@@ -3,8 +3,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
-from copy import deepcopy
-
 from inputMockUps import *
 
 def do_nothing():
@@ -13,6 +11,15 @@ def do_nothing():
 def on_closing():
         if  messagebox.askokcancel(title="Quit",message= "Do you want to quit?"):
             app.destroy()
+
+def make_notebook(parent, tabNames, frame_width=280, frame_height=280):
+        n=ttk.Notebook(parent)
+        n.style=ttk.Style()
+        n.style.configure("info.TFrame",background='green')
+        for tabName in tabNames:
+            n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=tabName )
+        n.configure(style="info.TFrame")
+        return n
 
 class subcatchmentWindow(tk.Toplevel):
     
@@ -23,7 +30,9 @@ class subcatchmentWindow(tk.Toplevel):
         self.geometry('300x450')
         self.title('Subcatchment Window')
 
-        self.make_notebook()
+        self.nb=make_notebook(self,subcatchmentTabs)
+        self.nb.pack(fill="both", expand=True)
+
         self.create_menu(subcatchments)
 
         self.protocol("WM_DELETE_WINDOW", on_closing)        
@@ -37,24 +46,10 @@ class subcatchmentWindow(tk.Toplevel):
         chooseSubcatchmentMenu=tk.Menu(self.menubar,tearoff=0)
         for subcatchment in subcatchments:
             chooseSubcatchmentMenu.add_command(label=subcatchment, command=(lambda subcatchment=subcatchment: messagebox.askquestion(message=subcatchment)))
-            chooseSubcatchmentMenu.add_separator()
+        chooseSubcatchmentMenu.add_separator()
         chooseSubcatchmentMenu.add_command(label="Exit",command=self.quit)
         self.menubar.add_cascade(label="Subcatchment",menu=chooseSubcatchmentMenu)
         self['menu'] = self.menubar
-
-    def make_notebook(self):
-        #create a notebook to hold some data to input
-        frame_width=280
-        frame_height=280
-        n=ttk.Notebook(self)
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Area")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Direct runoff")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Land use groups")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Constants")
-        n.add(ttk.Frame(n, width=frame_width, height=frame_height), text="Deposition")
-        n.pack(fill="both", expand=True)
-
-
 
 class reachWindow(tk.Toplevel):
     def __init__(self, parent):
@@ -65,13 +60,15 @@ class reachWindow(tk.Toplevel):
 
         self.create_menu(reaches)
 
+        self.nb=make_notebook(self,reachTabs)
+        self.nb.pack(fill="both", expand=True)
+
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
         
     def create_menu(self, reaches):
         self.menubar = tk.Menu(self)
-
         chooseReachMenu=tk.Menu(self.menubar, tearoff=0)
         for reach in reaches:
             chooseReachMenu.add_command(label=reach, command=(lambda reach=reach: messagebox.askquestion(message=reach)))
@@ -88,23 +85,19 @@ class landCoverWindow(tk.Toplevel):
         self.title('Land Cover Window')
         
         self.create_menu(landCoverTypes)
-        self.makeNotebook(buckets)
+
+        generalTabs=["General","Snow"]
+        self.nb=make_notebook(self,[*generalTabs, *buckets])
+        self.nb.pack(fill="both", expand=True)
+        
+        for tab_id in self.nb.tabs():
+            tab_widget=self.nametowidget(tab_id)
+            nb=make_notebook(self,["Runoff","Evaporation","Misc."])
+            nb.pack()
 
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
-    
-    
-    def makeNotebook(self,buckets):
-        frame_width=280
-        frame_height=280
-        n=ttk.Notebook(self)
-        n.add(ttk.Frame(n,width=frame_width, height=frame_height),text="General")
-        n.add(ttk.Frame(n,width=frame_width, height=frame_height),text="Snow")
-        for bucket in buckets:
-            n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=bucket )
-        
-        n.pack(fill="both", expand=True)
 
     def create_menu(self,landCoverTypes):
         self.menubar = tk.Menu(self)
