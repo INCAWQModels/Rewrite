@@ -16,8 +16,10 @@ def make_notebook(parent, tabNames, frame_width=280, frame_height=280):
         n=ttk.Notebook(parent)
         n.style=ttk.Style()
         n.style.configure("info.TFrame",background='green')
+        frames = {}
         for tabName in tabNames:
-            n.add(ttk.Frame(n, width=frame_width, height=frame_height),text=tabName )
+            frames[tabName]=ttk.Frame(n, width=frame_width, height=frame_height)
+            n.add(frame,text=tabName )
         n.configure(style="info.TFrame")
         return n
 
@@ -85,15 +87,27 @@ class landCoverWindow(tk.Toplevel):
         self.title('Land Cover Window')
         
         self.create_menu(landCoverTypes)
+        frames = {}
 
-        generalTabs=["General","Snow"]
-        self.nb=make_notebook(self,[*generalTabs, *buckets])
-        self.nb.pack(fill="both", expand=True)
+        n=ttk.Notebook(self)
+        n.pack(expand=True, fill="both")
+    
+        tabs=["General","Snow"] + buckets
+
+        for landCoverType   in landCoverTypes:  # Creating notebooks
+            frames[landCoverType] = ttk.Frame(n)
+            n.add(frames[landCoverType], text=landCoverType)
         
-        for tab_id in self.nb.tabs():
-            tab_widget=self.nametowidget(tab_id)
-            nb=make_notebook(self,["Runoff","Evaporation","Misc."])
-            nb.pack()
+        # Loop to add nested notebooks and sub-tabs
+
+        for landCoverType in landCoverTypes:  # Creating notebooks
+            nested_n = ttk.Notebook(frames[landCoverType])
+            nested_n.pack(expand=True, fill="both")
+   
+            #may want to add a dictionary here, too
+            for tab in tabs:  # Creating sub-tabs
+                nested_frame = ttk.Frame(nested_n)
+                nested_n.add(nested_frame, text=tab)
 
         ttk.Button(self,
                 text='Close',
