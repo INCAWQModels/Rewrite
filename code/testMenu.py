@@ -19,7 +19,7 @@ def make_notebook(parent, tabNames, frame_width=280, frame_height=280):
         frames = {}
         for tabName in tabNames:
             frames[tabName]=ttk.Frame(n, width=frame_width, height=frame_height)
-            n.add(frame,text=tabName )
+            n.add(frames[tabName],text=tabName )
         n.configure(style="info.TFrame")
         return n
 
