@@ -1,6 +1,6 @@
 """some code to simulate inputs from a parameter set to the tkinter routines"""
 
-landCoverTypes = ["Forest","Wetland","Arable","Pasture","Urban"]
+landCoverTypes = ["Forest","Wetland","Arable","Pasture","Urban","Industrial"]
 buckets = ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
 
 subcatchments = ["SC 1", "SC 2", "SC 3", "SC 4"]

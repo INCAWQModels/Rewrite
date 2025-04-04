@@ -3,7 +3,10 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
-from inputMockUps import *
+from os import path
+
+#from inputMockUps import *
+from parameterSet import *
 
 def do_nothing():
     messagebox.showinfo(message="This feature is not yet implemented.")
@@ -14,13 +17,10 @@ def on_closing():
 
 def make_notebook(parent, tabNames, frame_width=280, frame_height=280):
         n=ttk.Notebook(parent)
-        n.style=ttk.Style()
-        n.style.configure("info.TFrame",background='green')
         frames = {}
         for tabName in tabNames:
             frames[tabName]=ttk.Frame(n, width=frame_width, height=frame_height)
             n.add(frames[tabName],text=tabName )
-        n.configure(style="info.TFrame")
         return n
 
 class subcatchmentWindow(tk.Toplevel):
@@ -32,10 +32,10 @@ class subcatchmentWindow(tk.Toplevel):
         self.geometry('300x450')
         self.title('Subcatchment Window')
 
-        self.nb=make_notebook(self,subcatchmentTabs)
+        self.nb=make_notebook(self,parent.subcatchments)
         self.nb.pack(fill="both", expand=True)
 
-        self.create_menu(subcatchments)
+        self.create_menu(parent.subcatchments)
 
         self.protocol("WM_DELETE_WINDOW", on_closing)        
         
@@ -60,9 +60,9 @@ class reachWindow(tk.Toplevel):
         self.geometry('300x450')
         self.title('Reach Window')
 
-        self.create_menu(reaches)
+        self.create_menu(parent.reaches)
 
-        self.nb=make_notebook(self,reachTabs)
+        self.nb=make_notebook(self,parent.reaches)
         self.nb.pack(fill="both", expand=True)
 
         ttk.Button(self,
@@ -86,21 +86,21 @@ class landCoverWindow(tk.Toplevel):
         self.geometry('300x450')
         self.title('Land Cover Window')
         
-        self.create_menu(landCoverTypes)
+        self.create_menu(parent.localLandCoverTypes)
         frames = {}
 
         n=ttk.Notebook(self)
         n.pack(expand=True, fill="both")
     
-        tabs=["General","Snow"] + buckets
+        tabs=["General","Snow"] + parent.buckets
 
-        for landCoverType   in landCoverTypes:  # Creating notebooks
+        for landCoverType   in parent.localLandCoverTypes:  # Creating notebooks
             frames[landCoverType] = ttk.Frame(n)
             n.add(frames[landCoverType], text=landCoverType)
         
         # Loop to add nested notebooks and sub-tabs
 
-        for landCoverType in landCoverTypes:  # Creating notebooks
+        for landCoverType in parent.localLandCoverTypes:  # Creating notebooks
             nested_n = ttk.Notebook(frames[landCoverType])
             nested_n.pack(expand=True, fill="both")
    
@@ -146,8 +146,6 @@ class createParameterSetWindow(tk.Toplevel):
                 command=self.destroy).pack(expand=True)
 
 class App(tk.Tk):
-    
-    parameterSet={}
 
     def __init__(self):
         super().__init__()
@@ -157,13 +155,24 @@ class App(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", on_closing)
         self.create_menu()
 
-        
+        #make a parameter set, hard coded for now but can fix later
+        fileName='INCAFormatParSet.json'
+        if (path.isfile(fileName) == True):
+            p=ParameterSet(fileName)        
+    
+        #need to sort out buckets in the JSON file
+        self.buckets=["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
+
+        self.landCoverTypes=p.parameters['landCover']['general']['name']
+        self.reaches=p.parameters['reach']['general']['name']
+        self.subcatchments=p.parameters['subcatchment']['general']['name']
+    
     def create_menu(self):
         self.menubar = tk.Menu(self)
         
         editMenu=tk.Menu(self.menubar,tearoff=0)
         editMenu.add_command(label="Land Cover",
-                             command=lambda: self.openLandCoverWindow(landCoverTypes))
+                             command=lambda: self.openLandCoverWindow(self.landCoverTypes))
         editMenu.add_command(label="Reach",
                              command=lambda: self.openReachWindow())
         editMenu.add_command(label="Subcatchment",
