@@ -1,0 +1,594 @@
+{
+    "topLevel_A": {
+        "name": "Top Level A",
+        "secondLevel_1": {
+            "name": "Second Level A",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        },
+        "secondLevel_2": {
+            "name": "Second Level A",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        }
+    },
+    "topLevel_B": {
+        "name": "Top Level B",
+        "secondLevel_1": {
+            "name": "Second Level B",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level B 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level B 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level B 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level B 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level B 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level B 2",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level B 2 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level B 2 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level B 2 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level B 2 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level C 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level C 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level C 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level C 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level C 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        },
+        "secondLevel_2": {
+            "name": "Second Level B",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level B 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        }
+    },   
+    "topLevel_C": {
+        "name": "Top Level C",
+        "secondLevel_1": {
+            "name": "Second Level C",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level C 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level C 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        },
+        "secondLevel_2": {
+            "name": "Second Level A",
+            "a_dictionary": {"one_key": "one_value", "another_key": "another_value"},
+            "thirdLevel_1": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_2": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            },
+            "thirdLevel_3": {
+                "name": "Third Level A 1",
+                "a": "Something else",
+                "b": [2.0, -1.0, 0.0, 3.0],
+                "c": null,
+                "d": {"where": "not here"},
+                "fourthLevel_a": {
+                    "name": "Fourth Level A 1 a",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_b": {
+                    "name": "Fourth Level A 1 b",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_c": {
+                    "name": "Fourth Level A 1 c",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                },
+                "fourthLevel_d": {
+                    "name": "Fourth Level A 1 d",
+                    "x": [1.0, 2.0, 3.0],
+                    "y": "Something",
+                    "z": "01-Jan-2000"
+                }
+            }
+        }
+    }
+
+}
