@@ -15,8 +15,15 @@ def on_closing():
         if  messagebox.askokcancel(title="Quit",message= "Do you want to quit?"):
             app.destroy()
 
+def on_tab_changed(event):
+    selected_tab=event.widget.select()
+    tab_text=event.widget.tab(selected_tab,"text")
+    print("Tab text: ", tab_text)
+
 def make_notebook(parent, tabNames, frame_width=280, frame_height=280):
         n=ttk.Notebook(parent)
+        n.bind("<<NotebookTabChanged>>",on_tab_changed)        
+
         frames = {}
         for tabName in tabNames:
             frames[tabName]=ttk.Frame(n, width=frame_width, height=frame_height)
@@ -90,6 +97,7 @@ class landCoverWindow(tk.Toplevel):
         frames = {}
 
         n=ttk.Notebook(self)
+        n.bind("<<NotebookTabChanged>>",on_tab_changed)
         n.pack(expand=True, fill="both")
     
         tabs=["General","Snow"] + parent.buckets
@@ -102,6 +110,7 @@ class landCoverWindow(tk.Toplevel):
 
         for landCoverType in parent.landCoverTypes:  # Creating notebooks
             nested_n = ttk.Notebook(frames[landCoverType])
+            nested_n.bind("<<NotebookTabChanged>>",on_tab_changed)
             nested_n.pack(expand=True, fill="both")
    
             #may want to add a dictionary here, too
@@ -160,8 +169,8 @@ class App(tk.Tk):
         if (path.isfile(fileName) == True):
             p=ParameterSet(fileName)        
     
+        #still need to find a sensible way to fix this, may need to adjust JSON structure
         self.buckets = ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
-        print(p.parameters['landCover']['bucket'][0]['general']['name'])
         self.landCoverTypes=p.parameters['landCover']['general']['name']
         self.reaches=p.parameters['reach']['general']['name']
         self.subcatchments=p.parameters['subcatchment']['general']['name']
