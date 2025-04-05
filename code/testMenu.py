@@ -86,7 +86,7 @@ class landCoverWindow(tk.Toplevel):
         self.geometry('300x450')
         self.title('Land Cover Window')
         
-        self.create_menu(parent.localLandCoverTypes)
+        self.create_menu(parent.landCoverTypes)
         frames = {}
 
         n=ttk.Notebook(self)
@@ -94,13 +94,13 @@ class landCoverWindow(tk.Toplevel):
     
         tabs=["General","Snow"] + parent.buckets
 
-        for landCoverType   in parent.localLandCoverTypes:  # Creating notebooks
+        for landCoverType   in parent.landCoverTypes:  # Creating notebooks
             frames[landCoverType] = ttk.Frame(n)
             n.add(frames[landCoverType], text=landCoverType)
         
         # Loop to add nested notebooks and sub-tabs
 
-        for landCoverType in parent.localLandCoverTypes:  # Creating notebooks
+        for landCoverType in parent.landCoverTypes:  # Creating notebooks
             nested_n = ttk.Notebook(frames[landCoverType])
             nested_n.pack(expand=True, fill="both")
    
@@ -160,9 +160,8 @@ class App(tk.Tk):
         if (path.isfile(fileName) == True):
             p=ParameterSet(fileName)        
     
-        #need to sort out buckets in the JSON file
-        self.buckets=["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
-
+        self.buckets = ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
+        print(p.parameters['landCover']['bucket'][0]['general']['name'])
         self.landCoverTypes=p.parameters['landCover']['general']['name']
         self.reaches=p.parameters['reach']['general']['name']
         self.subcatchments=p.parameters['subcatchment']['general']['name']
