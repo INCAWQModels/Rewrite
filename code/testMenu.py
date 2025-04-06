@@ -5,7 +5,6 @@ from tkinter import messagebox
 
 from os import path
 
-#from inputMockUps import *
 from parameterSet import *
 
 def do_nothing():
@@ -159,6 +158,8 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
+        self.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
+
         self.geometry('400x600')
         self.title('Main Window')
         self.protocol("WM_DELETE_WINDOW", on_closing)
@@ -213,14 +214,17 @@ class App(tk.Tk):
     def openLandCoverWindow(self,landCoverTypes):
         lc=landCoverWindow(self)
         lc.attributes("-topmost", 1)
+        lc.wm_iconphotoapp(False,tk.PhotoImage(file="incaMan.png"))
 
     def openSubcatchmentWindow(self):
         sc=subcatchmentWindow(self)
         sc.attributes("-topmost", 1)
-
+        sc.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
+        
     def openReachWindow(self):
         r=reachWindow(self)
         r.attributes("-topmost", 1)
+        r.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
 
     def loadParameterSet(self):
         l=loadParameterSetWindow(self)
