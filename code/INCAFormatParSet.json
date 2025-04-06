@@ -12,6 +12,12 @@
         },
         "chemistry": {}
     },
+    "bucket": {
+        "general": {
+            "name": ["Direct Runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"],
+            "abbreviation": ["DR", "US", "LS", "GW"]
+        }
+    },
     "landCover": {
         "general": {
             "name":                 ["Forest", "Urban", "Wetland", "Arable", "Pasture"],
@@ -75,7 +81,6 @@
         "bucket":       [  
                 {
                     "general": {
-                        "name": "Direct Runoff",
                         "surficial": true,
                         "initialSoilTemperature": 10.0,
                         "relativeAreaIndex":            [1.0, 1.0, 1.0, 1.0, 1.0],
@@ -96,7 +101,6 @@
                 },
                 {
                     "general": {
-                        "name": "Upper unsaturated",
                         "surficial": false,
                         "initialSoilTemperature": 8.0,
                         "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],
@@ -117,7 +121,6 @@
                 },
                 {
                     "general": {
-                        "name": "Lower unsaturated",
                         "surficial": false,
                         "initialSoilTemperature": 6.0,
                         "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],
@@ -138,7 +141,6 @@
                 },
                 {
                     "general": {
-                        "name": "Groundwater",
                         "surficial": false,
                         "initialSoilTemperature": 4.0,
                         "relativeAreaIndex":                [  1.0,   1.0,   1.0,   1.0,   1.0],

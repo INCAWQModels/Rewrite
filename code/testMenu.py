@@ -169,8 +169,7 @@ class App(tk.Tk):
         if (path.isfile(fileName) == True):
             p=ParameterSet(fileName)        
     
-        #still need to find a sensible way to fix this, may need to adjust JSON structure
-        self.buckets = ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"]
+        self.buckets = p.parameters['bucket']['general']['name']
         self.landCoverTypes=p.parameters['landCover']['general']['name']
         self.reaches=p.parameters['reach']['general']['name']
         self.subcatchments=p.parameters['subcatchment']['general']['name']
