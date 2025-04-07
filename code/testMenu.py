@@ -6,6 +6,7 @@ from tkinter import messagebox
 from os import path
 
 from parameterSet import *
+from createNewParameterSet import create_new_parameter_set
 
 def do_nothing():
     messagebox.showinfo(message="This feature is not yet implemented.")
@@ -149,6 +150,8 @@ class createParameterSetWindow(tk.Toplevel):
         self.geometry('200x200')
         self.title('Create Parameter Set')
 
+        create_new_parameter_set(self)
+
         ttk.Button(self,
                 text='Close',
                 command=self.destroy).pack(expand=True)
@@ -158,7 +161,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
+        self.wm_iconphoto(True,tk.PhotoImage(file="incaMan.png"))
 
         self.geometry('400x600')
         self.title('Main Window')
@@ -214,17 +217,14 @@ class App(tk.Tk):
     def openLandCoverWindow(self,landCoverTypes):
         lc=landCoverWindow(self)
         lc.attributes("-topmost", 1)
-        lc.wm_iconphotoapp(False,tk.PhotoImage(file="incaMan.png"))
 
     def openSubcatchmentWindow(self):
         sc=subcatchmentWindow(self)
         sc.attributes("-topmost", 1)
-        sc.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
         
     def openReachWindow(self):
         r=reachWindow(self)
         r.attributes("-topmost", 1)
-        r.wm_iconphoto(False,tk.PhotoImage(file="incaMan.png"))
 
     def loadParameterSet(self):
         l=loadParameterSetWindow(self)
