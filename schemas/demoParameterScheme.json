@@ -1,0 +1,587 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "INCA Parameter Set Schema",
+    "description": "Schema for INCA water quality model parameter sets",
+    "type": "object",
+    "required": ["general", "bucket", "landCover", "subcatchment", "reach"],
+    "properties": {
+      "general": {
+        "type": "object",
+        "required": ["name", "creator", "timeStep", "internalTimeStepMultiplier", "startDate", "model", "chemistry"],
+        "properties": {
+          "name": { "type": "string" },
+          "creator": { "type": "string" },
+          "timeStep": { 
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 100.0,
+            "default": 1.0
+          },
+          "internalTimeStepMultiplier": { 
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 100.0,
+            "default": 1.0
+          },
+          "startDate": { "type": "string", "format": "date-time" },
+          "model": {
+            "type": "object",
+            "required": ["repository", "branch", "commit"],
+            "properties": {
+              "repository": { "type": "string", "format": "uri" },
+              "branch": { "type": "string" },
+              "commit": { "type": "string" }
+            }
+          },
+          "chemistry": { "type": "object" }
+        }
+      },
+      "bucket": {
+        "type": "object",
+        "required": ["general"],
+        "properties": {
+          "general": {
+            "type": "object",
+            "required": ["name", "abbreviation"],
+            "properties": {
+              "name": { 
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "abbreviation": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "landCover": {
+        "type": "object",
+        "required": ["general", "hydrology", "soilOrSediment", "chemistry", "bucket"],
+        "properties": {
+          "general": {
+            "type": "object",
+            "required": ["name", "abbreviation", "soilTemperatureModel", "evapotranspirationModel"],
+            "properties": {
+              "name": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "abbreviation": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "soilTemperatureModel": {
+                "type": "object",
+                "required": ["C_s", "K_t", "C_ice", "f_s"],
+                "properties": {
+                  "C_s": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "K_t": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "C_ice": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "f_s": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  }
+                }
+              },
+              "evapotranspirationModel": {
+                "type": "object",
+                "required": ["temperatureOffset", "scalingFactor"],
+                "properties": {
+                  "temperatureOffset": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "scalingFactor": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "hydrology": {
+            "type": "object",
+            "required": [
+              "degreeDayMeltFactor", "rainfallMultiplier", "snowfallMultiplier", 
+              "snowfallTemperature", "snowmeltTemperature", "snowmeltRate",
+              "snowDepth", "flowMatrix"
+            ],
+            "properties": {
+              "degreeDayMeltFactor": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "rainfallMultiplier": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowfallMultiplier": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowfallTemperature": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowmeltTemperature": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowmeltRate": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowDepth": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "flowMatrix": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "soilOrSediment": { "type": "object" },
+          "chemistry": { "type": "object" },
+          "bucket": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["general", "hydrology", "soilOrSediment", "chemistry"],
+              "properties": {
+                "general": {
+                  "type": "object",
+                  "required": ["surficial", "initialSoilTemperature", "relativeAreaIndex", "soilTemperatureEffectiveDepth"],
+                  "properties": {
+                    "surficial": { "type": "boolean" },
+                    "initialSoilTemperature": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    },
+                    "relativeAreaIndex": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "soilTemperatureEffectiveDepth": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    }
+                  }
+                },
+                "hydrology": {
+                  "type": "object",
+                  "required": [
+                    "characteristicTimeConstant", "tightlyBoundWaterDepth", "looselyBoundWaterDepth",
+                    "freelyDrainingWaterDepth", "initialWaterDepth", "relativeETIndex",
+                    "ETScalingExponent", "infiltrationThresholdTemperature"
+                  ],
+                  "properties": {
+                    "characteristicTimeConstant": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "tightlyBoundWaterDepth": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "looselyBoundWaterDepth": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "freelyDrainingWaterDepth": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "initialWaterDepth": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "relativeETIndex": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "ETScalingExponent": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    },
+                    "infiltrationThresholdTemperature": {
+                      "type": "array",
+                      "items": { 
+                        "type": "number",
+                        "minimum": 0.0,
+                        "maximum": 100.0,
+                        "default": 1.0
+                      }
+                    }
+                  }
+                },
+                "soilOrSediment": { "type": "object" },
+                "chemistry": { "type": "object" }
+              }
+            }
+          }
+        }
+      },
+      "subcatchment": {
+        "type": "object",
+        "required": ["general", "hydrology", "soilOrSediment", "chemistry"],
+        "properties": {
+          "general": {
+            "type": "object",
+            "required": ["name", "area", "latitudeAtOutflow", "longitudeAtOutflow", "landCoverPercent"],
+            "properties": {
+              "name": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "area": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "latitudeAtOutflow": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": -90, 
+                  "maximum": 90 
+                }
+              },
+              "longitudeAtOutflow": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": -180, 
+                  "maximum": 180 
+                }
+              },
+              "landCoverPercent": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": { 
+                    "type": "number", 
+                    "minimum": 0.0, 
+                    "maximum": 100.0,
+                    "default": 1.0
+                  }
+                }
+              }
+            }
+          },
+          "hydrology": {
+            "type": "object",
+            "required": ["rainfallMultiplier", "snowfallMultiplier", "snowfallTemperature", "snowmeltTemperature"],
+            "properties": {
+              "rainfallMultiplier": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowfallMultiplier": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowfallTemperature": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "snowmeltTemperature": {
+                "type": "array",
+                "items": { 
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              }
+            }
+          },
+          "soilOrSediment": { "type": "object" },
+          "chemistry": { "type": "object" }
+        }
+      },
+      "reach": {
+        "type": "object",
+        "required": ["general", "hydrology", "soilOrSediment", "chemistry"],
+        "properties": {
+          "general": {
+            "type": "object",
+            "required": ["name", "length", "widthAtBottom", "slope", "outflow", "inflows"],
+            "properties": {
+              "name": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "length": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "widthAtBottom": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "slope": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              },
+              "outflow": {
+                "type": "array",
+                "items": { "type": ["integer", "null"] }
+              },
+              "inflows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": { "type": ["integer", "null"] }
+                }
+              }
+            }
+          },
+          "hydrology": {
+            "type": "object",
+            "required": ["hasAbstraction", "hasEffluent", "Manning", "initialFlow"],
+            "properties": {
+              "hasAbstraction": {
+                "type": "array",
+                "items": { "type": "boolean" }
+              },
+              "hasEffluent": {
+                "type": "array",
+                "items": { "type": "boolean" }
+              },
+              "Manning": {
+                "type": "object",
+                "required": ["a", "b", "c", "f", "n"],
+                "properties": {
+                  "a": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "b": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "c": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "f": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  },
+                  "n": {
+                    "type": "array",
+                    "items": { 
+                      "type": "number", 
+                      "minimum": 0.0,
+                      "maximum": 100.0,
+                      "default": 1.0
+                    }
+                  }
+                }
+              },
+              "initialFlow": {
+                "type": "array",
+                "items": { 
+                  "type": "number", 
+                  "minimum": 0.0,
+                  "maximum": 100.0,
+                  "default": 1.0
+                }
+              }
+            }
+          },
+          "soilOrSediment": { "type": "object" },
+          "chemistry": { "type": "object" }
+        }
+      }
+    }
+  }
