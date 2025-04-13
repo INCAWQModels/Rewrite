@@ -1,6 +1,5 @@
 import math
 from datetime import datetime, timedelta
-import matplotlib.pyplot as plt
 from timeSeries import TimeSeries
 
 def solar_declination(day_of_year):
@@ -92,35 +91,6 @@ def compute_radiation_timeseries(start_time, end_time, step_seconds, latitude, l
     
     return ts
 
-def plot_radiation(times, radiation):
-    hours_since_start = [(t - times[0]).total_seconds() / 3600 for t in times]
-
-    plt.figure(figsize=(12, 6))
-    plt.plot(hours_since_start, radiation, color='orange', linewidth=1.5)
-    plt.fill_between(hours_since_start, radiation, color='orange', alpha=0.3)
-    plt.title("Solar Radiation Over Time")
-    plt.xlabel("Time (hours since start)")
-    plt.ylabel("Solar Radiation (W/m²)")
-    plt.grid(True, linestyle='--', alpha=0.6)
-    plt.tight_layout()
-    plt.show()
-
-def plot_timeseries_radiation(ts):
-    """
-    Plot radiation data from a TimeSeries object
-    
-    Args:
-        ts: TimeSeries object containing solar radiation data
-    """
-    times = []
-    radiation = []
-    
-    for row in ts.data:
-        times.append(row[0])  # timestamp
-        radiation.append(row[2])  # solar radiation value
-    
-    plot_radiation(times, radiation)
-
 # Example usage
 if __name__ == "__main__":
     # User input
@@ -157,9 +127,3 @@ if __name__ == "__main__":
         location = row[1]
         solar_radiation = row[2]
         print(f"  {timestamp.strftime('%Y-%m-%d %H:%M:%S')} at {location}: {solar_radiation:.2f} W/m²")
-    
-    # Plot using the original function
-    plot_radiation(times, radiation)
-    
-    # Plot using the TimeSeries function
-    plot_timeseries_radiation(ts)
