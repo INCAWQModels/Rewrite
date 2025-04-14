@@ -1,5 +1,6 @@
 import datetime
 import math
+import timeSeries
 
 def calculate_pet(solar_ts, temp_ts, method="priestley-taylor", solar_column="solar_radiation", 
                  temp_column="air_temperature", jh_offset=3.0, scaling_factor=1.0):
@@ -28,7 +29,7 @@ def calculate_pet(solar_ts, temp_ts, method="priestley-taylor", solar_column="so
     method_name = "Priestley Taylor" if method.lower() == "priestley-taylor" else "Jensen-Haise McGuinness"
     
     # Create a new TimeSeries object for the output
-    output_ts = TimeSeries()
+    output_ts = timeSeries.TimeSeries()
     
     # Get latitude from solar time series metadata
     if "latitude" not in solar_ts.metadata:

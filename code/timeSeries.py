@@ -1,4 +1,6 @@
 import datetime
+import csv
+import json
 from collections import defaultdict
 
 class TimeSeries:
@@ -13,14 +15,21 @@ class TimeSeries:
     2. A dictionary for storing metadata about the time series
     """
     
-    def __init__(self):
-        """Initialize an empty TimeSeries object."""
+    def __init__(self, name=None):
+        """
+        Initialize an empty TimeSeries object.
+        
+        Parameters:
+        name (str, optional): Name of the TimeSeries object
+        """
         # Create an empty list for data rows
         self.data = []
         # Store column names
         self.columns = ["timestamp", "location"]
         # Create an empty dictionary for metadata
         self.metadata = {}
+        # Set the name of the TimeSeries object
+        self.name = name
     
     def add_column(self, column_name):
         """
@@ -157,9 +166,54 @@ class TimeSeries:
                     
         return dict(result)
     
+    def save_to_files(self, name=None):
+        """
+        Save the TimeSeries data to CSV and metadata to JSON files.
+        
+        Parameters:
+        name (str, optional): Base name for the output files. If not provided, 
+                             uses the TimeSeries object's name attribute.
+                             
+        Returns:
+        tuple: Paths to the created CSV and JSON files
+        
+        Raises:
+        ValueError: If no name is provided and the TimeSeries object has no name
+        """
+        # Determine the base name for files
+        base_name = name or self.name
+        if not base_name:
+            raise ValueError("No name provided for output files and TimeSeries object has no name")
+        
+        # Create filenames
+        csv_filename = f"{base_name}.csv"
+        json_filename = f"{base_name}.json"
+        
+        # Save data to CSV
+        with open(csv_filename, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            # Write header
+            writer.writerow(self.columns)
+            # Write data rows with datetime objects converted to ISO format strings
+            for row in self.data:
+                formatted_row = []
+                for i, value in enumerate(row):
+                    if i == 0 and isinstance(value, datetime.datetime):  # Convert timestamp
+                        formatted_row.append(value.isoformat())
+                    else:
+                        formatted_row.append(value)
+                writer.writerow(formatted_row)
+        
+        # Save metadata to JSON
+        with open(json_filename, 'w') as jsonfile:
+            json.dump(self.metadata, jsonfile, indent=4)
+        
+        return csv_filename, json_filename
+    
     def __str__(self):
         """Return a string representation of the TimeSeries object."""
-        data_info = f"TimeSeries with {len(self.data)} rows and {len(self.columns)} columns"
+        name_info = f"TimeSeries '{self.name}'" if self.name else "Unnamed TimeSeries"
+        data_info = f"with {len(self.data)} rows and {len(self.columns)} columns"
         meta_info = f"Metadata: {len(self.metadata)} entries"
         column_info = f"Columns: {', '.join(self.columns)}"
-        return f"{data_info}\n{column_info}\n{meta_info}"
+        return f"{name_info} {data_info}\n{column_info}\n{meta_info}"
