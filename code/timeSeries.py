@@ -217,3 +217,89 @@ class TimeSeries:
         meta_info = f"Metadata: {len(self.metadata)} entries"
         column_info = f"Columns: {', '.join(self.columns)}"
         return f"{name_info} {data_info}\n{column_info}\n{meta_info}"
+    
+    @staticmethod
+    def merge(ts1, ts2, name=None):
+        """
+        Merge two TimeSeries objects into a new one.
+        
+        This function creates a "backbone" of all timestamp/location combinations
+        from both input TimeSeries, and merges their data columns and metadata.
+        
+        Parameters:
+        ts1 (TimeSeries): First TimeSeries object
+        ts2 (TimeSeries): Second TimeSeries object
+        name (str, optional): Name for the merged TimeSeries
+        
+        Returns:
+        TimeSeries: A new TimeSeries object containing merged data
+        """
+        if not isinstance(ts1, TimeSeries) or not isinstance(ts2, TimeSeries):
+            raise TypeError("Both arguments must be TimeSeries objects")
+        
+        # Create a new TimeSeries object
+        merged_ts = TimeSeries(name)
+        
+        # Merge metadata
+        for key, value in ts1.metadata.items():
+            merged_ts.add_metadata(key, value)
+        for key, value in ts2.metadata.items():
+            merged_ts.add_metadata(key, value)
+        
+        # Create a set of all column names (excluding timestamp and location)
+        data_columns = set()
+        for col in ts1.columns[2:]:  # Skip timestamp and location
+            data_columns.add(col)
+        for col in ts2.columns[2:]:  # Skip timestamp and location
+            data_columns.add(col)
+        
+        # Add all columns to the merged TimeSeries
+        for col in data_columns:
+            merged_ts.add_column(col)
+        
+        # Create a dictionary to store data points by (timestamp, location) tuple
+        data_points = {}
+        
+        # Process data from ts1
+        timestamp_idx1 = ts1.columns.index("timestamp")
+        location_idx1 = ts1.columns.index("location")
+        
+        for row in ts1.data:
+            timestamp = row[timestamp_idx1]
+            location = row[location_idx1]
+            key = (timestamp, location)
+            
+            # Create a dictionary to hold the values for this row
+            if key not in data_points:
+                data_points[key] = {col: None for col in data_columns}
+            
+            # Add values from this row to the data_points dictionary
+            for i, col_name in enumerate(ts1.columns):
+                if i > 1:  # Skip timestamp and location
+                    if i < len(row):
+                        data_points[key][col_name] = row[i]
+        
+        # Process data from ts2 (similarly)
+        timestamp_idx2 = ts2.columns.index("timestamp")
+        location_idx2 = ts2.columns.index("location")
+        
+        for row in ts2.data:
+            timestamp = row[timestamp_idx2]
+            location = row[location_idx2]
+            key = (timestamp, location)
+            
+            # Create or update the dictionary for this timestamp-location pair
+            if key not in data_points:
+                data_points[key] = {col: None for col in data_columns}
+            
+            # Add values from this row to the data_points dictionary
+            for i, col_name in enumerate(ts2.columns):
+                if i > 1:  # Skip timestamp and location
+                    if i < len(row) and row[i] is not None:
+                        data_points[key][col_name] = row[i]
+        
+        # Add all the data points to the merged TimeSeries
+        for (timestamp, location), values in data_points.items():
+            merged_ts.add_data(timestamp, location, values)
+        
+        return merged_ts
