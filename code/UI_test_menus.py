@@ -113,27 +113,35 @@ class landCoverWindow(tk.Toplevel):
         
         self.create_menu(parent.landCoverTypes)
 
-        # Create first level notebook
+        # Create first level notebook - Land Cover Types
         self.nb, self.frames = make_notebook(self, parent.landCoverTypes)
         self.nb.pack(expand=True, fill="both")
     
-        # Create second level notebooks for each land cover type
+        # Restructured notebooks:
         # First level: Land Cover types
-        # Second level: General, Snow, buckets (DR, US, etc)
-        # Third level for buckets: general, hydrology, etc.
+        # Second level: General, Precipitation, Buckets (single tab)
+        # Third level (in Buckets tab): Individual buckets (DR, US, etc.)
+        # Fourth level (in each bucket): general, hydrology, etc.
         
         for landCoverType in parent.landCoverTypes:
-            # Create nested notebook with tabs General, Snow, and each bucket
-            tabs = ["general", "precipitation"] + parent.buckets
-            nested_nb, nested_frames = make_notebook(self.frames[landCoverType], tabs)
-            nested_nb.pack(expand=True, fill="both")
+            # Create second level notebook with tabs: General, Precipitation, Buckets
+            second_level_tabs = ["general", "precipitation", "Buckets"]
+            second_level_nb, second_level_frames = make_notebook(self.frames[landCoverType], second_level_tabs)
+            second_level_nb.pack(expand=True, fill="both")
             
-            # For each bucket tab, create a third level notebook
-            bucket_categories = parent.bucket_categories
-            for bucket in parent.buckets:
-                if bucket in nested_frames:
-                    bucket_nb, bucket_frames = make_notebook(nested_frames[bucket], bucket_categories)
-                    bucket_nb.pack(expand=True, fill="both")
+            # In the "Buckets" tab, create a third level notebook for individual buckets
+            if "Buckets" in second_level_frames:
+                # Third level - individual buckets
+                third_level_nb, third_level_frames = make_notebook(second_level_frames["Buckets"], parent.buckets)
+                third_level_nb.pack(expand=True, fill="both")
+                
+                # For each bucket tab, create a fourth level notebook with bucket categories
+                bucket_categories = parent.bucket_categories
+                for bucket in parent.buckets:
+                    if bucket in third_level_frames:
+                        # Fourth level - bucket categories
+                        fourth_level_nb, fourth_level_frames = make_notebook(third_level_frames[bucket], bucket_categories)
+                        fourth_level_nb.pack(expand=True, fill="both")
 
         ttk.Button(self,
                 text='Close',
