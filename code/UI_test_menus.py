@@ -125,7 +125,7 @@ class landCoverWindow(tk.Toplevel):
         
         for landCoverType in parent.landCoverTypes:
             # Create second level notebook with tabs: General, Precipitation, Buckets
-            second_level_tabs = ["general", "precipitation", "Buckets"]
+            second_level_tabs = ["Buckets", "general", "precipitation",]
             second_level_nb, second_level_frames = make_notebook(self.frames[landCoverType], second_level_tabs)
             second_level_nb.pack(expand=True, fill="both")
             
@@ -181,6 +181,64 @@ class createParameterSetWindow(tk.Toplevel):
                 text='Close',
                 command=self.destroy).pack(expand=True)
 
+def extract_categories_from_parameters(self, params):
+    """
+    Dynamically extract subcategories from the parameter dictionary that's already in memory.
+    This extracts categories like "general", "hydrology", etc. for each domain type.
+    """
+    try:
+        # Initialize with empty lists
+        self.subcatchment_categories = []
+        self.reach_categories = []
+        self.bucket_categories = []
+        
+        # Extract categories from subcatchment section
+        if 'subcatchment' in params:
+            # Get all keys except 'identifier' which is not a category
+            self.subcatchment_categories = [key for key in params['subcatchment'] 
+                                          if key != 'identifier']
+        
+        # Extract categories from reach section
+        if 'reach' in params:
+            self.reach_categories = [key for key in params['reach'] 
+                                    if key != 'identifier']
+        
+        # For bucket, we need to look at the first bucket in landCover section
+        if 'landCover' in params and 'bucket' in params['landCover']:
+            if params['landCover']['bucket'] and isinstance(params['landCover']['bucket'], list):
+                # Get categories from the first bucket (assuming all buckets have same categories)
+                first_bucket = params['landCover']['bucket'][0]
+                self.bucket_categories = list(first_bucket.keys())
+        elif 'bucket' in params:
+            # If there's a top-level bucket object
+            self.bucket_categories = [key for key in params['bucket'] 
+                                    if key != 'identifier']
+        
+        # Print the extracted categories for debugging
+        print(f"Extracted subcatchment categories: {self.subcatchment_categories}")
+        print(f"Extracted reach categories: {self.reach_categories}")
+        print(f"Extracted bucket categories: {self.bucket_categories}")
+        
+        # Use default categories if any list is empty
+        if not self.subcatchment_categories:
+            self.subcatchment_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
+            print("Warning: Using default subcatchment categories")
+        
+        if not self.reach_categories:
+            self.reach_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
+            print("Warning: Using default reach categories")
+            
+        if not self.bucket_categories:
+            self.bucket_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
+            print("Warning: Using default bucket categories")
+            
+    except Exception as e:
+        print(f"Error extracting categories from parameters: {e}")
+        # Fall back to defaults if any error occurs
+        self.subcatchment_categories = ["General", "Hydrology", "Particles", "chemistry"]
+        self.reach_categories = ["general", "hydrology", "Particles", "chemistry"]
+        self.bucket_categories = ["general", "hydrology", "Particles", "chemistry"]
+
 class App(tk.Tk):
 
     def __init__(self):
@@ -200,13 +258,16 @@ class App(tk.Tk):
         self.subcatchments = []
         
         # Default categories for nested notebooks
-        self.subcatchment_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
-        self.reach_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
-        self.bucket_categories = ["general", "hydrology", "soilOrSediment", "chemistry"]
+        self.subcatchment_categories = ["general", "hydrology", "Particles", "chemistry"]
+        self.reach_categories = ["general", "hydrology", "Particles", "chemistry"]
+        self.bucket_categories = ["general", "hydrology", "Particles", "chemistry"]
         
         # Ask user for parameter file
         self.load_parameter_file()
     
+        #self.extract_categories_from_parameters()
+
+
     def extract_categories(self, param_section):
         """Extract categories (keys) from a parameter section, excluding 'identifier'"""
         categories = []
