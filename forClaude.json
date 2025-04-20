@@ -1,0 +1,137 @@
+{
+    "general": {
+        "name": "A simplified parameter set for UI testing",
+        "creator": "Martyn",
+        "timeStep": 86400,
+        "internalTimeStepMultiplier": 1.0,
+        "startDate": "2020-01-01 00:00:00",
+        "model": {
+            "repository": "https://github.com/INCAWQModels/Rewrite",
+            "branch": "main",
+            "commit": "6a80d0f"
+        }
+    },
+    "bucket": {
+        "identifier": {
+            "name": ["Direct Runoff", "Upper Unsaturated", "Lower Unsaturated", "Groundwater"],
+            "abbreviation": ["DR", "US", "LS", "GW"]
+        }
+    },
+    "landCover": {
+        "identifier": {
+            "name":                 ["Forest", "Urban", "Wetland", "Arable", "Pasture"],
+            "abbreviation":         ["F", "U", "W", "A", "P"]
+        },
+        "general": {
+            "soilTemperatureModel": {
+                "C_s":              [1.1e06,  1.2e06, 1.3e06,   1.4e06, 1.5e06],
+                "K_t":              [ 0.61,   0.62,    0.63,    0.64,   0.65],
+                "C_ice":            [ 9.1e06, 9.2e06,  9.3e06, 9.4e06,  9.5e06],
+                "f_s":              [-3.1,   -3.2,    -3.3,   -3.4,    -3.5]
+            },
+            "evapotranspirationModel": {
+                "temperatureOffset":    [ 1.0,  2.0,  3.0,  4.0,  5.0],
+                "scalingFactor":        [11.0, 12.0, 13.0, 14.0, 15.0]
+            }
+        },   
+        "precipitation": {
+            "degreeDayMeltFactor":  [ 3.0,  3.2, 3.3, 3.4, 3.5],
+            "rainfallMultiplier":   [ 0.91, 0.92, 0.93, 0.94, 0.95],
+            "snowfallMultiplier":   [ 1.1,   1.2,  1.3,  1.4,  1.5],
+            "snowfallTemperature":  [-0.1,  -0.2, -0.3, -0.4, -0.5],
+            "snowmeltTemperature":  [ 0.1,   0.2,  0.3,  0.4,  0.5],
+            "snowmeltRate":         [ 1.0,   2.0,  3.0,  4.0,  5.0],
+            "snowDepth":            [ 0.0,   0.0,  0.0,  0.0,  0.0]
+        },
+        "flowMatrix":
+        [
+            [   
+                [0.0, 1.0, 0.0, 0.0, 0.0],
+                [0.0, 0.1, 0.9, 0.0, 0.0],
+                [0.0, 0.0, 0.1, 0.9, 0.0],
+                [0.0, 0.0, 0.0, 0.1, 0.9],
+                [0.0, 0.0, 0.0, 0.0, 1.0]
+            ],
+            [
+                [0.0, 1.0, 0.0, 0.0, 0.0],
+                [0.0, 0.2, 0.8, 0.0, 0.0],
+                [0.0, 0.0, 0.2, 0.8, 0.0],
+                [0.0, 0.0, 0.0, 0.2, 0.8],
+                [0.0, 0.0, 0.0, 0.0, 1.0]
+            ],
+            [
+                [0.0, 1.0, 0.0, 0.0, 0.0],
+                [0.0, 0.3, 0.7, 0.0, 0.0],
+                [0.0, 0.0, 0.3, 0.7, 0.0],
+                [0.0, 0.0, 0.0, 0.3, 0.7],
+                [0.0, 0.0, 0.0, 0.0, 1.0]
+            ],
+            [
+                [0.0, 1.0, 0.0, 0.0, 0.0],
+                [0.0, 0.4, 0.6, 0.0, 0.0],
+                [0.0, 0.0, 0.4, 0.6, 0.0],
+                [0.0, 0.0, 0.0, 0.4, 0.6],
+                [0.0, 0.0, 0.0, 0.0, 1.0]
+            ],
+            [
+                [0.0, 1.0, 0.0, 0.0, 0.0],
+                [0.0, 0.5, 0.5, 0.0, 0.0],
+                [0.0, 0.0, 0.5, 0.5, 0.0],
+                [0.0, 0.0, 0.0, 0.5, 0.5],
+                [0.0, 0.0, 0.0, 0.0, 1.0]
+            ]
+        ]
+    },
+    "subcatchment": {
+        "identifier": {
+            "name":                 ["Upper (0)","Middle (1)","Lower (2)"],
+            "abbreviation":         ["SC0","SC1","SC2"]
+        },
+        "general": {
+            "area":                 [100.0, 200.0, 300.0],
+            "latitudeAtOutflow":    [ 50.1,  50.2,  50.3],
+            "longitudeAtOutflow":   [ 15.1,  15.2,  15,3],
+            "landCoverPercent": [
+                [20.0,  0.0, 80.0,  0.0,  0.0],
+                [ 0.0, 30.0,  0.0, 30.0, 40.0],
+                [30.0, 10.0, 10.0  ,0.0, 50.0]
+            ]
+        },
+        "hydrology": {
+            "rainfallMultiplier":   [1.1, 1.2, 1.3],
+            "snowfallMultiplier":   [1.01, 1.02, 1.03],
+            "snowfallTemperature":  [0.1,0.2,0.3],
+            "snowmeltTemperature":  [-0.1, -0.2, -0.3]
+        },
+        "soilOrSediment": {},
+        "chemistry": {},
+        "randomStuff": {}
+    },
+    "reach": {
+        "identifier": {
+            "name":                 ["Reach 0", "Reach 1", "Reach 2"],
+            "abbreviation":         ["R0", "R1", "R2"]
+        },
+        "general": {
+            "length":               [10000.0, 20000.0, 30000.0],
+            "widthAtBottom":        [1.1, 2.2, 3.3],
+            "slope":                [1e-06, 2e-06, 3e-06],
+            "outflow":              [1, 2, null],
+            "inflows":              [ [null], [0], [1]]
+        },
+        "hydrology": {
+            "hasAbstraction":       [false, false, false],
+            "hasEffluent":          [false, false, false],
+            "Manning": {
+                "a":            [2.71,   2.71,  2.71],
+                "b":            [0.557, 0.557, 0.557],
+                "c":            [0.349, 0.349, 0.349],
+                "f":            [0.341, 0.341, 0.341],
+                "n":            [0.1,   0.1,   0.1]
+            },
+            "initialFlow":      [1.0, 2.0, 3.0]
+        },
+        "soilOrSediment": {},
+        "chemistry": {}
+    }
+}
