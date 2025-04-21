@@ -58,7 +58,7 @@ class JSONEditorApp:
         self.root.config(menu=menubar)
     
     def show_about(self):
-        messagebox.showinfo("About", "INCA Parameter Editor\nVersion 1.0")
+        messagebox.showinfo("About", "INCA Parameter Editor\nVersion 0.1.")
     
     def create_general_tab(self):
         general_frame = ttk.Frame(self.main_notebook)
@@ -275,7 +275,7 @@ class JSONEditorApp:
             
             row += 1
     
-    def create_landcover_flowmatrix_tab(self, parent_notebook, flow_matrix_data, index):
+    def old_create_landcover_flowmatrix_tab(self, parent_notebook, flow_matrix_data, index):
         flow_matrix_frame = ttk.Frame(parent_notebook)
         parent_notebook.add(flow_matrix_frame, text="Flow Matrix")
         
@@ -317,6 +317,55 @@ class JSONEditorApp:
             for j in range(len(matrix[0])):
                 ttk.Label(scrollable_frame, text=f"Col {j+1}").grid(row=0, column=j+1, padx=2, pady=2)
     
+    def create_landcover_flowmatrix_tab(self, parent_notebook, flow_matrix_data, index):
+        flow_matrix_frame = ttk.Frame(parent_notebook)
+        parent_notebook.add(flow_matrix_frame, text="Flow Matrix")
+        
+        # Create scrollable frame
+        canvas = tk.Canvas(flow_matrix_frame)
+        scrollbar = ttk.Scrollbar(flow_matrix_frame, orient="vertical", command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas)
+        
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+        
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Get the matrix for this landcover
+        if len(flow_matrix_data) > index:
+            matrix = flow_matrix_data[index]
+            
+            ttk.Label(scrollable_frame, text="Flow Matrix:").grid(row=0, column=0, padx=5, pady=5, sticky="w")
+            
+            # Get bucket names and abbreviations for the labels
+            bucket_names = self.json_data.get("bucket", {}).get("identifier", {}).get("name", [])
+            bucket_abbrs = self.json_data.get("bucket", {}).get("identifier", {}).get("abbreviation", [])
+            
+            # Create a grid of entries for the matrix
+            for i, row_data in enumerate(matrix):
+                for j, value in enumerate(row_data):
+                    entry = ttk.Entry(scrollable_frame, width=8)
+                    entry.grid(row=i+1, column=j+1, padx=2, pady=2)
+                    entry.insert(0, str(value))
+                    
+                    self.entry_widgets[f"landCover.flowMatrix[{index}][{i}][{j}]"] = entry
+                
+                # Add row labels using bucket names
+                bucket_name = bucket_names[i] if i < len(bucket_names) else f"Row {i+1}"
+                ttk.Label(scrollable_frame, text=f"{bucket_name}").grid(row=i+1, column=0, padx=5, pady=2, sticky="e")
+            
+            # Add column labels using bucket abbreviations
+            for j in range(len(matrix[0])):
+                bucket_abbr = bucket_abbrs[j] if j < len(bucket_abbrs) else f"Col {j+1}"
+                ttk.Label(scrollable_frame, text=f"{bucket_abbr}").grid(row=0, column=j+1, padx=2, pady=2)
+   
+
     def create_subcatchment_tab(self):
         subcatchment_frame = ttk.Frame(self.main_notebook)
         self.main_notebook.add(subcatchment_frame, text="Subcatchment")
