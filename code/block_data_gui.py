@@ -18,7 +18,7 @@ from block_data_processing import convert_blocks_to_csv, parse_block_file
 class BlockDataConverterGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Block Data to CSV Converter")
+        self.root.title("Time Series Block Data to CSV Converter")
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         
@@ -266,6 +266,9 @@ class BlockDataConverterGUI:
 def run_gui():
     """Launch the GUI application"""
     root = tk.Tk()
+    
+    
+    root.wm_iconphoto(True,tk.PhotoImage(file="incaMan.png"))
     app = BlockDataConverterGUI(root)
     root.mainloop()
 
