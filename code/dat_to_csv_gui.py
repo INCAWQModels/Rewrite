@@ -7,7 +7,7 @@ from dat_to_csv_processor import convert_dat_to_csv
 class DatToCSVConverterGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("DAT to CSV Converter")
+        self.root.title(".DAT to CSV Converter")
         self.root.geometry("650x550")
         self.root.resizable(True, True)
         
@@ -23,7 +23,7 @@ class DatToCSVConverterGUI:
         self.style.configure("Header.TLabel", font=("Arial", 12, "bold"))
         
         # Add a header
-        header = ttk.Label(self.main_frame, text="DAT to CSV Converter", style="Header.TLabel")
+        header = ttk.Label(self.main_frame, text=".DAT to CSV Converter", style="Header.TLabel")
         header.grid(row=0, column=0, columnspan=3, pady=(0, 20), sticky="w")
         
         # Initialize variables
@@ -234,4 +234,5 @@ class DatToCSVConverterGUI:
 if __name__ == "__main__":
     root = tk.Tk()
     app = DatToCSVConverterGUI(root)
+    root.wm_iconphoto(True,tk.PhotoImage(file="incaMan.png"))
     root.mainloop()
