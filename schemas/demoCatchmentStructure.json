@@ -1,0 +1,26 @@
+{
+"landCover": {
+    "identifier": {
+        "name": ["Forest","Wetland","Arable","Pasture","Urban","Industrial"],
+        "abbreviation": ["F", "W", "A", "P", "U", "I"]
+    }
+},
+"bucket": {
+    "identifier": {
+        "name": ["Direct runoff", "Upper Unsaturated", "Lower Unsaturated", "Upper Groundwater", "Lower Groundwater"],
+        "abbreviation": ["DR", "US", "LS", "UG", "LG"]
+    }
+}, 
+"subcatchment": {
+    "identifier": {
+        "name": ["Top", "Upper Middle", "Lower Middle", "Bottom"],
+        "abbreviation": ["SC1", "SC2", "SC3", "SC4"]
+    }
+},
+"reach": {
+    "identifier": {
+        "name": ["Top", "Upper Middle", "Lower Middle", "Bottom"],
+        "abbreviation": ["R1", "R2", "R3", "R4"]
+    }
+} 
+}
