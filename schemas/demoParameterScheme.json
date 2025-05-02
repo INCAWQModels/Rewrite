@@ -13,13 +13,13 @@
           "creator": { "type": "string" },
           "timeStep": { 
             "type": "number",
-            "minimum": 0.0,
-            "maximum": 100.0,
-            "default": 1.0
+            "minimum": 60.0,
+            "maximum": 864000.0,
+            "default": 86400.0
           },
           "internalTimeStepMultiplier": { 
             "type": "number",
-            "minimum": 0.0,
+            "minimum": 1.0,
             "maximum": 100.0,
             "default": 1.0
           },
@@ -29,8 +29,8 @@
             "required": ["repository", "branch", "commit"],
             "properties": {
               "repository": { "type": "string", "format": "uri" },
-              "branch": { "type": "string" },
-              "commit": { "type": "string" }
+              "branch":     { "type": "string" },
+              "commit":     { "type": "string" }
             }
           },
           "chemistry": { "type": "object" }
@@ -220,8 +220,8 @@
                     "items": { 
                       "type": "number",
                       "minimum": 0.0,
-                      "maximum": 100.0,
-                      "default": 1.0
+                      "maximum": 1.0,
+                      "default": 0.0
                     }
                   }
                 }
