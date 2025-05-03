@@ -70,7 +70,7 @@
     },
     "bucket": {
       "type": "object",
-      "required": ["identifier"],
+      "required": ["identifier", "general"],
       "properties": {
         "identifier": {
           "type": "object",
@@ -81,13 +81,28 @@
               "items": {
                 "type": "string"
               },
-              "minItems": 1,
-              "maxItems": 10
+              "minItems": "bucket_count",
+              "maxItems": "bucket_count"
             },
             "abbreviation": {
               "type": "array",
               "items": {
                 "type": "string"
+              },
+              "minItems": "bucket_count",
+              "maxItems": "bucket_count"
+            }
+          }
+        },
+        "general": {
+          "type": "object",
+          "required": ["receivesPrecipitation"],
+          "properties": {
+            "receivesPrecipitation": {
+              "type": "array",
+              "items": {
+                "type": "boolean",
+                "default": "false"
               },
               "minItems": "bucket_count",
               "maxItems": "bucket_count"
