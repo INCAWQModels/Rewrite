@@ -1,6 +1,7 @@
 import datetime
 import csv
 import json
+import uuid
 from collections import defaultdict
 
 class TimeSeries:
@@ -24,10 +25,14 @@ class TimeSeries:
         """
         # Create an empty list for data rows
         self.data = []
-        # Store column names
-        self.columns = ["timestamp", "location"]
+        # Generate a UUID and store it in metadata
+        self.uuid = str(uuid.uuid4())
+        # Store column names - use UUID as the header for timestamp column
+        self.columns = [self.uuid, "location"]
         # Create an empty dictionary for metadata
         self.metadata = {}
+        # Store the UUID in metadata
+        self.metadata["uuid"] = self.uuid
         # Set the name of the TimeSeries object
         self.name = name
     
@@ -129,7 +134,7 @@ class TimeSeries:
         Returns:
         list: Filtered data rows for the specified time range
         """
-        timestamp_idx = self.columns.index("timestamp")
+        timestamp_idx = 0  # First column is always timestamp
         return [row for row in self.data 
                 if start_time <= row[timestamp_idx] <= end_time]
     
@@ -237,14 +242,22 @@ class TimeSeries:
         if not isinstance(ts1, TimeSeries) or not isinstance(ts2, TimeSeries):
             raise TypeError("Both arguments must be TimeSeries objects")
         
-        # Create a new TimeSeries object
+        # Create a new TimeSeries object (with a new UUID)
         merged_ts = TimeSeries(name)
         
-        # Merge metadata
+        # Store original UUIDs in metadata with source prefix keys
+        if "uuid" in ts1.metadata:
+            merged_ts.add_metadata("source_uuid_1", ts1.metadata["uuid"])
+        if "uuid" in ts2.metadata:
+            merged_ts.add_metadata("source_uuid_2", ts2.metadata["uuid"])
+        
+        # Merge metadata (skip "uuid" keys from original datasets as they're already stored)
         for key, value in ts1.metadata.items():
-            merged_ts.add_metadata(key, value)
+            if key != "uuid":
+                merged_ts.add_metadata(key, value)
         for key, value in ts2.metadata.items():
-            merged_ts.add_metadata(key, value)
+            if key != "uuid":
+                merged_ts.add_metadata(key, value)
         
         # Create a set of all column names (excluding timestamp and location)
         data_columns = set()
@@ -261,7 +274,7 @@ class TimeSeries:
         data_points = {}
         
         # Process data from ts1
-        timestamp_idx1 = ts1.columns.index("timestamp")
+        timestamp_idx1 = 0  # First column is always timestamp
         location_idx1 = ts1.columns.index("location")
         
         for row in ts1.data:
@@ -280,7 +293,7 @@ class TimeSeries:
                         data_points[key][col_name] = row[i]
         
         # Process data from ts2 (similarly)
-        timestamp_idx2 = ts2.columns.index("timestamp")
+        timestamp_idx2 = 0  # First column is always timestamp
         location_idx2 = ts2.columns.index("location")
         
         for row in ts2.data:
