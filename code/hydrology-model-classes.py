@@ -1,5 +1,5 @@
 import json
-import pandas as pd
+import csv
 from typing import List, Dict, Any, Optional
 
 
@@ -90,7 +90,30 @@ class TimeSeries:
     """Represents time series data for the model"""
     
     def __init__(self, csv_path: str):
-        self.data = pd.read_csv(csv_path)
+        self.data = self._read_csv(csv_path)
+    
+    def _read_csv(self, csv_path: str) -> List[Dict[str, Any]]:
+        """Read CSV file and return as a list of dictionaries"""
+        result = []
+        with open(csv_path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                # Convert numeric values to float or int where appropriate
+                converted_row = {}
+                for key, value in row.items():
+                    try:
+                        # Try to convert to float first
+                        float_val = float(value)
+                        # If it's an integer, convert to int
+                        if float_val.is_integer():
+                            converted_row[key] = int(float_val)
+                        else:
+                            converted_row[key] = float_val
+                    except (ValueError, TypeError):
+                        # Keep as string if conversion fails
+                        converted_row[key] = value
+                result.append(converted_row)
+        return result
     
     def __str__(self):
         return f"TimeSeries(Rows: {len(self.data)})"
