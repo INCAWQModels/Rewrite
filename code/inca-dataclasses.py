@@ -2,11 +2,15 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Union
 
 
-@dataclass
 class Model:
-    repository: str = "https://github.com/INCAWQModels/Rewrite"
-    branch: str = "main"
-    commit: str = "6a80d0f"
+    def __init__(self, repository: str = "https://github.com/INCAWQModels/Rewrite",
+                 branch: str = "main",
+                 commit: str = "6a80d0f",
+                 catchment: Optional["Catchment"] = None):
+        self.repository = repository
+        self.branch = branch
+        self.commit = commit
+        self.catchment = catchment if catchment is not None else Catchment(name="Default Catchment")
 
 
 @dataclass
@@ -200,15 +204,22 @@ class Reach:
 
 
 @dataclass
-class ParameterSet:
-    general: General
-    bucket: Bucket
-    landCover: LandCover
+class HRU:
     subcatchment: Subcatchment
     reach: Reach
 
 
 @dataclass
-class HRU:
+class Catchment:
+    name: str
+    description: str = ""
+    hrus: List[HRU] = field(default_factory=list)
+
+
+@dataclass
+class ParameterSet:
+    general: General
+    bucket: Bucket
+    landCover: LandCover
     subcatchment: Subcatchment
     reach: Reach
