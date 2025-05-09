@@ -1,0 +1,321 @@
+{
+  "id": "cb45a32c-bd7f-4a51-8e1a-b7f92af7e4a6",
+  "name": "River Valley Basin",
+  "abbreviation": "RVB",
+  "description": "A sample river valley with forest and agricultural land covers",
+  "reaches": [
+    {
+      "id": "reach-1",
+      "name": "Upstream",
+      "abbreviation": "R1",
+      "length": 3000.0,
+      "width_at_bottom": 5.0,
+      "latitude_of_outflow": 59.35,
+      "longitude_of_outflow": 18.05,
+      "outflow_reach_id": "reach-2"
+    },
+    {
+      "id": "reach-2",
+      "name": "Midstream",
+      "abbreviation": "R2",
+      "length": 4000.0,
+      "width_at_bottom": 7.0,
+      "latitude_of_outflow": 59.34,
+      "longitude_of_outflow": 18.06,
+      "outflow_reach_id": "reach-3"
+    },
+    {
+      "id": "reach-3",
+      "name": "Downstream",
+      "abbreviation": "R3",
+      "length": 5000.0,
+      "width_at_bottom": 10.0,
+      "latitude_of_outflow": 59.3293,
+      "longitude_of_outflow": 18.0686,
+      "outflow_reach_id": null
+    }
+  ],
+  "subcatchments": [
+    {
+      "id": "subcatchment-1",
+      "name": "Upper Catchment",
+      "abbreviation": "SC1",
+      "area": 15.0,
+      "rainfall_multiplier": 1.1,
+      "snowfall_multiplier": 1.2,
+      "snowfall_temperature": 0.0,
+      "snowmelt_temperature": 0.0,
+      "land_cover_list": [
+        {
+          "id": "lc-forest-1",
+          "name": "Forest",
+          "abbreviation": "F",
+          "relative_area": 0.7,
+          "rainfall_multiplier": 1.0,
+          "snowfall_multiplier": 1.0,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 3.0,
+          "bucket_list": [
+            {
+              "id": "bucket-dr-1",
+              "name": "Direct Runoff",
+              "abbreviation": "DR",
+              "depth_of_water": 100.0,
+              "characteristic_time_constant": 1.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-sw-1",
+              "name": "Soilwater",
+              "abbreviation": "SW",
+              "depth_of_water": 200.0,
+              "characteristic_time_constant": 10.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-gw-1",
+              "name": "Groundwater",
+              "abbreviation": "GW",
+              "depth_of_water": 300.0,
+              "characteristic_time_constant": 100.0,
+              "relative_area": 1.0
+            }
+          ]
+        },
+        {
+          "id": "lc-ag-1",
+          "name": "Agricultural",
+          "abbreviation": "A",
+          "relative_area": 0.3,
+          "rainfall_multiplier": 1.0,
+          "snowfall_multiplier": 1.0,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 3.0,
+          "bucket_list": [
+            {
+              "id": "bucket-ar-1",
+              "name": "Ag Runoff",
+              "abbreviation": "AR",
+              "depth_of_water": 80.0,
+              "characteristic_time_constant": 0.5,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-as-1",
+              "name": "Ag Soil",
+              "abbreviation": "AS",
+              "depth_of_water": 150.0,
+              "characteristic_time_constant": 8.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-agw-1",
+              "name": "Ag Groundwater",
+              "abbreviation": "AGW",
+              "depth_of_water": 250.0,
+              "characteristic_time_constant": 80.0,
+              "relative_area": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subcatchment-2",
+      "name": "Middle Catchment",
+      "abbreviation": "SC2",
+      "area": 20.0,
+      "rainfall_multiplier": 1.0,
+      "snowfall_multiplier": 1.0,
+      "snowfall_temperature": 0.0,
+      "snowmelt_temperature": 0.0,
+      "land_cover_list": [
+        {
+          "id": "lc-forest-2",
+          "name": "Forest",
+          "abbreviation": "F",
+          "relative_area": 0.5,
+          "rainfall_multiplier": 1.0,
+          "snowfall_multiplier": 1.0,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 3.0,
+          "bucket_list": [
+            {
+              "id": "bucket-dr-2",
+              "name": "Direct Runoff",
+              "abbreviation": "DR",
+              "depth_of_water": 100.0,
+              "characteristic_time_constant": 1.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-sw-2",
+              "name": "Soilwater",
+              "abbreviation": "SW",
+              "depth_of_water": 200.0,
+              "characteristic_time_constant": 10.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-gw-2",
+              "name": "Groundwater",
+              "abbreviation": "GW",
+              "depth_of_water": 300.0,
+              "characteristic_time_constant": 100.0,
+              "relative_area": 1.0
+            }
+          ]
+        },
+        {
+          "id": "lc-ag-2",
+          "name": "Agricultural",
+          "abbreviation": "A",
+          "relative_area": 0.5,
+          "rainfall_multiplier": 1.0,
+          "snowfall_multiplier": 1.0,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 3.0,
+          "bucket_list": [
+            {
+              "id": "bucket-ar-2",
+              "name": "Ag Runoff",
+              "abbreviation": "AR",
+              "depth_of_water": 80.0,
+              "characteristic_time_constant": 0.5,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-as-2",
+              "name": "Ag Soil",
+              "abbreviation": "AS",
+              "depth_of_water": 150.0,
+              "characteristic_time_constant": 8.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-agw-2",
+              "name": "Ag Groundwater",
+              "abbreviation": "AGW",
+              "depth_of_water": 250.0,
+              "characteristic_time_constant": 80.0,
+              "relative_area": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "subcatchment-3",
+      "name": "Lower Catchment",
+      "abbreviation": "SC3",
+      "area": 25.0,
+      "rainfall_multiplier": 0.9,
+      "snowfall_multiplier": 0.8,
+      "snowfall_temperature": 0.0,
+      "snowmelt_temperature": 0.0,
+      "land_cover_list": [
+        {
+          "id": "lc-forest-3",
+          "name": "Forest",
+          "abbreviation": "F",
+          "relative_area": 0.3,
+          "rainfall_multiplier": 1.0,
+          "snowfall_multiplier": 1.0,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 3.0,
+          "bucket_list": [
+            {
+              "id": "bucket-dr-3",
+              "name": "Direct Runoff",
+              "abbreviation": "DR",
+              "depth_of_water": 100.0,
+              "characteristic_time_constant": 1.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-sw-3",
+              "name": "Soilwater",
+              "abbreviation": "SW",
+              "depth_of_water": 200.0,
+              "characteristic_time_constant": 10.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-gw-3",
+              "name": "Groundwater",
+              "abbreviation": "GW",
+              "depth_of_water": 300.0,
+              "characteristic_time_constant": 100.0,
+              "relative_area": 1.0
+            }
+          ]
+        },
+        {
+          "id": "lc-urban-3",
+          "name": "Urban",
+          "abbreviation": "U",
+          "relative_area": 0.7,
+          "rainfall_multiplier": 1.2,
+          "snowfall_multiplier": 0.8,
+          "snowfall_temperature": 0.0,
+          "snowmelt_temperature": 0.0,
+          "degree_day_melt_factor": 4.0,
+          "bucket_list": [
+            {
+              "id": "bucket-ur-3",
+              "name": "Urban Runoff",
+              "abbreviation": "UR",
+              "depth_of_water": 60.0,
+              "characteristic_time_constant": 0.2,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-us-3",
+              "name": "Urban Soil",
+              "abbreviation": "US",
+              "depth_of_water": 100.0,
+              "characteristic_time_constant": 5.0,
+              "relative_area": 1.0
+            },
+            {
+              "id": "bucket-ugw-3",
+              "name": "Urban Groundwater",
+              "abbreviation": "UGW",
+              "depth_of_water": 200.0,
+              "characteristic_time_constant": 50.0,
+              "relative_area": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "hrus": [
+    {
+      "id": "hru-1",
+      "name": "Upper Catchment-Upstream",
+      "abbreviation": "SC1-R1",
+      "subcatchment_id": "subcatchment-1",
+      "reach_id": "reach-1"
+    },
+    {
+      "id": "hru-2",
+      "name": "Middle Catchment-Midstream",
+      "abbreviation": "SC2-R2",
+      "subcatchment_id": "subcatchment-2",
+      "reach_id": "reach-2"
+    },
+    {
+      "id": "hru-3",
+      "name": "Lower Catchment-Downstream",
+      "abbreviation": "SC3-R3",
+      "subcatchment_id": "subcatchment-3",
+      "reach_id": "reach-3"
+    }
+  ]
+}
