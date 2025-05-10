@@ -1,0 +1,263 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hydrological Model Schema",
+  "description": "JSON schema for hydrological models with catchments, HRUs, subcatchments, reaches, land covers, and buckets",
+  "definitions": {
+    "bucket": {
+      "type": "object",
+      "required": ["id", "name", "abbreviation", "depth_of_water", "characteristic_time_constant", "relative_area"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the bucket"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the bucket"
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Abbreviation for the bucket"
+        },
+        "depth_of_water": {
+          "type": "number",
+          "description": "Water depth in the bucket (mm)",
+          "minimum": 0
+        },
+        "characteristic_time_constant": {
+          "type": "number",
+          "description": "Time constant for water movement (days)",
+          "minimum": 0
+        },
+        "relative_area": {
+          "type": "number",
+          "description": "Relative area index of the bucket (0-1)",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "land_cover": {
+      "type": "object",
+      "required": [
+        "id", "name", "abbreviation", "bucket_list", "relative_area", "rainfall_multiplier", 
+        "snowfall_multiplier", "snowfall_temperature", "snowmelt_temperature", "degree_day_melt_factor"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the land cover"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the land cover"
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Abbreviation for the land cover"
+        },
+        "bucket_list": {
+          "type": "array",
+          "description": "List of buckets for this land cover",
+          "items": {
+            "$ref": "#/definitions/bucket"
+          }
+        },
+        "relative_area": {
+          "type": "number",
+          "description": "Relative area of this land cover",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rainfall_multiplier": {
+          "type": "number",
+          "description": "Multiplier for rainfall on this land cover",
+          "minimum": 0
+        },
+        "snowfall_multiplier": {
+          "type": "number",
+          "description": "Multiplier for snowfall on this land cover",
+          "minimum": 0
+        },
+        "snowfall_temperature": {
+          "type": "number",
+          "description": "Temperature threshold for snowfall (°C)"
+        },
+        "snowmelt_temperature": {
+          "type": "number",
+          "description": "Temperature threshold for snowmelt (°C)"
+        },
+        "degree_day_melt_factor": {
+          "type": "number",
+          "description": "Degree-day factor for snowmelt calculation",
+          "minimum": 0
+        }
+      }
+    },
+    "reach": {
+      "type": "object",
+      "required": [
+        "id", "name", "abbreviation", "length", "width_at_bottom", 
+        "latitude_of_outflow", "longitude_of_outflow"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the reach"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the reach"
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Abbreviation for the reach"
+        },
+        "length": {
+          "type": "number",
+          "description": "Length of the reach (m)",
+          "minimum": 0
+        },
+        "width_at_bottom": {
+          "type": "number",
+          "description": "Width at the bottom of the reach (m)",
+          "minimum": 0
+        },
+        "latitude_of_outflow": {
+          "type": "number",
+          "description": "Latitude coordinate of the outflow point",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude_of_outflow": {
+          "type": "number",
+          "description": "Longitude coordinate of the outflow point",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "outflow_reach_id": {
+          "type": ["string", "null"],
+          "description": "ID of the reach that this reach drains into (null if terminal)"
+        }
+      }
+    },
+    "subcatchment": {
+      "type": "object",
+      "required": [
+        "id", "name", "abbreviation", "land_cover_list", "area", "rainfall_multiplier", 
+        "snowfall_multiplier", "snowfall_temperature", "snowmelt_temperature"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the subcatchment"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the subcatchment"
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Abbreviation for the subcatchment"
+        },
+        "land_cover_list": {
+          "type": "array",
+          "description": "List of land covers in this subcatchment",
+          "items": {
+            "$ref": "#/definitions/land_cover"
+          }
+        },
+        "area": {
+          "type": "number",
+          "description": "Area of the subcatchment (km²)",
+          "minimum": 0
+        },
+        "rainfall_multiplier": {
+          "type": "number",
+          "description": "Multiplier for rainfall on this subcatchment",
+          "minimum": 0
+        },
+        "snowfall_multiplier": {
+          "type": "number",
+          "description": "Multiplier for snowfall on this subcatchment",
+          "minimum": 0
+        },
+        "snowfall_temperature": {
+          "type": "number",
+          "description": "Temperature threshold for snowfall (°C)"
+        },
+        "snowmelt_temperature": {
+          "type": "number",
+          "description": "Temperature threshold for snowmelt (°C)"
+        }
+      }
+    },
+    "hru": {
+      "type": "object",
+      "required": ["id", "name", "abbreviation", "subcatchment_id", "reach_id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the HRU"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the HRU"
+        },
+        "abbreviation": {
+          "type": "string",
+          "description": "Abbreviation for the HRU"
+        },
+        "subcatchment_id": {
+          "type": "string",
+          "description": "ID of the subcatchment part of this HRU"
+        },
+        "reach_id": {
+          "type": "string",
+          "description": "ID of the reach part of this HRU"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["id", "name", "abbreviation", "description", "hrus", "subcatchments", "reaches"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the catchment"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the catchment"
+    },
+    "abbreviation": {
+      "type": "string",
+      "description": "Abbreviation for the catchment"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the catchment"
+    },
+    "hrus": {
+      "type": "array",
+      "description": "List of HRUs in this catchment",
+      "items": {
+        "$ref": "#/definitions/hru"
+      }
+    },
+    "subcatchments": {
+      "type": "array",
+      "description": "List of subcatchments in this catchment",
+      "items": {
+        "$ref": "#/definitions/subcatchment"
+      }
+    },
+    "reaches": {
+      "type": "array",
+      "description": "List of reaches in this catchment",
+      "items": {
+        "$ref": "#/definitions/reach"
+      }
+    }
+  }
+}
