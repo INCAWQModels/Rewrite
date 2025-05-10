@@ -1,0 +1,345 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hydrological Model Schema",
+  "description": "JSON schema for hydrological model with catchment, time series, and met_ts mappings",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "creation_date",
+    "external_time_step",
+    "internal_time_step",
+    "metadata",
+    "catchment",
+    "time_series",
+    "met_ts_mappings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the model",
+      "pattern": "^[0-9a-zA-Z-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the model",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the model",
+      "maxLength": 2000
+    },
+    "creation_date": {
+      "type": "string",
+      "description": "ISO 8601 formatted date-time when the model was created",
+      "format": "date-time"
+    },
+    "external_time_step": {
+      "type": "number",
+      "description": "Time step for input/output data in seconds",
+      "minimum": 1.0,
+      "default": 86400.0
+    },
+    "internal_time_step": {
+      "type": "number",
+      "description": "Computational time step in seconds",
+      "minimum": 1.0,
+      "default": 3600.0
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for the model",
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "creation_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "catchment_id": {
+          "type": "string"
+        },
+        "external_time_step": {
+          "type": "number"
+        },
+        "internal_time_step": {
+          "type": "number"
+        },
+        "time_series_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "catchment": {
+      "description": "Catchment object following the catchment schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "hrus": {
+          "type": "array"
+        },
+        "subcatchments": {
+          "type": "array"
+        },
+        "reaches": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "abbreviation",
+        "description",
+        "hrus",
+        "subcatchments",
+        "reaches"
+      ]
+    },
+    "time_series": {
+      "type": "array",
+      "description": "List of time series UUIDs included in the model",
+      "items": {
+        "type": "string",
+        "description": "Time series UUID"
+      }
+    },
+    "met_ts_mappings": {
+      "type": "object",
+      "description": "Mappings between meteorological time series and HRUs",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "HRU ID"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^[0-9a-zA-Z-]+$",
+        "description": "Met TS UUID"
+      }
+    }
+  },
+  "definitions": {
+    "time_series_file": {
+      "type": "object",
+      "description": "External time series file reference",
+      "required": [
+        "uuid",
+        "name",
+        "data_file",
+        "metadata_file"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "UUID of the time series"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the time series"
+        },
+        "data_file": {
+          "type": "string",
+          "description": "Path to the CSV file containing time series data"
+        },
+        "metadata_file": {
+          "type": "string",
+          "description": "Path to the JSON file containing time series metadata"
+        }
+      }
+    },
+    "time_series_contents": {
+      "type": "object",
+      "description": "Inline time series data and metadata",
+      "required": [
+        "uuid",
+        "name",
+        "columns",
+        "data",
+        "metadata"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "UUID of the time series"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the time series"
+        },
+        "columns": {
+          "type": "array",
+          "description": "Column names for the time series data",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        },
+        "data": {
+          "type": "array",
+          "description": "Time series data rows",
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string",
+                "description": "ISO 8601 formatted timestamp",
+                "format": "date-time"
+              },
+              {
+                "type": "string",
+                "description": "Location identifier"
+              }
+            ],
+            "additionalItems": {
+              "type": ["number", "string", "boolean", "null"],
+              "description": "Data value"
+            },
+            "minItems": 2
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Time series metadata",
+          "properties": {
+            "uuid": {
+              "type": "string"
+            },
+            "data_type": {
+              "type": "string"
+            },
+            "units": {
+              "type": "string"
+            },
+            "time_step": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "cb45a32c-bd7f-4a51-8e1a-b7f92af7e4a6",
+      "name": "River Valley Rainfall-Runoff Model",
+      "description": "Rainfall-runoff model for the River Valley catchment with meteorological data",
+      "creation_date": "2023-05-10T12:30:45.123Z",
+      "external_time_step": 86400.0,
+      "internal_time_step": 3600.0,
+      "metadata": {
+        "id": "cb45a32c-bd7f-4a51-8e1a-b7f92af7e4a6",
+        "name": "River Valley Rainfall-Runoff Model",
+        "description": "Rainfall-runoff model for the River Valley catchment with meteorological data",
+        "creation_date": "2023-05-10T12:30:45.123Z",
+        "catchment_id": "d8a7b9c6-e254-47f3-9871-6a9842315b9a",
+        "external_time_step": 86400.0,
+        "internal_time_step": 3600.0,
+        "time_series_ids": [
+          "a3c15d8b-7e4f-42a1-b6c9-2d5f8e3a71bc",
+          "f7e9a2d1-6b8c-45a3-9d2e-8f7c6a5b4d3e"
+        ]
+      },
+      "catchment": {
+        "id": "d8a7b9c6-e254-47f3-9871-6a9842315b9a",
+        "name": "River Valley",
+        "abbreviation": "RV",
+        "description": "A river valley catchment with forest and agricultural land covers",
+        "hrus": [
+          {
+            "id": "hru-1",
+            "name": "Upper Catchment-Upstream",
+            "abbreviation": "SC1-R1",
+            "subcatchment_id": "subcatchment-1",
+            "reach_id": "reach-1"
+          },
+          {
+            "id": "hru-2",
+            "name": "Middle Catchment-Midstream",
+            "abbreviation": "SC2-R2",
+            "subcatchment_id": "subcatchment-2",
+            "reach_id": "reach-2"
+          },
+          {
+            "id": "hru-3",
+            "name": "Lower Catchment-Downstream",
+            "abbreviation": "SC3-R3",
+            "subcatchment_id": "subcatchment-3",
+            "reach_id": "reach-3"
+          }
+        ],
+        "subcatchments": [
+          {
+            "id": "subcatchment-1",
+            "name": "Upper Catchment",
+            "abbreviation": "SC1"
+          },
+          {
+            "id": "subcatchment-2",
+            "name": "Middle Catchment",
+            "abbreviation": "SC2"
+          },
+          {
+            "id": "subcatchment-3",
+            "name": "Lower Catchment",
+            "abbreviation": "SC3"
+          }
+        ],
+        "reaches": [
+          {
+            "id": "reach-1",
+            "name": "Upstream",
+            "abbreviation": "R1"
+          },
+          {
+            "id": "reach-2",
+            "name": "Midstream",
+            "abbreviation": "R2"
+          },
+          {
+            "id": "reach-3",
+            "name": "Downstream",
+            "abbreviation": "R3"
+          }
+        ]
+      },
+      "time_series": [
+        "a3c15d8b-7e4f-42a1-b6c9-2d5f8e3a71bc",
+        "f7e9a2d1-6b8c-45a3-9d2e-8f7c6a5b4d3e"
+      ],
+      "met_ts_mappings": {
+        "a3c15d8b-7e4f-42a1-b6c9-2d5f8e3a71bc": ["hru-1", "hru-2"],
+        "f7e9a2d1-6b8c-45a3-9d2e-8f7c6a5b4d3e": ["hru-3"]
+      }
+    }
+  ]
+}
