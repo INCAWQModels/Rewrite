@@ -1,0 +1,159 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Catchment schema",
+    "type": "object",
+    "required": ["general", "bucket", "landCover", "HRU"],
+    "properties": {
+        "general": {
+            "type": "object",
+            "required": ["id", "name", "abbreviation", "creator", "createDate", "modificationDate"],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique identifier for the catchment",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "default": "XXX"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The commonly used name of the catchment",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "default": "New catchment"
+                },
+                "abbreviation": {
+                    "type": "string",
+                    "description": "A short form text identifier for a catchment",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "default": "New"
+                },
+                "creator": {
+                    "type": "string",
+                    "description": "The name of the person who created the catchment representation",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "default": "Anonymous"
+                },
+                "createDate": {
+                    "type": "string",
+                    "description": "Date and time at which the cathcment representation was created in YYYY-MM-DD HH:MM:SS format",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$",
+                    "default": "2020-01-01 00:00:00"
+                },
+                "modificationDate": {
+                    "type": "string",
+                    "description": "Date and time at which the catchment representaiton was last modifice in YYYY-MM-DD HH:MM:SS format",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$",
+                    "default": "2020-01-01 00:00:00"
+                }
+            }
+        },
+        
+        "bucket": {
+            "type": "object",
+            "items": {
+                "type": "object",
+                "required": ["general"],
+                "properties":{
+                    "general": {
+                        "id": {
+                            "type": "string",
+                            "description": "A unique identifier for the bucket",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "XXX"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "The commonly used name of the bucket",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "Soil water"
+                        },
+                        "abbreviation": {
+                            "type": "string",
+                            "description": "A short form text identifier for a bucket",
+                            "minLength": 1,
+                            "maxLength": 10,
+                            "default": "SW"
+                        }
+                    }
+                }
+            },
+            "minItems": "bucket_count",
+            "maxItems": "bucket_count"
+        }, 
+        "landCover": {
+            "type": "object",
+            "items": {
+                "type": "object",
+                "required": ["general"],
+                "properties":{
+                    "general": {
+                        "id": {
+                            "type": "string",
+                            "description": "A unique identifier for the land cover type",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "XXX"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "The commonly used name of the land cover",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "rural"
+                        },
+                        "abbreviation": {
+                            "type": "string",
+                            "description": "A short form text identifier for a land cover type",
+                            "minLength": 1,
+                            "maxLength": 10,
+                            "default": "R"
+                        }
+                    }
+                }
+            },
+            "minItems": "landCover_count",
+            "maxItems": "landCover_count"
+        }, 
+        "HRU": {
+            "type": "object",
+            "items": {
+                "type": "object",
+                "required": ["general", "subcatchment", "reach"],
+                "properties":{
+                    "general": {
+                        "id": {
+                            "type": "string",
+                            "description": "A unique identifier for the HRU",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "XXX"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "The commonly used name of the HRU",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "default": "New HRU"
+                        },
+                        "abbreviation": {
+                            "type": "string",
+                            "description": "A short form text identifier for an HRU",
+                            "minLength": 1,
+                            "maxLength": 10,
+                            "default": "HRU"
+                        }
+                    },
+                    "subcatchment": {},
+                    "reach": {}
+                }
+            },
+            "minItems": "HRU_count",
+            "maxItems": "HRU_count"
+        }
+    }
+}
