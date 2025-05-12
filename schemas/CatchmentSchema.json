@@ -55,9 +55,10 @@
             "type": "object",
             "items": {
                 "type": "object",
-                "required": ["general"],
+                "required": ["identifier","general"],
                 "properties":{
-                    "general": {
+                    "identifier": {
+                        "type": "object",
                         "id": {
                             "type": "string",
                             "description": "A unique identifier for the bucket",
@@ -79,6 +80,26 @@
                             "maxLength": 10,
                             "default": "SW"
                         }
+                    },
+                    "general": {
+                        "type": "object",
+                        "receivesPrecipitation": {
+                            "type": "boolean",
+                            "description": "A flag indicating whether precipitation is added directly to a bucket",
+                            "default": "false"
+                        },
+                         "initialSoilTemperature": {
+                            "type": "number",
+                            "minimum": -20.0,
+                            "maximum":  40.0,
+                            "default":  5.0
+                        },
+                        "relativeAreaIndex": {
+                            "type": "number",
+                            "minimum": 0.0,
+                            "maximum": 1.0,
+                            "default": 1.0
+                        },
                     }
                 }
             },
@@ -89,9 +110,9 @@
             "type": "object",
             "items": {
                 "type": "object",
-                "required": ["general"],
+                "required": ["identifier","general"],
                 "properties":{
-                    "general": {
+                    "identifier": {
                         "id": {
                             "type": "string",
                             "description": "A unique identifier for the land cover type",
@@ -113,7 +134,8 @@
                             "maxLength": 10,
                             "default": "R"
                         }
-                    }
+                    },
+                    "general": {}
                 }
             },
             "minItems": "landCover_count",
@@ -123,9 +145,9 @@
             "type": "object",
             "items": {
                 "type": "object",
-                "required": ["general", "subcatchment", "reach"],
+                "required": ["identifier","general", "subcatchment", "reach"],
                 "properties":{
-                    "general": {
+                    "identifier": {
                         "id": {
                             "type": "string",
                             "description": "A unique identifier for the HRU",
@@ -148,8 +170,62 @@
                             "default": "HRU"
                         }
                     },
+                    "general": {},
                     "subcatchment": {},
-                    "reach": {}
+                    "reach": {
+                        "type": "object",
+                        "required": ["general","Manning"],
+                        "properties": {
+                            "general": {
+                                "hasAbstraction": {
+                                    "description": "A flag indicating whether or not water is removed from a reach",
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "hasEffluent": {
+                                    "description": "A flag indicating whether or not water is added to a reach",
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            },
+                            "Manning": {
+                                "type": "object",
+                                "required": ["a", "b", "c", "f", "n"],
+                                "properties": {
+                                    "a": {
+                                        "type": "number",
+                                        "minimum": 0.01,
+                                        "maximum": 9.99,
+                                        "default": 2.71
+                                    },
+                                    "b": {
+                                        "type": "number",
+                                        "minimum": 0.1,
+                                        "maximum": 0.99,
+                                        "default": 0.557
+                                    },
+                                    "c": {
+                                        "type": "number",
+                                        "minimum": 0.01,
+                                        "maximum": 0.99,
+                                        "default": 0.349
+                                    },
+                                    "f": {
+                                        "type": "number",
+                                        "minimum": 0.01,
+                                        "maximum": 0.99,
+                                        "default": 0.341
+                                    },
+                                    "n": {
+                                        "type": "number",
+                                        "minimum": 0.001,
+                                        "maximum": 0.3,
+                                        "default": 0.1
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "minItems": "HRU_count",
