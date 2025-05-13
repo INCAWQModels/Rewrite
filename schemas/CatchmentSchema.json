@@ -55,7 +55,7 @@
             "type": "object",
             "items": {
                 "type": "object",
-                "required": ["identifier","general"],
+                "required": ["identifier","general","hydrology"],
                 "properties":{
                     "identifier": {
                         "type": "object",
@@ -88,18 +88,83 @@
                             "description": "A flag indicating whether precipitation is added directly to a bucket",
                             "default": "false"
                         },
-                         "initialSoilTemperature": {
+                        "initialSoilTemperature": {
                             "type": "number",
                             "minimum": -20.0,
                             "maximum":  40.0,
                             "default":  5.0
+                        },
+                        "soilTemperatureEffectiveDepth": {
+                            "type": "number",
+                            "minimum": 0.0,
+                            "maximum": 100.0,
+                            "default": 1.0
                         },
                         "relativeAreaIndex": {
                             "type": "number",
                             "minimum": 0.0,
                             "maximum": 1.0,
                             "default": 1.0
-                        },
+                        }
+                    },
+                    "hydrology": {
+                        "type": "object",
+                        "required": [
+                            "characteristicTimeConstant", "tightlyBoundWaterDepth", 
+                            "looselyBoundWaterDepth", "freelyDrainingWaterDepth", 
+                            "initialWaterDepth", "relativeETIndex",
+                            "ETScalingExponent", "infiltrationThresholdTemperature"
+                        ],
+                        "properties": {
+                            "characteristicTimeConstant": { 
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "tightlyBoundWaterDepth": { 
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "looselyBoundWaterDepth": { 
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "freelyDrainingWaterDepth": {
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "initialWaterDepth": {
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "relativeETIndex": {
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "ETScalingExponent": { 
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            },
+                            "infiltrationThresholdTemperature": { 
+                                "type": "number",
+                                "minimum": 0.0,
+                                "maximum": 100.0,
+                                "default": 1.0
+                            }
+                        }
                     }
                 }
             },
